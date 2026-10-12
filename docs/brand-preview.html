@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casa Brand Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Righteous&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F5ECD7;--paper:#FBF6EA;--walnut:#3B2A1E;--cork:#6E5A47;
+    --amber:#D98E2B;--deep-amber:#A0570F;--mustard:#E3B23C;
+    --avocado:#5A6B22;--teal:#2C6863;--rust:#A8442A;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--cream);color:var(--walnut);font-family:"DM Sans",system-ui,sans-serif;font-size:16px;line-height:1.5}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 16px 64px;position:relative;overflow:hidden}
+  .blob{position:absolute;top:-80px;right:-120px;width:420px;height:300px;background:var(--mustard);opacity:.55;border-radius:62% 38% 55% 45%/55% 50% 50% 45%;z-index:0}
+  .blob2{position:absolute;top:40px;right:60px;width:180px;height:140px;background:var(--amber);opacity:.6;border-radius:50% 50% 40% 60%/60% 40% 60% 40%;z-index:0}
+  header{position:relative;z-index:1;margin-bottom:40px}
+  h1,h2,h3,.display{font-family:"Righteous",cursive;font-weight:400;margin:0}
+  h1{font-size:44px;line-height:1.1}
+  h2{font-size:24px;margin:48px 0 16px}
+  .sub{color:var(--cork);margin-top:8px}
+  .swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+  .sw{background:var(--paper);border-radius:20px;overflow:hidden;box-shadow:0 2px 10px rgba(59,42,30,.08)}
+  .chip{height:84px}
+  .sw p{margin:0;padding:10px 14px;font-size:14px}
+  .sw b{display:block}
+  .sw span{color:var(--cork);font-family:ui-monospace,monospace;font-size:13px}
+  .type{background:var(--paper);border-radius:20px;padding:24px;box-shadow:0 2px 10px rgba(59,42,30,.08)}
+  .type .row{display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid #EADFC6}
+  .type .row:last-child{border-bottom:0}
+  .type small{color:var(--cork);min-width:150px;font-size:13px}
+  .demo{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+  .card{background:var(--paper);border-radius:20px;padding:20px;box-shadow:0 3px 14px rgba(59,42,30,.10);position:relative}
+  .card h3{font-size:20px;margin-bottom:4px}
+  .meta{font-size:13px;color:var(--cork)}
+  .tag{display:inline-block;font-size:13px;color:var(--teal);border:1.5px solid var(--teal);border-radius:999px;padding:1px 10px;margin-top:10px}
+  .ok{color:var(--avocado);font-weight:700;font-size:14px;margin-top:10px}
+  .btn{display:inline-block;border:0;border-radius:999px;padding:10px 20px;font:500 15px "DM Sans",sans-serif;cursor:pointer;margin:6px 8px 0 0}
+  .btn.primary{background:var(--deep-amber);color:var(--paper)}
+  .btn.secondary{background:transparent;color:var(--teal);border:1.5px solid var(--teal)}
+  .star{position:absolute;top:-14px;right:-10px;width:78px;height:78px;display:grid;place-items:center}
+  .star svg{position:absolute;inset:0}
+  .star b{position:relative;font-family:"Righteous",cursive;font-weight:400;font-size:17px;color:var(--walnut)}
+  .levels{display:flex;gap:10px;flex-wrap:wrap}
+  .lvl{border-radius:999px;padding:6px 16px;font-weight:500;font-size:14px}
+  .big{font-size:32px}
+  footer{margin-top:56px;color:var(--cork);font-size:14px;text-align:center}
+  @media (max-width:520px){h1{font-size:34px}.blob{width:280px;height:200px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="blob"></div><div class="blob2"></div>
+  <header>
+    <h1>Casa Del Cocktail</h1>
+    <p class="sub">Brand preview: Atomic Garden palette, light mode</p>
+  </header>
+
+  <h2>Colors</h2>
+  <div class="swatches">
+    <div class="sw"><div class="chip" style="background:#F5ECD7;border-bottom:1px solid #EADFC6"></div><p><b>Cream</b><span>#F5ECD7</span><br>Background</p></div>
+    <div class="sw"><div class="chip" style="background:#FBF6EA;border-bottom:1px solid #EADFC6"></div><p><b>Paper</b><span>#FBF6EA</span><br>Cards</p></div>
+    <div class="sw"><div class="chip" style="background:#3B2A1E"></div><p><b>Walnut</b><span>#3B2A1E</span><br>Text</p></div>
+    <div class="sw"><div class="chip" style="background:#6E5A47"></div><p><b>Cork</b><span>#6E5A47</span><br>Muted text</p></div>
+    <div class="sw"><div class="chip" style="background:#D98E2B"></div><p><b>Amber</b><span>#D98E2B</span><br>Primary (fills)</p></div>
+    <div class="sw"><div class="chip" style="background:#A0570F"></div><p><b>Deep Amber</b><span>#A0570F</span><br>Buttons, links</p></div>
+    <div class="sw"><div class="chip" style="background:#E3B23C"></div><p><b>Mustard</b><span>#E3B23C</span><br>Accents, badges</p></div>
+    <div class="sw"><div class="chip" style="background:#5A6B22"></div><p><b>Avocado</b><span>#5A6B22</span><br>Can make</p></div>
+    <div class="sw"><div class="chip" style="background:#2C6863"></div><p><b>Teal</b><span>#2C6863</span><br>Secondary, tags</p></div>
+    <div class="sw"><div class="chip" style="background:#A8442A"></div><p><b>Rust</b><span>#A8442A</span><br>Empty, alerts</p></div>
+  </div>
+
+  <h2>Typography</h2>
+  <div class="type">
+    <div class="row"><small>Righteous · 32px · title</small><span class="display big">You can make 14 cocktails</span></div>
+    <div class="row"><small>Righteous · 20px · card</small><span class="display" style="font-size:20px">Old Fashioned</span></div>
+    <div class="row"><small>DM Sans · 16px · body</small><span>Tap everything you've got. You can always add more later.</span></div>
+    <div class="row"><small>DM Sans · 500 · button</small><span style="font-weight:500">Add to cart</span></div>
+    <div class="row"><small>DM Sans · 13px · caption</small><span style="font-size:13px;color:var(--cork)">From <i>Book Title</i>, p. 42</span></div>
+  </div>
+
+  <h2>Components</h2>
+  <div class="demo">
+    <div class="card">
+      <h3>Negroni</h3>
+      <div class="meta">Gin · Campari · Sweet vermouth</div>
+      <div class="ok">✓ You can make this</div>
+      <span class="tag">Casa starter set</span>
+      <div><button class="btn primary">Save to favorites</button></div>
+    </div>
+    <div class="card">
+      <div class="star" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><polygon fill="#E3B23C" points="50,2 58,26 82,12 72,38 98,42 76,58 92,80 64,74 60,98 48,78 32,96 30,70 4,78 22,56 2,40 28,34 16,10 42,24"/></svg>
+        <b>+6</b>
+      </div>
+      <h3>Add Campari</h3>
+      <div class="meta">Unlocks 6 more cocktails, including the Negroni and the Boulevardier.</div>
+      <div><button class="btn secondary">See the 6 cocktails</button></div>
+    </div>
+  </div>
+
+  <h2>Bottle levels</h2>
+  <div class="levels">
+    <span class="lvl" style="background:#E3B23C;color:#3B2A1E">Full</span>
+    <span class="lvl" style="background:#D98E2B;color:#3B2A1E">Half</span>
+    <span class="lvl" style="background:#FBF6EA;color:#A8442A;border:1.5px solid #A8442A">Low · refill</span>
+    <span class="lvl" style="background:#A8442A;color:#FBF6EA">Empty</span>
+  </div>
+
+  <footer>Made for enjoying, not overdoing. Please drink responsibly.</footer>
+</div>
+</body>
+</html>

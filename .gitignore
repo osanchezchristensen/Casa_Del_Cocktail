@@ -1,0 +1,30 @@
+# Private book recipes (copyright): never commit these
+src/data/private/
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+coverage/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Local environment and settings
+.env
+.env.*
+!.env.example
+*.local
+
+# Editor and OS clutter
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.sw?
