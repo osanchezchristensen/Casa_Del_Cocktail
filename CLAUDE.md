@@ -99,5 +99,5 @@ Shapes:  cards radius 20px, pill buttons, inputs radius 12px, soft warm shadows
 Barcode or photo scanning, accounts and sync, PWA/offline/hosting, in-app recipe editor, recipe API import, age gate, shopping list. These are on the PRD's "Later" list. Don't build them unless I ask.
 
 ## Current status
-- Steps **0.1** and **0.2** done (tools installed, repo on GitHub, Vite + React + TypeScript app scaffolded with React Router, Zustand, Lucide and Vitest installed). Next: roadmap step **1.1** (brand styles and the navigation shell).
+- Steps **0.1** and **0.2** done (tools installed, repo on GitHub, Vite + React + TypeScript app scaffolded with React Router, Zustand, Lucide and Vitest installed). Step **1.1** done (brand styles in `src/styles/global.css`, bottom navigation, five placeholder screens). Next: roadmap step **1.2** (data types and the ingredient list).
 - Update this line as steps are completed.
