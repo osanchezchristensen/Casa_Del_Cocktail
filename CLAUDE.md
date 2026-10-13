@@ -59,9 +59,10 @@ src/
 2. Specific recipe ingredient needs an exact match (recipe "white rum", own "dark rum" = no) unless...
 3. ..."Allow swaps" is on: a sibling in the same family can fill it, and the result is labeled as a swap.
 4. Recipe ingredients marked `anyOfFamily` accept any member of that family.
-5. Ignore garnishes, optional ingredients and `alwaysOnHand` basics (ice, water, sugar, salt).
+5. Ignore garnishes, optional ingredients and `alwaysOnHand` basics (ice, water, sugar, salt). A garnish is decided by the **recipe ingredient's `garnish` flag**, never by the ingredient's category (mint in a Mojito is required).
 6. Full / Half / Low count as owned. **Empty does not.**
 7. Swaps never cross families (rum never replaces gin).
+8. Ingredients marked `noSwap` (sweet/dry/blanc vermouth, the sherries, spiced rum, blue curaçao) never swap in or out, even with "Allow swaps" on. Rules 1 and 4 still apply to them.
 - **Unlock:** rank unowned (or Empty) ingredients by how many recipes they're the *only* missing required ingredient for. Top 10.
 - Matching logic stays in `src/logic/`, free of React, and **every rule change gets a test.**
 
@@ -69,6 +70,8 @@ src/
 - Every recipe **must** have a `source` (`{ type: "starter" }` or `{ type: "book", title, author, page }`).
 - Recipe ingredients must use ids that exist in `ingredients.json`. A test enforces this.
 - New ingredients need a sensible `category` and `parentId`. Reuse existing ids before adding new ones.
+- "Spirit" is a `category`, not a parent. Each family's top (`rum`, `gin`, `whiskey`) has `parentId: null`, so swaps can't cross families. Types live in `src/types.ts`.
+- Ingredient search must be accent-insensitive ("cachaca" finds Cachaça, "anejo" finds Añejo tequila).
 - Starter recipes are written in our own words.
 
 ### Book recipes are private (copyright)
@@ -99,5 +102,5 @@ Shapes:  cards radius 20px, pill buttons, inputs radius 12px, soft warm shadows
 Barcode or photo scanning, accounts and sync, PWA/offline/hosting, in-app recipe editor, recipe API import, age gate, shopping list. These are on the PRD's "Later" list. Don't build them unless I ask.
 
 ## Current status
-- Steps **0.1** and **0.2** done (tools installed, repo on GitHub, Vite + React + TypeScript app scaffolded with React Router, Zustand, Lucide and Vitest installed). Step **1.1** done (brand styles in `src/styles/global.css`, bottom navigation, five placeholder screens). Next: roadmap step **1.2** (data types and the ingredient list).
+- Steps **0.1** and **0.2** done (tools installed, repo on GitHub, Vite + React + TypeScript app scaffolded with React Router, Zustand, Lucide and Vitest installed). Step **1.1** done (brand styles in `src/styles/global.css`, bottom navigation, five placeholder screens). Step **1.2** done (types in `src/types.ts`, 187 ingredients in `src/data/ingredients.json` with a data-check test, `noSwap` rule added). Next: roadmap step **1.3** (the first 20 starter recipes and a data check).
 - Update this line as steps are completed.

@@ -177,6 +177,7 @@ spirit
 5. **Ignored ingredients:** garnishes, ingredients marked optional, and "always on hand" basics (ice, water, plain sugar, salt).
 6. **Bottle levels:** Full, Half and Low count as owned. **Empty does not.**
 7. **Swaps never cross families.** Rum never stands in for gin.
+8. **No-swap ingredients.** Some family members are too different to stand in for each other (sweet and dry vermouth, fino and oloroso sherry, spiced rum, blue curaçao). An ingredient marked `noSwap` can't fill in for a sibling, and a sibling can't fill in for it, even with **Allow swaps** on. Rules 1 and 4 still apply: a recipe that says "vermouth," or marks vermouth as "any of this family," accepts any vermouth you own.
 
 ### Unlock calculation
 For every ingredient you **don't** own (or that's Empty): count the recipes where it's the **only** missing required ingredient. Rank by that count, highest first, and show the top 10. With swaps on, swap matches count as makeable.
@@ -190,11 +191,12 @@ All data is stored as JSON. These are plain-English descriptions; Claude Code wi
 |---|---|---|
 | id | `white-rum` | Unique, lowercase |
 | name | White rum | Display name |
-| category | spirit | spirit, liqueur, fortified wine/vermouth, bitters, syrup, juice, mixer, garnish, other |
+| category | spirit | spirit, liqueur, fortified wine/vermouth, wine and beer, bitters, syrup, juice, mixer, garnish, other |
 | parentId | `rum` | Family tree; empty at the top |
 | aliases | "light rum", "silver rum" | Helps search |
 | alcoholic | true | For the mocktail filter later |
 | alwaysOnHand | false | true for ice, water, sugar, salt |
+| noSwap | true | Optional. Rule 8: never swaps in or out. Left off most ingredients |
 
 ### Recipe
 | Field | Example | Notes |
@@ -274,7 +276,7 @@ The app loads the private file if it exists and works normally if it doesn't. Bo
 2. Should Home's "Tonight's pick" favor favorites or be fully random?
 3. How should amounts display: oz only, or an oz/ml toggle?
 4. Do we need the "Low items" list in v1, or can the Home summary cover it?
-5. What exactly counts as "always on hand"? Is simple syrup a basic or a cart item?
+5. ~~What exactly counts as "always on hand"? Is simple syrup a basic or a cart item?~~ **Answered (Oct 13, 2026):** only ice, water, sugar and salt are always on hand. Simple syrup is a cart item.
 
 ## 12. How we'll know v1 works
 
