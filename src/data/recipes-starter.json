@@ -1,0 +1,389 @@
+[
+  {
+    "id": "old-fashioned",
+    "name": "Old Fashioned",
+    "ingredients": [
+      { "ingredientId": "whiskey", "amount": 2, "unit": "oz" },
+      { "ingredientId": "sugar", "amount": 1, "unit": "tsp" },
+      { "ingredientId": "angostura-bitters", "amount": 2, "unit": "dash" },
+      { "ingredientId": "orange-peel", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Stir the sugar and bitters with a splash of water in a rocks glass until the sugar dissolves.",
+      "Add the whiskey and one large ice cube, then stir until cold.",
+      "Squeeze the orange peel over the drink and drop it in."
+    ],
+    "glass": "rocks",
+    "method": "built",
+    "tags": ["classic", "spirit-forward"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "manhattan",
+    "name": "Manhattan",
+    "ingredients": [
+      { "ingredientId": "whiskey", "amount": 2, "unit": "oz" },
+      { "ingredientId": "sweet-vermouth", "amount": 1, "unit": "oz" },
+      { "ingredientId": "angostura-bitters", "amount": 2, "unit": "dash" },
+      { "ingredientId": "cocktail-cherry", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Stir the whiskey, vermouth and bitters with ice until well chilled.",
+      "Strain into a chilled coupe.",
+      "Garnish with a cherry."
+    ],
+    "glass": "coupe",
+    "method": "stirred",
+    "tags": ["classic", "spirit-forward"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "martini",
+    "name": "Martini",
+    "ingredients": [
+      { "ingredientId": "gin", "amount": 2.5, "unit": "oz" },
+      { "ingredientId": "dry-vermouth", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "orange-bitters", "amount": 1, "unit": "dash", "optional": true },
+      { "ingredientId": "lemon-peel", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Stir the gin and vermouth with plenty of ice until very cold.",
+      "Strain into a chilled martini glass.",
+      "Garnish with a lemon twist, or an olive if you prefer."
+    ],
+    "glass": "martini",
+    "method": "stirred",
+    "tags": ["classic", "spirit-forward"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "negroni",
+    "name": "Negroni",
+    "ingredients": [
+      { "ingredientId": "gin", "amount": 1, "unit": "oz" },
+      { "ingredientId": "campari", "amount": 1, "unit": "oz" },
+      { "ingredientId": "sweet-vermouth", "amount": 1, "unit": "oz" },
+      { "ingredientId": "orange-peel", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Pour the gin, Campari and vermouth over ice in a rocks glass.",
+      "Stir until cold.",
+      "Garnish with an orange peel."
+    ],
+    "glass": "rocks",
+    "method": "built",
+    "tags": ["classic", "bitter"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "boulevardier",
+    "name": "Boulevardier",
+    "ingredients": [
+      { "ingredientId": "bourbon", "amount": 1.5, "unit": "oz" },
+      { "ingredientId": "campari", "amount": 1, "unit": "oz" },
+      { "ingredientId": "sweet-vermouth", "amount": 1, "unit": "oz" },
+      { "ingredientId": "orange-peel", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Stir the bourbon, Campari and vermouth with ice until chilled.",
+      "Strain over fresh ice in a rocks glass.",
+      "Garnish with an orange peel."
+    ],
+    "glass": "rocks",
+    "method": "stirred",
+    "tags": ["classic", "bitter"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "sazerac",
+    "name": "Sazerac",
+    "ingredients": [
+      { "ingredientId": "rye-whiskey", "amount": 2, "unit": "oz" },
+      { "ingredientId": "absinthe", "amount": 1, "unit": "barspoon" },
+      { "ingredientId": "sugar", "amount": 1, "unit": "tsp" },
+      { "ingredientId": "peychauds-bitters", "amount": 3, "unit": "dash" },
+      { "ingredientId": "lemon-peel", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Swirl the absinthe around a chilled rocks glass to coat it, then pour out the extra.",
+      "In a mixing glass, stir the sugar and bitters with a splash of water until dissolved.",
+      "Add the rye and ice, stir until cold, and strain into the coated glass with no ice.",
+      "Squeeze a lemon peel over the top."
+    ],
+    "glass": "rocks",
+    "method": "stirred",
+    "tags": ["classic", "spirit-forward"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "daiquiri",
+    "name": "Daiquiri",
+    "ingredients": [
+      { "ingredientId": "white-rum", "amount": 2, "unit": "oz" },
+      { "ingredientId": "lime-juice", "amount": 1, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.75, "unit": "oz" }
+    ],
+    "steps": [
+      "Shake the rum, lime juice and syrup hard with ice.",
+      "Strain into a chilled coupe."
+    ],
+    "glass": "coupe",
+    "method": "shaken",
+    "tags": ["classic", "sour"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "mojito",
+    "name": "Mojito",
+    "ingredients": [
+      { "ingredientId": "white-rum", "amount": 2, "unit": "oz" },
+      { "ingredientId": "lime-juice", "amount": 1, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "mint", "amount": 8, "unit": "piece" },
+      { "ingredientId": "soda-water", "amount": 2, "unit": "oz" }
+    ],
+    "steps": [
+      "Gently press the mint leaves with the syrup in a highball glass.",
+      "Add the rum and lime juice, fill with ice and stir.",
+      "Top with soda water and add a mint sprig."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["classic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "dark-n-stormy",
+    "name": "Dark 'n' Stormy",
+    "ingredients": [
+      { "ingredientId": "dark-rum", "amount": 2, "unit": "oz" },
+      { "ingredientId": "ginger-beer", "amount": 4, "unit": "oz" },
+      { "ingredientId": "lime-juice", "amount": 0.5, "unit": "oz", "optional": true },
+      { "ingredientId": "lime-wedge", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Fill a highball glass with ice and pour in the ginger beer.",
+      "Add the lime juice if you're using it.",
+      "Slowly pour the rum on top so it floats, and garnish with a lime wedge."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["classic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "margarita",
+    "name": "Margarita",
+    "ingredients": [
+      { "ingredientId": "tequila", "amount": 2, "unit": "oz" },
+      { "ingredientId": "triple-sec", "amount": 1, "unit": "oz", "anyOfFamily": true },
+      { "ingredientId": "lime-juice", "amount": 1, "unit": "oz" },
+      { "ingredientId": "salt", "amount": 1, "unit": "tsp", "garnish": true },
+      { "ingredientId": "lime-wedge", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Rub a lime wedge around the rim of a rocks glass and dip the rim in salt.",
+      "Shake the tequila, orange liqueur and lime juice with ice.",
+      "Strain over fresh ice and garnish with the lime wedge."
+    ],
+    "glass": "rocks",
+    "method": "shaken",
+    "tags": ["classic", "sour"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "paloma",
+    "name": "Paloma",
+    "ingredients": [
+      { "ingredientId": "tequila", "amount": 2, "unit": "oz" },
+      { "ingredientId": "lime-juice", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "grapefruit-soda", "amount": 4, "unit": "oz" },
+      { "ingredientId": "salt", "amount": 1, "unit": "tsp", "garnish": true },
+      { "ingredientId": "lime-wedge", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Salt the rim of a highball glass if you like, then fill it with ice.",
+      "Add the tequila and lime juice.",
+      "Top with grapefruit soda, stir once and garnish with a lime wedge."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["classic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "whiskey-sour",
+    "name": "Whiskey Sour",
+    "ingredients": [
+      { "ingredientId": "bourbon", "amount": 2, "unit": "oz" },
+      { "ingredientId": "lemon-juice", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "egg-white", "amount": 1, "unit": "piece", "optional": true },
+      { "ingredientId": "cocktail-cherry", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "If using egg white, shake everything without ice first to build the foam.",
+      "Add ice and shake again until cold.",
+      "Strain over fresh ice in a rocks glass and garnish with a cherry."
+    ],
+    "glass": "rocks",
+    "method": "shaken",
+    "tags": ["classic", "sour"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "sidecar",
+    "name": "Sidecar",
+    "ingredients": [
+      { "ingredientId": "cognac", "amount": 2, "unit": "oz" },
+      { "ingredientId": "triple-sec", "amount": 0.75, "unit": "oz", "anyOfFamily": true },
+      { "ingredientId": "lemon-juice", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "orange-peel", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Shake the cognac, orange liqueur and lemon juice with ice.",
+      "Strain into a chilled coupe.",
+      "Garnish with an orange peel."
+    ],
+    "glass": "coupe",
+    "method": "shaken",
+    "tags": ["classic", "sour"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "tom-collins",
+    "name": "Tom Collins",
+    "ingredients": [
+      { "ingredientId": "gin", "amount": 2, "unit": "oz" },
+      { "ingredientId": "lemon-juice", "amount": 1, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "soda-water", "amount": 3, "unit": "oz" },
+      { "ingredientId": "lemon-wedge", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Shake the gin, lemon juice and syrup with ice.",
+      "Strain into a collins glass filled with fresh ice.",
+      "Top with soda water and garnish with a lemon wedge."
+    ],
+    "glass": "collins",
+    "method": "shaken",
+    "tags": ["classic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "french-75",
+    "name": "French 75",
+    "ingredients": [
+      { "ingredientId": "gin", "amount": 1, "unit": "oz" },
+      { "ingredientId": "lemon-juice", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "sparkling-wine", "amount": 3, "unit": "oz" },
+      { "ingredientId": "lemon-peel", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Shake the gin, lemon juice and syrup with ice.",
+      "Strain into a flute.",
+      "Top with sparkling wine and garnish with a lemon twist."
+    ],
+    "glass": "flute",
+    "method": "shaken",
+    "tags": ["classic", "sparkling"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "gin-and-tonic",
+    "name": "Gin and Tonic",
+    "ingredients": [
+      { "ingredientId": "gin", "amount": 2, "unit": "oz" },
+      { "ingredientId": "tonic-water", "amount": 4, "unit": "oz" },
+      { "ingredientId": "lime-wedge", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Fill a highball glass with ice and add the gin.",
+      "Top with tonic water and stir once.",
+      "Garnish with a lime wedge."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["classic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "moscow-mule",
+    "name": "Moscow Mule",
+    "ingredients": [
+      { "ingredientId": "vodka", "amount": 2, "unit": "oz" },
+      { "ingredientId": "lime-juice", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "ginger-beer", "amount": 4, "unit": "oz" },
+      { "ingredientId": "lime-wedge", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Fill a mug with ice and add the vodka and lime juice.",
+      "Top with ginger beer and stir once.",
+      "Garnish with a lime wedge."
+    ],
+    "glass": "mug",
+    "method": "built",
+    "tags": ["classic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "cosmopolitan",
+    "name": "Cosmopolitan",
+    "ingredients": [
+      { "ingredientId": "vodka", "amount": 1.5, "unit": "oz" },
+      { "ingredientId": "triple-sec", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "cranberry-juice", "amount": 1, "unit": "oz" },
+      { "ingredientId": "lime-juice", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "orange-peel", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Shake the vodka, triple sec, cranberry juice and lime juice with ice.",
+      "Strain into a chilled martini glass.",
+      "Garnish with an orange peel."
+    ],
+    "glass": "martini",
+    "method": "shaken",
+    "tags": ["classic", "sour"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "aperol-spritz",
+    "name": "Aperol Spritz",
+    "ingredients": [
+      { "ingredientId": "aperol", "amount": 2, "unit": "oz" },
+      { "ingredientId": "prosecco", "amount": 3, "unit": "oz" },
+      { "ingredientId": "soda-water", "amount": 1, "unit": "oz" },
+      { "ingredientId": "orange-slice", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Fill a large wine glass with ice.",
+      "Add the prosecco, then the Aperol, then the soda water.",
+      "Stir gently and garnish with an orange slice."
+    ],
+    "glass": "other",
+    "method": "built",
+    "tags": ["classic", "sparkling", "bitter"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "espresso-martini",
+    "name": "Espresso Martini",
+    "ingredients": [
+      { "ingredientId": "vodka", "amount": 2, "unit": "oz" },
+      { "ingredientId": "coffee-liqueur", "amount": 1, "unit": "oz" },
+      { "ingredientId": "espresso", "amount": 1, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.25, "unit": "oz", "optional": true },
+      { "ingredientId": "coffee-beans", "amount": 3, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Brew the espresso and let it cool for a minute.",
+      "Shake the vodka, coffee liqueur and espresso very hard with ice to build a foam.",
+      "Strain into a chilled martini glass and float three coffee beans on top."
+    ],
+    "glass": "martini",
+    "method": "shaken",
+    "tags": ["modern classic", "coffee"],
+    "source": { "type": "starter" }
+  }
+]
