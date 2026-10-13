@@ -31,6 +31,7 @@ A virtual bar cart web app. The user adds what's on their bar cart, and the app 
 - `npm run dev`: start the app at http://localhost:5173
 - `npm test`: run tests
 - `npm run build`: production build (also checks types)
+- `npm run lint`: check the code for common mistakes (oxlint)
 
 (Update this list if scripts change.)
 
@@ -98,5 +99,5 @@ Shapes:  cards radius 20px, pill buttons, inputs radius 12px, soft warm shadows
 Barcode or photo scanning, accounts and sync, PWA/offline/hosting, in-app recipe editor, recipe API import, age gate, shopping list. These are on the PRD's "Later" list. Don't build them unless I ask.
 
 ## Current status
-- Planning complete. Next: roadmap step **0.1** (install tools, create private repo).
+- Steps **0.1** and **0.2** done (tools installed, repo on GitHub, Vite + React + TypeScript app scaffolded with React Router, Zustand, Lucide and Vitest installed). Next: roadmap step **1.1** (brand styles and the navigation shell).
 - Update this line as steps are completed.
