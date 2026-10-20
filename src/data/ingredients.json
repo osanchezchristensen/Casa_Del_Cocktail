@@ -24,7 +24,7 @@
   {"id":"plymouth-gin","name":"Plymouth gin","category":"spirit","parentId":"gin","aliases":[],"alcoholic":true,"alwaysOnHand":false},
   {"id":"genever","name":"Genever","category":"spirit","parentId":null,"aliases":["jenever","dutch gin"],"alcoholic":true,"alwaysOnHand":false},
   {"id":"agave-spirit","name":"Agave spirit","category":"spirit","parentId":null,"aliases":["agave"],"alcoholic":true,"alwaysOnHand":false},
-  {"id":"tequila","name":"Tequila","category":"spirit","parentId":"agave-spirit","aliases":[],"alcoholic":true,"alwaysOnHand":false},
+  {"id":"tequila","name":"Tequila","category":"spirit","parentId":null,"aliases":[],"alcoholic":true,"alwaysOnHand":false},
   {"id":"blanco-tequila","name":"Blanco tequila","category":"spirit","parentId":"tequila","aliases":["silver tequila","white tequila"],"alcoholic":true,"alwaysOnHand":false},
   {"id":"reposado-tequila","name":"Reposado tequila","category":"spirit","parentId":"tequila","aliases":[],"alcoholic":true,"alwaysOnHand":false},
   {"id":"anejo-tequila","name":"Añejo tequila","category":"spirit","parentId":"tequila","aliases":[],"alcoholic":true,"alwaysOnHand":false},
