@@ -1,4 +1,6 @@
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Plus } from 'lucide-react'
+import { useState } from 'react'
+import AddItemsSheet from '../components/AddItemsSheet.tsx'
 import LevelChip from '../components/LevelChip.tsx'
 import { CATEGORY_LABELS, groupCart, ingredientName } from '../logic/cart.ts'
 import { useStore } from '../store/useStore.ts'
@@ -30,16 +32,29 @@ function BottleList({ bottles }: { bottles: Bottle[] }) {
 function BarCart() {
   const bottles = useStore((s) => s.bottles)
   const loadSampleCart = useStore((s) => s.loadSampleCart)
+  const [adding, setAdding] = useState(false)
+
+  const header = (
+    <div className={styles.header}>
+      <h1>Bar Cart</h1>
+      <button type="button" className={styles.button} onClick={() => setAdding(true)}>
+        <Plus size={18} aria-hidden />
+        Add items
+      </button>
+    </div>
+  )
+  const sheet = adding && <AddItemsSheet onClose={() => setAdding(false)} />
 
   if (bottles.length === 0) {
     return (
       <>
-        <h1>Bar Cart</h1>
+        {header}
         <p>Your cart's looking a little bare. Add a bottle or two and we'll find you a drink.</p>
         {/* Temporary: remove at Milestone A. */}
-        <button type="button" className={styles.button} onClick={loadSampleCart}>
+        <button type="button" className={styles.secondary} onClick={loadSampleCart}>
           Load sample cart
         </button>
+        {sheet}
       </>
     )
   }
@@ -47,10 +62,11 @@ function BarCart() {
   // <details> gives open/close and keyboard support for free; sections start open.
   return (
     <>
-      <h1>Bar Cart</h1>
+      {header}
       <p className={styles.count}>
         {bottles.length} {bottles.length === 1 ? 'bottle' : 'bottles'}
       </p>
+      {sheet}
 
       {groupCart(bottles).map((section) => (
         <details key={section.category} open className={styles.section}>

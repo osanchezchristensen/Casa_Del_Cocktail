@@ -8,8 +8,18 @@ type State = {
   pastBottles: PastBottle[]
   favorites: Favorite[]
   settings: Settings
+  /** Each pick becomes a new bottle at Full. A blank name is left off. */
+  addBottles: (picks: { ingredientId: string; name?: string }[]) => void
   loadSampleCart: () => void
 }
+
+const newBottle = (ingredientId: string, level: Level, name?: string): Bottle => ({
+  id: crypto.randomUUID(),
+  ingredientId,
+  name: name?.trim() || undefined,
+  level,
+  addedAt: new Date().toISOString(),
+})
 
 // Temporary: remove with the "Load sample cart" button at Milestone A.
 const SAMPLE: [ingredientId: string, level: Level, name?: string][] = [
@@ -34,16 +44,12 @@ export const useStore = create<State>()(
       pastBottles: [],
       favorites: [],
       settings: { allowSwaps: false },
+      addBottles: (picks) =>
+        set((s) => ({
+          bottles: [...s.bottles, ...picks.map((p) => newBottle(p.ingredientId, 'full', p.name))],
+        })),
       loadSampleCart: () =>
-        set({
-          bottles: SAMPLE.map(([ingredientId, level, name]) => ({
-            id: crypto.randomUUID(),
-            ingredientId,
-            name,
-            level,
-            addedAt: new Date().toISOString(),
-          })),
-        }),
+        set({ bottles: SAMPLE.map(([ingredientId, level, name]) => newBottle(ingredientId, level, name)) }),
     }),
     // Bump version (and add a migrate function) whenever the saved shape changes.
     { name: 'casa-del-cocktail', version: 1 },

@@ -3,15 +3,35 @@
   color: var(--cork);
 }
 
-.button {
-  margin-top: 8px;
-  padding: 12px 24px;
-  border: none;
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.button,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
   border-radius: var(--radius-pill);
-  background: var(--amber);
-  color: var(--walnut);
   font: 700 16px var(--font-body);
   cursor: pointer;
+}
+
+.button {
+  border: none;
+  background: var(--amber);
+  color: var(--walnut);
+}
+
+.secondary {
+  margin-top: 8px;
+  border: 2px solid var(--walnut);
+  background: transparent;
+  color: var(--walnut);
 }
 
 .section {
@@ -94,7 +114,8 @@
 
 .sectionTitle:focus-visible,
 .familyTitle:focus-visible,
-.button:focus-visible {
+.button:focus-visible,
+.secondary:focus-visible {
   outline: 3px solid var(--teal);
   outline-offset: 2px;
 }
