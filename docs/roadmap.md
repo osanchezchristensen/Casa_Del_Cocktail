@@ -102,6 +102,12 @@ No screens yet. This is the brain of the app, built and tested on its own.
 
 ## Phase 3: Bar Cart (4 sessions)
 
+### 3.0 Quick fix: level Home button
+**Prompt:**
+> Update the bottom navigation to match PRD section 6: the round Home button (Amber fill, about 52px) sits level with the other tabs instead of raised above the bar. Change only the nav styles.
+
+**Done when:** the Home button is round and lines up with the other four tabs, and all five tabs still work.
+
 ### 3.1 The cart store and cart list
 **Prompt:**
 > Create a Zustand store for the cart, favorites and settings, saved to localStorage with the persist add-on and a version number. Build the Bar Cart screen showing items grouped by category, with the empty state copy from the brand kit. Add a temporary "load sample cart" button so I can see it filled.
@@ -237,7 +243,7 @@ Pick from the PRD's "Later" list. The suggested next three:
 | 0 Setup | 0.1, 0.2 | ☐ |
 | 1 Foundations | 1.1, 1.2, 1.3 | ☐ |
 | 2 Matching engine | 2.1, 2.2, 2.3 | ☐ |
-| 3 Bar Cart | 3.1-3.4, Milestone A | ☐ |
+| 3 Bar Cart | 3.0-3.4, Milestone A | ☐ |
 | 4 Make Now | 4.1-4.3, Milestone B | ☐ |
 | 5 Unlock, Favorites, Home | 5.1-5.3 | ☐ |
 | 6 Your data | 6.1-6.3 | ☐ |
