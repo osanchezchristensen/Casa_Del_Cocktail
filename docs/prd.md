@@ -1,6 +1,6 @@
 # Casa Del Cocktail: Product Requirements Document (PRD)
 
-**Version:** 0.1 (draft) | **Date:** October 12, 2026
+**Version:** 0.2 (draft) | **Date:** October 13, 2026 (bottles, Bar Cart layout and navigation updated after the screen mockups)
 **Related docs:** `project-brief.md`, `brand-kit.md`
 
 ---
@@ -50,11 +50,15 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 | C1 | As the owner, I want to search for an ingredient by typing a few letters so I can add it quickly. | Must |
 | C2 | As the owner, I want to tick off many items at once from category checklists (spirits, liqueurs, bitters…) so that first-time setup is fast. | Must |
 | C3 | As the owner, I want to confirm the item I picked before it's added, so I don't add the wrong thing. | Must |
-| C4 | As the owner, I want to optionally note the brand (for example, "Bulleit") so I remember which bottle I have. | Should |
-| C5 | As the owner, I want to set each item's level (Full / Half / Low / Empty) so I know what's running out. | Must |
-| C6 | As the owner, I want to remove an item from my cart. | Must |
-| C7 | As the owner, I want to see my cart grouped by category. | Must |
-| C8 | As the owner, I want a list of items marked Low so I know what to restock. | Should |
+| C4 | As the owner, I want to optionally name each bottle (for example, "Jose Cuervo Especial Silver") so I know exactly what I have, while recipes still match on its type (Blanco tequila). | Must |
+| C5 | As the owner, I want to set each bottle's level (Full / Half / Low / Empty) so I know what's running out. | Must |
+| C6 | As the owner, I want to remove a bottle from my cart, with undo. | Must |
+| C7 | As the owner, I want my cart grouped by category, with spirits grouped by family (Tequila & mezcal, Whiskey, Gin…), so a big collection stays organized. | Must |
+| C8 | As the owner, I want a list of bottles marked Low so I know what to restock. | Should |
+| C9 | As the owner, I want to own several bottles of the same type (two blanco tequilas) and see each one separately. | Must |
+| C10 | As the owner, I want to collapse and expand each section and family, so I only see what I care about. | Must |
+| C11 | As the owner, I want filter buttons (by category, and "Running low") at the top of my cart. | Should |
+| C12 | As the owner, I want finished or removed bottles kept in a "past bottles" list with the date, so a history feature can use them later. No screen for this in v1. | Must |
 
 ### Make Now
 | # | Story | Priority |
@@ -92,9 +96,9 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 ## 5. Feature list: MVP vs later
 
 ### MVP (v1)
-1. **Bottom navigation** with a raised round Home button in the center
+1. **Bottom navigation** with a round Home button in the center, level with the other tabs
 2. **Home** (simple summary, placeholder for future features)
-3. **Bar Cart:** search, category checklists, confirm-before-add, levels, remove, optional brand note
+3. **Bar Cart:** a list of bottles (several per type allowed) with optional bottle names; search, filter buttons, collapsible sections with spirits grouped by family; category checklists, confirm-before-add, levels, remove with undo; finished bottles kept as "past bottles"
 4. **Make Now:** smart matching, "Allow swaps" toggle, source filter
 5. **Unlock:** ranked "one more ingredient" suggestions
 6. **Favorites**
@@ -105,16 +109,17 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 11. **Settings** (small: Allow swaps default, export/import, about)
 
 ### Later (rough order)
-1. In-app "Add my own recipe" form
+1. In-app "Add my own recipe" form, including adding a new recipe source (a book) from Make Now
 2. Refill reminders and a shopping list
-3. Home features: photos of your drinks, highlighted favorites
-4. Non-alcoholic filter and a mocktail recipe set
-5. PWA: install on phone, offline mode, free hosting
-6. Barcode scanning, with a confirm-each-scan step
-7. Photo recognition of bottles; photo import of book pages
-8. Recipe import from a public API
-9. Accounts and sync
-10. Age gate (required before any public launch)
+3. Bottle history: every bottle I've ever owned, with dates (built on the v1 "past bottles" list)
+4. Home features: photos of your drinks, highlighted favorites
+5. Non-alcoholic filter and a mocktail recipe set
+6. PWA: install on phone, offline mode, free hosting
+7. Barcode scanning, with a confirm-each-scan step (could fill in bottle names automatically)
+8. Photo recognition of bottles; photo import of book pages
+9. Recipe import from a public API
+10. Accounts and sync
+11. Age gate (required before any public launch)
 
 ## 6. Key screens
 
@@ -127,22 +132,22 @@ The layout is **mobile-first**: on your computer it shows as a phone-width colum
 |                                          |
 |               (screen)                   |
 |                                          |
-|                  ____                    |
-+-----------------/    \-------------------+
++------------------------------------------+
 |  [Cart] [Make] ( HOME ) [Unlock] [Faves] |
 +------------------------------------------+
 ```
 - Four tabs: **Bar Cart**, **Make Now**, **Unlock**, **Favorites**, two on each side
-- Center: a larger **round Home button**, raised slightly above the bar (Amber fill)
+- Center: a **round Home button** (Amber fill, about 52px), **level with the other tabs**, not raised above the bar
 - Settings: a small gear icon in the Home screen header
+- The screen mockups (Design canvas "Casa Del Cocktail Screens") show the intended look of every screen
 
 ### Screen list
 
 | Screen | What's on it |
 |---|---|
 | **Home** | Greeting ("Welcome back to Casa"), "You can make **14** cocktails" (taps through to Make Now), "**2** bottles running low," "Tonight's pick" (one random makeable cocktail), responsible-drinking note. Placeholder for future features. |
-| **Bar Cart** | Search bar at top; cart grouped by category; each item shows name, optional brand, level chip (tap to change). "Add items" opens the add flow. |
-| **Add items (sheet)** | Two modes: **Search** (type-ahead results) and **Browse** (category checklists with multi-select). Ends with a **confirm** step: "Add these 6 items?" |
+| **Bar Cart** | Bottle count, "Add items" button, search ("Search by bottle or type"), a row of filter buttons (All, Spirits, Liqueurs, Running low, Bitters, Mixers). Sections by category, each **collapsible**. **Spirits are grouped by family** (the top of each ingredient family: Tequila & mezcal, Whiskey, Gin, Rum…), and each family collapses too; a closed family shows its bottle names in one line plus a "1 low" badge when needed. Each bottle row shows the **bottle name first and its type underneath** (or just the type with "Add a bottle name"), plus its level chip (tap to change). |
+| **Add items (sheet)** | Two modes: **Search** (type-ahead results) and **Browse** (category checklists with multi-select). A result you already own says so ("You have 1: Espolòn Blanco"); picking it adds a second bottle. Ends with a **confirm** step ("Add these 2 bottles?") with an optional **bottle name** field for each pick. |
 | **Make Now** | Count header, "Allow swaps" toggle, source filter (All / Starter set / *[Book]*), list of cocktail cards. Swap cards are labeled ("Swap: dark rum for white rum"). |
 | **Unlock** | Ranked list: "**Add Campari**, +6 cocktails" with starburst badge. Tap to expand the list of cocktails it unlocks. |
 | **Favorites** | Saved cocktails, split into "Ready to make" and "Missing something." |
@@ -175,12 +180,12 @@ spirit
 3. **Swaps (the override).** With **Allow swaps** on, rule 2 relaxes: a specific ingredient can be filled by a sibling in the same family (dark rum for white rum). The cocktail shows as **"with a swap,"** never as a perfect match.
 4. **Recipe-level flexibility.** A recipe's author can mark an ingredient as "any of this family is fine" (for example, "any orange liqueur"), which works like a swap without needing the toggle.
 5. **Ignored ingredients:** garnishes, ingredients marked optional, and "always on hand" basics (ice, water, plain sugar, salt).
-6. **Bottle levels:** Full, Half and Low count as owned. **Empty does not.**
+6. **Bottle levels:** Full, Half and Low count as owned. **Empty does not.** An ingredient is owned if **any** of its bottles is Full, Half or Low (two blanco tequilas, one Empty and one Half, means you have blanco tequila).
 7. **Swaps never cross families.** Rum never stands in for gin.
 8. **No-swap ingredients.** Some family members are too different to stand in for each other (sweet and dry vermouth, fino and oloroso sherry, spiced rum, blue curaçao). An ingredient marked `noSwap` can't fill in for a sibling, and a sibling can't fill in for it, even with **Allow swaps** on. Rules 1 and 4 still apply: a recipe that says "vermouth," or marks vermouth as "any of this family," accepts any vermouth you own.
 
 ### Unlock calculation
-For every ingredient you **don't** own (or that's Empty): count the recipes where it's the **only** missing required ingredient. Rank by that count, highest first, and show the top 10. With swaps on, swap matches count as makeable.
+For every ingredient you **don't** own (no bottles, or all its bottles Empty): count the recipes where it's the **only** missing required ingredient. Rank by that count, highest first, and show the top 10. With swaps on, swap matches count as makeable.
 
 ## 8. Data needed
 
@@ -222,12 +227,15 @@ Each **recipe ingredient**:
 ### Your data (stored in the browser)
 | Item | Fields |
 |---|---|
-| Cart item | ingredientId, level (full/half/low/empty), brand (optional), addedAt |
+| Bottle (the cart is a list of these) | id (unique), ingredientId, name (optional bottle name or brand, e.g. "Jose Cuervo Especial Silver"), level (full/half/low/empty), addedAt |
+| Past bottle | everything a bottle has, plus finishedAt. A bottle moves here when removed, instead of being deleted |
 | Favorite | recipeId, savedAt |
 | Settings | allowSwaps (on/off) |
 
+Several bottles can share one ingredientId. Matching never looks at bottles directly: the app first works out the **set of owned ingredient ids** (every ingredient with at least one bottle that isn't Empty) and passes that to the matching logic.
+
 ### Export file
-One JSON file containing a version number, export date, cart items, favorites and settings. Import replaces current data after a confirmation ("This will replace your current cart. Continue?").
+One JSON file containing a version number, export date, bottles, past bottles, favorites and settings. Import replaces current data after a confirmation ("This will replace your current cart. Continue?").
 
 ### Recipe files
 | File | Contents | In git? |
@@ -253,7 +261,7 @@ The app loads the private file if it exists and works normally if it doesn't. Bo
 | Hosting | None for v1 (localhost) | Free hosting comes with the PWA step |
 
 **Principles for Claude Code**
-- Keep the matching logic in its own plain TypeScript file, separate from screens, with tests.
+- Keep the matching logic in its own plain TypeScript file, separate from screens, with tests. It takes a set of owned ingredient ids, never bottles, so bottle features can change without touching matching.
 - Build in small steps, each one runnable and checked in the browser before moving on.
 - Data shapes are versioned so later changes (accounts, scanning) don't break saved carts.
 - Mobile-first layout, centered on desktop.

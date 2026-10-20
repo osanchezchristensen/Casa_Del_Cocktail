@@ -60,17 +60,20 @@ src/
 3. ..."Allow swaps" is on: a sibling in the same family can fill it, and the result is labeled as a swap.
 4. Recipe ingredients marked `anyOfFamily` accept any member of that family.
 5. Ignore garnishes, optional ingredients and `alwaysOnHand` basics (ice, water, sugar, salt). A garnish is decided by the **recipe ingredient's `garnish` flag**, never by the ingredient's category (mint in a Mojito is required).
-6. Full / Half / Low count as owned. **Empty does not.**
+6. Full / Half / Low count as owned. **Empty does not.** An ingredient is owned if any of its bottles is not Empty.
 7. Swaps never cross families (rum never replaces gin).
 8. Ingredients marked `noSwap` (sweet/dry/blanc vermouth, the sherries, spiced rum, blue curaçao) never swap in or out, even with "Allow swaps" on. Rules 1 and 4 still apply to them.
 - **Unlock:** rank unowned (or Empty) ingredients by how many recipes they're the *only* missing required ingredient for. Top 10.
 - Matching logic stays in `src/logic/`, free of React, and **every rule change gets a test.**
+- Matching takes a **set of owned ingredient ids**, never bottles. The app works that set out from the bottles first.
 
 ### Data
 - Every recipe **must** have a `source` (`{ type: "starter" }` or `{ type: "book", title, author, page }`).
 - Recipe ingredients must use ids that exist in `ingredients.json`. A test enforces this.
 - New ingredients need a sensible `category` and `parentId`. Reuse existing ids before adding new ones.
 - "Spirit" is a `category`, not a parent. Each family's top (`rum`, `gin`, `whiskey`) has `parentId: null`, so swaps can't cross families. Types live in `src/types.ts`.
+- **The cart is a list of bottles**, not ingredients: each bottle has `id`, `ingredientId`, optional `name` (brand or label), `level`, `addedAt`. Several bottles can share an `ingredientId`. Removing a bottle moves it to `pastBottles` with a `finishedAt` date instead of deleting it (no screen for this in v1). See PRD section 8.
+- Bar Cart: sections collapse, spirits are grouped by family (each family's top ingredient), bottles show their name first and type second.
 - Ingredient search must be accent-insensitive ("cachaca" finds Cachaça, "anejo" finds Añejo tequila).
 - Starter recipes are written in our own words.
 
@@ -84,7 +87,7 @@ src/
 ## Design (full detail: brand-kit.md)
 - **Feel:** mid-century, warm, cozy, "Atomic Garden," light mode only. **No tiki, neon, wood grain or script fonts.**
 - **Layout:** mobile-first; on desktop, a phone-width column centered on the page.
-- **Navigation:** bottom bar. Bar Cart and Make Now on the left, raised **round Home button** in the center, Unlock and Favorites on the right. Settings is a gear icon on Home.
+- **Navigation:** bottom bar. Bar Cart and Make Now on the left, a **round Home button** in the center (level with the other tabs, not raised), Unlock and Favorites on the right. Settings is a gear icon on Home.
 ```
 Colors:  cream #F5ECD7 | paper #FBF6EA | walnut #3B2A1E | cork #6E5A47
          amber #D98E2B | deep-amber #A0570F | mustard #E3B23C
@@ -102,5 +105,5 @@ Shapes:  cards radius 20px, pill buttons, inputs radius 12px, soft warm shadows
 Barcode or photo scanning, accounts and sync, PWA/offline/hosting, in-app recipe editor, recipe API import, age gate, shopping list. These are on the PRD's "Later" list. Don't build them unless I ask.
 
 ## Current status
-- Steps **0.1** and **0.2** done (tools installed, repo on GitHub, Vite + React + TypeScript app scaffolded with React Router, Zustand, Lucide and Vitest installed). Step **1.1** done (brand styles in `src/styles/global.css`, bottom navigation, five placeholder screens). Step **1.2** done (types in `src/types.ts`, 187 ingredients in `src/data/ingredients.json` with a data-check test, `noSwap` rule added). Step **1.3** done (20 starter recipes in `src/data/recipes-starter.json` with a data-check test). Next: roadmap step **2.1** ("Can I make it?": basic matching rules).
+- Steps **0.1** and **0.2** done (tools installed, repo on GitHub, Vite + React + TypeScript app scaffolded with React Router, Zustand, Lucide and Vitest installed). Step **1.1** done (brand styles in `src/styles/global.css`, bottom navigation, five placeholder screens). Step **1.2** done (types in `src/types.ts`, 187 ingredients in `src/data/ingredients.json` with a data-check test, `noSwap` rule added). Step **1.3** done (20 starter recipes in `src/data/recipes-starter.json` with a data-check test). Docs updated Oct 13 for bottles, past bottles, Bar Cart layout and a level Home button; the current bottom nav still has the raised button and needs the small fix in roadmap step 3.0. Next: roadmap step **2.1** ("Can I make it?": basic matching rules).
 - Update this line as steps are completed.
