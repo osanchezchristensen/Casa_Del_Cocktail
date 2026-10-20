@@ -112,7 +112,7 @@ No screens yet. This is the brain of the app, built and tested on its own.
 **Prompt:**
 > Following PRD section 8, replace the CartItem type with Bottle (id, ingredientId, optional name, level, addedAt) and add PastBottle (a bottle plus finishedAt). Create a Zustand store for bottles, past bottles, favorites and settings, saved to localStorage with the persist add-on and a version number. Build the Bar Cart screen from PRD section 6: bottle count, sections by category that collapse, spirits grouped by family (each family's top ingredient) that collapse too, and each bottle row showing its name first and its type underneath (or just the type with "Add a bottle name"). Use the empty state copy from the brand kit. Add a temporary "load sample cart" button with a few bottles, including two of the same type.
 
-**You decide:** tequila and mezcal are now separate families. Show them as two groups, or one display-only "Tequila & mezcal" group?
+**Decided:** tequila and mezcal are separate families and show as two groups.
 
 **Done when:** sample bottles show in collapsible sections, spirits are grouped by family, both bottles of the same type show separately, and everything is still there after refreshing the browser.
 

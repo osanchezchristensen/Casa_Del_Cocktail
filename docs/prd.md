@@ -53,7 +53,7 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 | C4 | As the owner, I want to optionally name each bottle (for example, "Jose Cuervo Especial Silver") so I know exactly what I have, while recipes still match on its type (Blanco tequila). | Must |
 | C5 | As the owner, I want to set each bottle's level (Full / Half / Low / Empty) so I know what's running out. | Must |
 | C6 | As the owner, I want to remove a bottle from my cart, with undo. | Must |
-| C7 | As the owner, I want my cart grouped by category, with spirits grouped by family (Tequila & mezcal, Whiskey, Gin…), so a big collection stays organized. | Must |
+| C7 | As the owner, I want my cart grouped by category, with spirits grouped by family (Tequila, Mezcal, Whiskey, Gin…), so a big collection stays organized. | Must |
 | C8 | As the owner, I want a list of bottles marked Low so I know what to restock. | Should |
 | C9 | As the owner, I want to own several bottles of the same type (two blanco tequilas) and see each one separately. | Must |
 | C10 | As the owner, I want to collapse and expand each section and family, so I only see what I care about. | Must |
@@ -149,7 +149,7 @@ The layout is **mobile-first**: on your computer it shows as a phone-width colum
 | Screen | What's on it |
 |---|---|
 | **Home** | Greeting ("Welcome back to Casa"), "You can make **14** cocktails" (taps through to Make Now), "**2** bottles running low," "Tonight's pick" (one random makeable cocktail), responsible-drinking note. Placeholder for future features. |
-| **Bar Cart** | Bottle count, "Add items" button, search ("Search by bottle or type"), a row of filter buttons (All, Spirits, Liqueurs, Running low, Bitters, Mixers). Sections by category, each **collapsible**. **Spirits are grouped by family** (the top of each ingredient family: Tequila & mezcal, Whiskey, Gin, Rum…), and each family collapses too; a closed family shows its bottle names in one line plus a "1 low" badge when needed. Each bottle row shows the **bottle name first and its type underneath** (or just the type with "Add a bottle name"), plus its level chip (tap to change). |
+| **Bar Cart** | Bottle count, "Add items" button, search ("Search by bottle or type"), a row of filter buttons (All, Spirits, Liqueurs, Running low, Bitters, Mixers). Sections by category, each **collapsible**. **Spirits are grouped by family** (the top of each ingredient family: Tequila, Mezcal, Whiskey, Gin, Rum…), and each family collapses too; a closed family shows its bottle names in one line plus a "1 low" badge when needed. Each bottle row shows the **bottle name first and its type underneath** (or just the type with "Add a bottle name"), plus its level chip (tap to change). |
 | **Add items (sheet)** | Two modes: **Search** (type-ahead results) and **Browse** (category checklists with multi-select). A result you already own says so ("You have 1: Espolòn Blanco"); picking it adds a second bottle. Ends with a **confirm** step ("Add these 2 bottles?") with an optional **bottle name** field for each pick. |
 | **Make Now** | Count header, "Allow swaps" toggle, source filter (All / Starter set / *[Book]*), list of cocktail cards. Swap cards are labeled ("Swap: dark rum for white rum"). |
 | **Unlock** | Ranked list: "**Add Campari**, +6 cocktails" with starburst badge. Tap to expand the list of cocktails it unlocks. |

@@ -72,12 +72,21 @@ export type Recipe = {
 
 export type Level = 'full' | 'half' | 'low' | 'empty'
 
-export type CartItem = {
+/** One bottle on the cart. Several bottles can share an ingredientId. */
+export type Bottle = {
+  id: string
   ingredientId: string
+  /** Optional bottle name or brand, for example "Jose Cuervo Especial Silver". */
+  name?: string
   level: Level
-  brand?: string
   /** ISO date string, for example "2026-10-13T18:30:00.000Z". */
   addedAt: string
+}
+
+/** A removed bottle, kept for a future history feature. */
+export type PastBottle = Bottle & {
+  /** ISO date string. */
+  finishedAt: string
 }
 
 export type Favorite = {

@@ -1,0 +1,33 @@
+/* Bottle level colors from docs/brand-kit.md. The word always shows, so color is never the only signal. */
+.chip {
+  display: inline-block;
+  min-width: 56px;
+  padding: 3px 12px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.full {
+  background: var(--mustard);
+  color: var(--walnut);
+}
+
+.half {
+  background: var(--amber);
+  color: var(--walnut);
+}
+
+.low {
+  background: var(--paper);
+  border-color: var(--rust);
+  color: var(--rust);
+}
+
+.empty {
+  background: var(--rust);
+  color: var(--paper);
+}

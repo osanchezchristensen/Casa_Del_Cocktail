@@ -1,0 +1,118 @@
+.count {
+  margin: 4px 0 20px;
+  color: var(--cork);
+}
+
+.button {
+  margin-top: 8px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--amber);
+  color: var(--walnut);
+  font: 700 16px var(--font-body);
+  cursor: pointer;
+}
+
+.section {
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.sectionTitle,
+.familyTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.sectionTitle h2 {
+  font-size: 20px;
+}
+
+.sectionCount {
+  color: var(--cork);
+  font-size: 14px;
+}
+
+.family {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--cream);
+}
+
+.familyName {
+  font-weight: 700;
+}
+
+/* A closed family lists its bottles in one line; an open one shows them below instead. */
+.preview {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--cork);
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.family[open] .preview {
+  display: none;
+}
+
+.list {
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bottle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.bottleName {
+  font-weight: 700;
+}
+
+.bottleType {
+  color: var(--cork);
+  font-size: 14px;
+}
+
+.addName {
+  color: var(--cork);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.sectionTitle:focus-visible,
+.familyTitle:focus-visible,
+.button:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+/* The flex layout hides the browser's own arrow, so a chevron shows open/closed instead. */
+.chevron {
+  flex-shrink: 0;
+  margin-left: auto;
+  align-self: center;
+  color: var(--cork);
+  transition: transform 150ms;
+}
+
+.sectionTitle::-webkit-details-marker,
+.familyTitle::-webkit-details-marker {
+  display: none;
+}
+
+details:not([open]) > summary .chevron {
+  transform: rotate(-90deg);
+}
