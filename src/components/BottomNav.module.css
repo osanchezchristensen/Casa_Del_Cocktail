@@ -37,9 +37,9 @@
 }
 
 .home {
-  width: 64px;
-  height: 64px;
-  margin-top: -40px;
+  width: 52px;
+  height: 52px;
+  font-size: 12px;
   border-radius: 50%;
   background: var(--amber);
   box-shadow: var(--shadow-card);
