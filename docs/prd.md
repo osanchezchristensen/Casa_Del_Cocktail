@@ -121,6 +121,9 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 10. Accounts and sync
 11. Age gate (required before any public launch)
 
+### Maybe (ideas to weigh, not planned)
+- **Smarter Unlock counting.** Today Unlock credits the ingredient exactly as the recipe names it, so "gin" and "London dry gin" count as two separate suggestions. Testing every possible bottle instead would show that one bottle of London dry gin unlocks both, giving a truer "+N cocktails" number and better buying advice. The catch: near-identical bottles (London dry, Plymouth, Old Tom) would crowd the top 10, so it needs a way to group them.
+
 ## 6. Key screens
 
 The layout is **mobile-first**: on your computer it shows as a phone-width column centered in the browser window. That keeps your sketched bottom navigation and makes the later move to a phone easy.

@@ -69,3 +69,28 @@ export function matchRecipe(recipe: Recipe, owned: Set<string>, allowSwaps = fal
 export function canMake(recipe: Recipe, owned: Set<string>, allowSwaps = false): boolean {
   return matchRecipe(recipe, owned, allowSwaps).status !== 'missing'
 }
+
+export type UnlockSuggestion = { ingredientId: string; recipes: Recipe[] }
+
+/**
+ * Unlock (PRD section 7): ingredients ranked by how many recipes they're the only
+ * missing required ingredient for. Top 10, ties sorted by id.
+ * shortcut: credits the id the recipe names, so "gin" and "london-dry-gin" count apart;
+ * see the PRD "Maybe" list for the smarter version.
+ */
+export function unlockSuggestions(
+  owned: Set<string>,
+  recipes: Recipe[],
+  allowSwaps = false,
+): UnlockSuggestion[] {
+  const unlocks = new Map<string, Recipe[]>()
+  for (const recipe of recipes) {
+    const { missing } = matchRecipe(recipe, owned, allowSwaps)
+    if (missing.length !== 1) continue
+    unlocks.set(missing[0], [...(unlocks.get(missing[0]) ?? []), recipe])
+  }
+  return [...unlocks]
+    .map(([ingredientId, recipes]) => ({ ingredientId, recipes }))
+    .sort((a, b) => b.recipes.length - a.recipes.length || a.ingredientId.localeCompare(b.ingredientId))
+    .slice(0, 10)
+}

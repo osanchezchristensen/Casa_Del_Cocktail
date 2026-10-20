@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest'
 import type { Recipe } from '../types.ts'
 import data from '../data/recipes-starter.json'
-import { canMake, matchRecipe, ownedIngredientIds } from './matching.ts'
+import { canMake, matchRecipe, ownedIngredientIds, unlockSuggestions } from './matching.ts'
 
 const recipes = data as Recipe[]
 const recipe = (id: string) => recipes.find((r) => r.id === id)!
@@ -144,5 +144,51 @@ describe('any of this family (rule 4)', () => {
 
   test('anyOfFamily stays inside the family', () => {
     expect(missing('margarita', own('blanco-tequila', 'cherry-liqueur', 'lime-juice'))).toEqual(['triple-sec'])
+  })
+})
+
+describe('unlock suggestions', () => {
+  // Shows each suggestion as "ingredient: recipe ids" so failures are easy to read.
+  const unlock = (owned: Set<string>, allowSwaps = false, list = recipes) =>
+    unlockSuggestions(owned, list, allowSwaps).map((s) => `${s.ingredientId}: ${s.recipes.map((r) => r.id).join(', ')}`)
+
+  const cart = own('white-rum', 'lime-juice', 'simple-syrup', 'mint', 'gin', 'lemon-juice', 'aperol', 'prosecco')
+
+  test('soda water ranks first, unlocking Mojito, Tom Collins and Aperol Spritz', () => {
+    expect(unlock(cart)[0]).toBe('soda-water: mojito, tom-collins, aperol-spritz')
+  })
+
+  test('never suggests owned ingredients or counts makeable recipes', () => {
+    const results = unlockSuggestions(cart, recipes)
+    for (const s of results) {
+      expect(cart.has(s.ingredientId)).toBe(false)
+      for (const r of s.recipes) expect(canMake(r, cart)).toBe(false)
+    }
+  })
+
+  test('an Empty bottle can be suggested', () => {
+    const owned = ownedIngredientIds([
+      { ingredientId: 'gin', level: 'full' },
+      { ingredientId: 'sweet-vermouth', level: 'full' },
+      { ingredientId: 'campari', level: 'empty' },
+    ])
+    expect(unlock(owned)).toContain('campari: negroni')
+  })
+
+  test('respects allow swaps', () => {
+    const rumCart = own('dark-rum', 'lime-juice', 'simple-syrup', 'mint')
+    // Swaps off: white rum is the one thing the Daiquiri lacks.
+    expect(unlock(rumCart)).toContain('white-rum: daiquiri')
+    // Swaps on: the Daiquiri is already makeable, and the Mojito only lacks soda water.
+    expect(unlock(rumCart, true)).toContain('soda-water: mojito')
+    expect(unlock(rumCart, true).some((s) => s.startsWith('white-rum'))).toBe(false)
+  })
+
+  test('returns at most 10, ties sorted by id', () => {
+    const ids = ['absinthe', 'aperol', 'bourbon', 'campari', 'cognac', 'gin', 'mezcal', 'mint', 'rum', 'tequila', 'vodka', 'white-rum']
+    const result = unlock(own(), false, ids.map(needs))
+    expect(result).toHaveLength(10)
+    expect(result[0]).toBe('absinthe: test')
+    expect(result[9]).toBe('tequila: test')
   })
 })
