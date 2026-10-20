@@ -100,7 +100,7 @@ No screens yet. This is the brain of the app, built and tested on its own.
 
 ---
 
-## Phase 3: Bar Cart (4 sessions)
+## Phase 3: Bar Cart (5 sessions)
 
 ### 3.0 Quick fix: level Home button
 **Prompt:**
@@ -108,29 +108,37 @@ No screens yet. This is the brain of the app, built and tested on its own.
 
 **Done when:** the Home button is round and lines up with the other four tabs, and all five tabs still work.
 
-### 3.1 The cart store and cart list
+### 3.1 The cart store and bottle list
 **Prompt:**
-> Create a Zustand store for the cart, favorites and settings, saved to localStorage with the persist add-on and a version number. Build the Bar Cart screen showing items grouped by category, with the empty state copy from the brand kit. Add a temporary "load sample cart" button so I can see it filled.
+> Following PRD section 8, replace the CartItem type with Bottle (id, ingredientId, optional name, level, addedAt) and add PastBottle (a bottle plus finishedAt). Create a Zustand store for bottles, past bottles, favorites and settings, saved to localStorage with the persist add-on and a version number. Build the Bar Cart screen from PRD section 6: bottle count, sections by category that collapse, spirits grouped by family (each family's top ingredient) that collapse too, and each bottle row showing its name first and its type underneath (or just the type with "Add a bottle name"). Use the empty state copy from the brand kit. Add a temporary "load sample cart" button with a few bottles, including two of the same type.
 
-**Done when:** sample items show grouped by category, and they're still there after refreshing the browser.
+**You decide:** tequila and mezcal are now separate families. Show them as two groups, or one display-only "Tequila & mezcal" group?
 
-### 3.2 Add items: search and confirm
+**Done when:** sample bottles show in collapsible sections, spirits are grouped by family, both bottles of the same type show separately, and everything is still there after refreshing the browser.
+
+### 3.2 Add bottles: search and confirm
 **Prompt:**
-> Build the "Add items" sheet from PRD section 6 with Search mode: type-ahead search over ingredient names and aliases, select one or more results, then a confirm step ("Add these 3 items?") before they're added to the cart as Full.
+> Build the "Add items" sheet from PRD section 6 with Search mode: accent-insensitive type-ahead search over ingredient names and aliases, select one or more results, then a confirm step ("Add these 2 bottles?") with an optional bottle name field for each pick. Each pick becomes a new bottle at Full. A result I already own says so ("You have 1: Espolòn Blanco"), and picking it adds a second bottle.
 
-**Done when:** you can find "Campari" by typing "camp," and nothing is added until you confirm.
+**Done when:** you can find "Campari" by typing "camp" and Cachaça by typing "cachaca", a named bottle shows its name first in the cart, and nothing is added until you confirm.
 
-### 3.3 Add items: browse by category
+### 3.3 Add bottles: browse by category
 **Prompt:**
-> Add Browse mode to the Add items sheet: category checklists (spirits, liqueurs, bitters, etc.) with multi-select, items already in my cart shown as already added, using the same confirm step.
+> Add Browse mode to the Add items sheet: category checklists (spirits, liqueurs, bitters, etc.) with multi-select, types I already own marked with how many bottles I have, using the same confirm step with optional bottle names.
 
-**Done when:** you can add 10 items from three categories in one go.
+**Done when:** you can add 10 bottles from three categories in one go.
 
-### 3.4 Levels, brand notes and removing
+### 3.4 Levels, bottle names and removing
 **Prompt:**
-> On each cart item, add the Full / Half / Low / Empty level chip from the brand kit (tap to change), an optional brand note, and a way to remove the item with an undo option.
+> On each bottle row, add the Full / Half / Low / Empty level chip from the brand kit (tap to change), a way to add or edit the bottle name, and a way to remove the bottle with undo. Removing moves the bottle to past bottles with a finishedAt date instead of deleting it (no screen for past bottles yet). A closed spirit family shows a "1 low" badge when any of its bottles is Low.
 
-**Done when:** levels and brand notes survive a refresh, and removing can be undone.
+**Done when:** levels and bottle names survive a refresh, removing can be undone, and a removed bottle shows up in past bottles in localStorage.
+
+### 3.5 Search and filters in the cart
+**Prompt:**
+> At the top of the Bar Cart, add the search box ("Search by bottle or type", accent-insensitive, matching bottle names and types) and the row of filter buttons from PRD section 6 (All, Spirits, Liqueurs, Running low, Bitters, Mixers).
+
+**Done when:** typing part of a bottle name or type narrows the list, and "Running low" shows only Low bottles.
 
 ### ⭐ Milestone A: enter your real bar cart
 Remove the sample-cart button and enter your actual cart. Time it. Under 5 minutes? Note anything annoying for later.
@@ -243,7 +251,7 @@ Pick from the PRD's "Later" list. The suggested next three:
 | 0 Setup | 0.1, 0.2 | ☐ |
 | 1 Foundations | 1.1, 1.2, 1.3 | ☐ |
 | 2 Matching engine | 2.1, 2.2, 2.3 | ☐ |
-| 3 Bar Cart | 3.0-3.4, Milestone A | ☐ |
+| 3 Bar Cart | 3.0-3.5, Milestone A | ☐ |
 | 4 Make Now | 4.1-4.3, Milestone B | ☐ |
 | 5 Unlock, Favorites, Home | 5.1-5.3 | ☐ |
 | 6 Your data | 6.1-6.3 | ☐ |
