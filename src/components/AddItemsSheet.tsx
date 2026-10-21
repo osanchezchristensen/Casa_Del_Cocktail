@@ -1,8 +1,9 @@
-import { Check, Plus, X } from 'lucide-react'
+import { Check, ChevronDown, Plus, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import { searchIngredients } from '../logic/search.ts'
+import { CATEGORY_LABELS } from '../logic/cart.ts'
+import { addableIngredients, searchIngredients } from '../logic/search.ts'
 import { useStore } from '../store/useStore.ts'
-import type { Ingredient } from '../types.ts'
+import { INGREDIENT_CATEGORIES, type Ingredient } from '../types.ts'
 import styles from './AddItemsSheet.module.css'
 
 // Rendered only while open, so closing it (unmounting) resets the search and picks.
@@ -13,6 +14,7 @@ function AddItemsSheet({ onClose }: { onClose: () => void }) {
   const addBottles = useStore((s) => s.addBottles)
 
   const [step, setStep] = useState<'search' | 'confirm'>('search')
+  const [mode, setMode] = useState<'search' | 'browse'>('search')
   const [query, setQuery] = useState('')
   const [picked, setPicked] = useState<Ingredient[]>([])
   const [names, setNames] = useState<Record<string, string>>({})
@@ -35,6 +37,23 @@ function AddItemsSheet({ onClose }: { onClose: () => void }) {
     return `You have ${mine.length}${named.length > 0 ? `: ${named.join(', ')}` : ''}`
   }
 
+  // One row, used by both Search and Browse. Tap to pick or unpick.
+  const resultRow = (i: Ingredient) => {
+    const selected = isPicked(i.id)
+    const note = ownedNote(i.id)
+    return (
+      <li key={i.id}>
+        <button type="button" className={styles.result} aria-pressed={selected} onClick={() => toggle(i)}>
+          <span>
+            <span className={styles.resultName}>{i.name}</span>
+            {note && <span className={styles.owned}>{note}</span>}
+          </span>
+          {selected ? <Check size={20} aria-hidden /> : <Plus size={20} aria-hidden />}
+        </button>
+      </li>
+    )
+  }
+
   const add = () => {
     addBottles(picked.map((p) => ({ ingredientId: p.id, name: names[p.id] })))
     onClose()
@@ -54,40 +73,49 @@ function AddItemsSheet({ onClose }: { onClose: () => void }) {
       {step === 'search' ? (
         <>
           <div className={styles.body}>
-            <input
-              type="search"
-              className={styles.input}
-              placeholder="Search, like “camp” for Campari"
-              aria-label="Search ingredients"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              autoFocus
-            />
-            {query.trim() && results.length === 0 && (
-              <p className={styles.hint}>Nothing by that name. Try another spelling.</p>
-            )}
-            <ul className={styles.results}>
-              {results.map((i) => {
-                const selected = isPicked(i.id)
-                const note = ownedNote(i.id)
+            <div className={styles.modes} role="group" aria-label="How to find items">
+              <button type="button" className={styles.mode} aria-pressed={mode === 'search'} onClick={() => setMode('search')}>
+                Search
+              </button>
+              <button type="button" className={styles.mode} aria-pressed={mode === 'browse'} onClick={() => setMode('browse')}>
+                Browse
+              </button>
+            </div>
+
+            {mode === 'search' ? (
+              <>
+                <input
+                  type="search"
+                  className={styles.input}
+                  placeholder="Search, like “camp” for Campari"
+                  aria-label="Search ingredients"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  autoFocus
+                />
+                {query.trim() && results.length === 0 && (
+                  <p className={styles.hint}>Nothing by that name. Try another spelling.</p>
+                )}
+                <ul className={styles.results}>{results.map(resultRow)}</ul>
+              </>
+            ) : (
+              INGREDIENT_CATEGORIES.map((category) => {
+                // Data-file order keeps families together: Rum, White rum, Dark rum…
+                const items = addableIngredients.filter((i) => i.category === category)
+                if (items.length === 0) return null
+                const pickedHere = items.filter((i) => isPicked(i.id)).length
                 return (
-                  <li key={i.id}>
-                    <button
-                      type="button"
-                      className={styles.result}
-                      aria-pressed={selected}
-                      onClick={() => toggle(i)}
-                    >
-                      <span>
-                        <span className={styles.resultName}>{i.name}</span>
-                        {note && <span className={styles.owned}>{note}</span>}
-                      </span>
-                      {selected ? <Check size={20} aria-hidden /> : <Plus size={20} aria-hidden />}
-                    </button>
-                  </li>
+                  <details key={category} className={styles.category}>
+                    <summary className={styles.categoryTitle}>
+                      <span className={styles.resultName}>{CATEGORY_LABELS[category]}</span>
+                      {pickedHere > 0 && <span className={styles.pickedCount}>{pickedHere} picked</span>}
+                      <ChevronDown size={20} className={styles.chevron} aria-hidden />
+                    </summary>
+                    <ul className={styles.results}>{items.map(resultRow)}</ul>
+                  </details>
                 )
-              })}
-            </ul>
+              })
+            )}
           </div>
           <footer className={styles.footer}>
             <button

@@ -98,6 +98,75 @@
   font-size: 14px;
 }
 
+.modes {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.mode {
+  flex: 1;
+  padding: 8px 16px;
+  border: 2px solid var(--walnut);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--walnut);
+  font: 500 15px var(--font-body);
+  cursor: pointer;
+}
+
+.mode[aria-pressed='true'] {
+  background: var(--walnut);
+  color: var(--paper);
+  font-weight: 700;
+}
+
+.category {
+  margin-bottom: 8px;
+  padding: 12px 14px;
+  border-radius: var(--radius-input);
+  background: var(--paper);
+}
+
+.category .results {
+  margin-top: 10px;
+}
+
+/* Rows inside a paper card get a cream fill so they still stand out. */
+.category .result:not([aria-pressed='true']) {
+  background: var(--cream);
+}
+
+.categoryTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.categoryTitle::-webkit-details-marker {
+  display: none;
+}
+
+.pickedCount {
+  padding: 1px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--amber);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.chevron {
+  flex-shrink: 0;
+  margin-left: auto;
+  color: var(--cork);
+  transition: transform 150ms;
+}
+
+.category:not([open]) .chevron {
+  transform: rotate(-90deg);
+}
+
 .confirmRow {
   display: grid;
   gap: 6px;
@@ -139,6 +208,8 @@
 }
 
 .close:focus-visible,
+.mode:focus-visible,
+.categoryTitle:focus-visible,
 .result:focus-visible,
 .primary:focus-visible,
 .secondary:focus-visible,
