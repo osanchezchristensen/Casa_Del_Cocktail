@@ -10,6 +10,12 @@ type State = {
   settings: Settings
   /** Each pick becomes a new bottle at Full. A blank name is left off. */
   addBottles: (picks: { ingredientId: string; name?: string }[]) => void
+  /** Change a bottle's level and/or name. A blank name removes it. */
+  updateBottle: (id: string, changes: { level?: Level; name?: string }) => void
+  /** Moves the bottle to pastBottles with a finishedAt date; never deletes it. */
+  removeBottle: (id: string) => void
+  /** Moves a removed bottle back onto the cart, as it was. */
+  undoRemove: (id: string) => void
   loadSampleCart: () => void
 }
 
@@ -48,6 +54,37 @@ export const useStore = create<State>()(
         set((s) => ({
           bottles: [...s.bottles, ...picks.map((p) => newBottle(p.ingredientId, 'full', p.name))],
         })),
+      updateBottle: (id, changes) =>
+        set((s) => ({
+          bottles: s.bottles.map((b) =>
+            b.id !== id
+              ? b
+              : {
+                  ...b,
+                  level: changes.level ?? b.level,
+                  name: 'name' in changes ? changes.name?.trim() || undefined : b.name,
+                },
+          ),
+        })),
+      removeBottle: (id) =>
+        set((s) => {
+          const bottle = s.bottles.find((b) => b.id === id)
+          if (!bottle) return {}
+          return {
+            bottles: s.bottles.filter((b) => b.id !== id),
+            pastBottles: [...s.pastBottles, { ...bottle, finishedAt: new Date().toISOString() }],
+          }
+        }),
+      undoRemove: (id) =>
+        set((s) => {
+          const past = s.pastBottles.find((b) => b.id === id)
+          if (!past) return {}
+          const { id: bottleId, ingredientId, name, level, addedAt } = past
+          return {
+            pastBottles: s.pastBottles.filter((b) => b.id !== id),
+            bottles: [...s.bottles, { id: bottleId, ingredientId, name, level, addedAt }],
+          }
+        }),
       loadSampleCart: () =>
         set({ bottles: SAMPLE.map(([ingredientId, level, name]) => newBottle(ingredientId, level, name)) }),
     }),

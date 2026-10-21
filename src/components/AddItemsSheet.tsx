@@ -4,7 +4,7 @@ import { CATEGORY_LABELS } from '../logic/cart.ts'
 import { addableIngredients, searchIngredients } from '../logic/search.ts'
 import { useStore } from '../store/useStore.ts'
 import { INGREDIENT_CATEGORIES, type Ingredient } from '../types.ts'
-import styles from './AddItemsSheet.module.css'
+import styles from './Sheet.module.css'
 
 // Rendered only while open, so closing it (unmounting) resets the search and picks.
 // <dialog> with showModal() gives the dimmed backdrop, Esc to close and focus kept inside.

@@ -1,28 +1,33 @@
 import { ChevronDown, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddItemsSheet from '../components/AddItemsSheet.tsx'
+import BottleSheet from '../components/BottleSheet.tsx'
 import LevelChip from '../components/LevelChip.tsx'
 import { CATEGORY_LABELS, groupCart, ingredientName } from '../logic/cart.ts'
 import { useStore } from '../store/useStore.ts'
-import type { Bottle } from '../types.ts'
+import type { Bottle, Level } from '../types.ts'
 import styles from './BarCart.module.css'
 
 const label = (b: Bottle) => b.name ?? ingredientName(b.ingredientId)
 
-function BottleList({ bottles }: { bottles: Bottle[] }) {
+// Tapping the chip steps the level down, the way bottles usually go, then wraps to Full.
+const NEXT_LEVEL: Record<Level, Level> = { full: 'half', half: 'low', low: 'empty', empty: 'full' }
+
+function BottleList({ bottles, onEdit }: { bottles: Bottle[]; onEdit: (id: string) => void }) {
+  const updateBottle = useStore((s) => s.updateBottle)
   return (
     <ul className={styles.list}>
       {bottles.map((b) => (
         <li key={b.id} className={styles.bottle}>
-          <div>
-            <div className={styles.bottleName}>{label(b)}</div>
+          <button type="button" className={styles.bottleInfo} onClick={() => onEdit(b.id)}>
+            <span className={styles.bottleName}>{label(b)}</span>
             {b.name ? (
-              <div className={styles.bottleType}>{ingredientName(b.ingredientId)}</div>
+              <span className={styles.bottleType}>{ingredientName(b.ingredientId)}</span>
             ) : (
-              <div className={styles.addName}>Add a bottle name</div>
+              <span className={styles.addName}>Add a bottle name</span>
             )}
-          </div>
-          <LevelChip level={b.level} />
+          </button>
+          <LevelChip level={b.level} onClick={() => updateBottle(b.id, { level: NEXT_LEVEL[b.level] })} />
         </li>
       ))}
     </ul>
@@ -32,7 +37,19 @@ function BottleList({ bottles }: { bottles: Bottle[] }) {
 function BarCart() {
   const bottles = useStore((s) => s.bottles)
   const loadSampleCart = useStore((s) => s.loadSampleCart)
+  const undoRemove = useStore((s) => s.undoRemove)
   const [adding, setAdding] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [removed, setRemoved] = useState<Bottle | null>(null)
+
+  // The undo bar hides itself after 6 seconds.
+  useEffect(() => {
+    if (!removed) return
+    const timer = setTimeout(() => setRemoved(null), 6000)
+    return () => clearTimeout(timer)
+  }, [removed])
+
+  const editing = bottles.find((b) => b.id === editingId)
 
   const header = (
     <div className={styles.header}>
@@ -43,7 +60,39 @@ function BarCart() {
       </button>
     </div>
   )
-  const sheet = adding && <AddItemsSheet onClose={() => setAdding(false)} />
+
+  const overlays = (
+    <>
+      {adding && <AddItemsSheet onClose={() => setAdding(false)} />}
+      {editing && (
+        <BottleSheet
+          bottle={editing}
+          onClose={() => setEditingId(null)}
+          onRemoved={(b) => {
+            setEditingId(null)
+            setRemoved(b)
+          }}
+        />
+      )}
+      <div className={styles.toastArea} role="status">
+        {removed && (
+          <div className={styles.toast}>
+            <span>Removed {label(removed)}.</span>
+            <button
+              type="button"
+              className={styles.undo}
+              onClick={() => {
+                undoRemove(removed.id)
+                setRemoved(null)
+              }}
+            >
+              Undo
+            </button>
+          </div>
+        )}
+      </div>
+    </>
+  )
 
   if (bottles.length === 0) {
     return (
@@ -54,7 +103,7 @@ function BarCart() {
         <button type="button" className={styles.secondary} onClick={loadSampleCart}>
           Load sample cart
         </button>
-        {sheet}
+        {overlays}
       </>
     )
   }
@@ -66,7 +115,6 @@ function BarCart() {
       <p className={styles.count}>
         {bottles.length} {bottles.length === 1 ? 'bottle' : 'bottles'}
       </p>
-      {sheet}
 
       {groupCart(bottles).map((section) => (
         <details key={section.category} open className={styles.section}>
@@ -77,21 +125,27 @@ function BarCart() {
           </summary>
 
           {section.families.length > 0 ? (
-            section.families.map((family) => (
-              <details key={family.familyId} open className={styles.family}>
-                <summary className={styles.familyTitle}>
-                  <span className={styles.familyName}>{family.name}</span>
-                  <span className={styles.preview}>{family.bottles.map(label).join(', ')}</span>
-                  <ChevronDown size={18} className={styles.chevron} aria-hidden />
-                </summary>
-                <BottleList bottles={family.bottles} />
-              </details>
-            ))
+            section.families.map((family) => {
+              const low = family.bottles.filter((b) => b.level === 'low').length
+              return (
+                <details key={family.familyId} open className={styles.family}>
+                  <summary className={styles.familyTitle}>
+                    <span className={styles.familyName}>{family.name}</span>
+                    <span className={styles.preview}>{family.bottles.map(label).join(', ')}</span>
+                    {low > 0 && <span className={styles.lowBadge}>{low} low</span>}
+                    <ChevronDown size={18} className={styles.chevron} aria-hidden />
+                  </summary>
+                  <BottleList bottles={family.bottles} onEdit={setEditingId} />
+                </details>
+              )
+            })
           ) : (
-            <BottleList bottles={section.bottles} />
+            <BottleList bottles={section.bottles} onEdit={setEditingId} />
           )}
         </details>
       ))}
+
+      {overlays}
     </>
   )
 }

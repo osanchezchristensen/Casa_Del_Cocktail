@@ -1,5 +1,5 @@
 // How the Bar Cart groups bottles (PRD section 6). No React here.
-import { INGREDIENT_CATEGORIES, type Bottle, type Ingredient, type IngredientCategory } from '../types.ts'
+import { INGREDIENT_CATEGORIES, type Bottle, type Ingredient, type IngredientCategory, type Level } from '../types.ts'
 import data from '../data/ingredients.json'
 
 const ingredientsById = new Map((data as Ingredient[]).map((i) => [i.id, i]))
@@ -16,6 +16,8 @@ export const CATEGORY_LABELS: Record<IngredientCategory, string> = {
   garnish: 'Garnishes',
   other: 'Other',
 }
+
+export const LEVEL_LABELS: Record<Level, string> = { full: 'Full', half: 'Half', low: 'Low', empty: 'Empty' }
 
 export type FamilyGroup = { familyId: string; name: string; bottles: Bottle[] }
 

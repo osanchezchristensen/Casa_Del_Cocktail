@@ -31,3 +31,13 @@
   background: var(--rust);
   color: var(--paper);
 }
+
+.button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}

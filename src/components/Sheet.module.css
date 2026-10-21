@@ -217,3 +217,32 @@
   outline: 3px solid var(--teal);
   outline-offset: 2px;
 }
+
+.subtitle {
+  margin: -8px 16px 12px;
+  color: var(--cork);
+}
+
+.fieldLabel {
+  display: block;
+  margin: 16px 0 6px;
+  font-weight: 700;
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  color: var(--rust);
+  font: 700 16px var(--font-body);
+  cursor: pointer;
+}
+
+.remove:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}

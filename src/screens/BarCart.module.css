@@ -97,6 +97,20 @@
   padding: 8px 0;
 }
 
+.bottleInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--walnut);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
 .bottleName {
   font-weight: 700;
 }
@@ -114,6 +128,8 @@
 
 .sectionTitle:focus-visible,
 .familyTitle:focus-visible,
+.bottleInfo:focus-visible,
+.undo:focus-visible,
 .button:focus-visible,
 .secondary:focus-visible {
   outline: 3px solid var(--teal);
@@ -136,4 +152,55 @@
 
 details:not([open]) > summary .chevron {
   transform: rotate(-90deg);
+}
+
+/* Styled like the Low chip: rust outline plus the word. Hidden when the family is open. */
+.lowBadge {
+  flex-shrink: 0;
+  padding: 0 8px;
+  border: 2px solid var(--rust);
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  color: var(--rust);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.family[open] .lowBadge {
+  display: none;
+}
+
+/* The undo bar sits just above the bottom nav, inside the app column. */
+.toastArea {
+  position: fixed;
+  bottom: calc(var(--nav-height) + 12px);
+  left: 50%;
+  width: 100%;
+  max-width: var(--column-width);
+  padding: 0 16px;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 10px 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--walnut);
+  color: var(--paper);
+  box-shadow: var(--shadow-card);
+  pointer-events: auto;
+}
+
+.undo {
+  padding: 6px 16px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--mustard);
+  color: var(--walnut);
+  font: 700 15px var(--font-body);
+  cursor: pointer;
 }
