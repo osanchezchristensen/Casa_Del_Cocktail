@@ -1,12 +1,12 @@
-import { expect, test } from 'vitest'
-import type { Bottle } from '../types.ts'
-import { groupCart } from './cart.ts'
+import { describe, expect, test } from 'vitest'
+import type { Bottle, Level } from '../types.ts'
+import { filterBottles, groupCart, type CartFilter } from './cart.ts'
 
-const bottle = (ingredientId: string, name?: string): Bottle => ({
+const bottle = (ingredientId: string, name?: string, level: Level = 'full'): Bottle => ({
   id: `${ingredientId}-${name ?? ''}`,
   ingredientId,
   name,
-  level: 'full',
+  level,
   addedAt: '2026-10-20T00:00:00.000Z',
 })
 
@@ -39,4 +39,46 @@ test('only Spirits has families', () => {
 
 test('a bottle with an unknown ingredient id lands in Other', () => {
   expect(groupCart([bottle('agave-spirit')]).map((s) => s.category)).toEqual(['other'])
+})
+
+describe('filterBottles', () => {
+  const shelf = [
+    bottle('bourbon', 'Bulleit', 'low'),
+    bottle('rye-whiskey'),
+    bottle('blanco-tequila', 'Espolòn Blanco'),
+    bottle('campari', undefined, 'low'),
+    bottle('angostura-bitters'),
+    bottle('tonic-water'),
+  ]
+  const names = (query: string, filter: CartFilter = 'all') =>
+    filterBottles(shelf, query, filter).map((b) => b.name ?? b.ingredientId)
+
+  test('matches the bottle name, ignoring capitals', () => {
+    expect(names('BULL')).toEqual(['Bulleit'])
+  })
+
+  test('matches the type, ignoring accents', () => {
+    expect(names('espolon')).toEqual(['Espolòn Blanco'])
+    expect(names('blanco')).toEqual(['Espolòn Blanco'])
+    expect(names('campari')).toEqual(['campari'])
+  })
+
+  test('matches the family: "whiskey" finds bourbon and rye', () => {
+    expect(names('whiskey')).toEqual(['Bulleit', 'rye-whiskey'])
+  })
+
+  test('Running low keeps only Low bottles', () => {
+    expect(names('', 'low')).toEqual(['Bulleit', 'campari'])
+  })
+
+  test('category filters, and filter plus search together', () => {
+    expect(names('', 'spirit')).toEqual(['Bulleit', 'rye-whiskey', 'Espolòn Blanco'])
+    expect(names('', 'bitters')).toEqual(['angostura-bitters'])
+    expect(names('', 'mixer')).toEqual(['tonic-water'])
+    expect(names('whiskey', 'low')).toEqual(['Bulleit'])
+  })
+
+  test('an empty search with All keeps everything', () => {
+    expect(names('  ')).toHaveLength(shelf.length)
+  })
 })

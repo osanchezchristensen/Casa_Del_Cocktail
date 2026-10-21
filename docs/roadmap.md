@@ -136,7 +136,7 @@ No screens yet. This is the brain of the app, built and tested on its own.
 
 ### 3.5 Search and filters in the cart
 **Prompt:**
-> At the top of the Bar Cart, add the search box ("Search by bottle or type", accent-insensitive, matching bottle names and types) and the row of filter buttons from PRD section 6 (All, Spirits, Liqueurs, Running low, Bitters, Mixers).
+> At the top of the Bar Cart, add the search box ("Search by bottle or type", accent-insensitive, matching bottle names and types) and the row of filter buttons from PRD section 6 (All, Running low, Spirits, Liqueurs, Bitters, Mixers).
 
 **Done when:** typing part of a bottle name or type narrows the list, and "Running low" shows only Low bottles.
 

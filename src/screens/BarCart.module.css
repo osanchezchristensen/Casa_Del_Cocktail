@@ -130,6 +130,8 @@
 .familyTitle:focus-visible,
 .bottleInfo:focus-visible,
 .undo:focus-visible,
+.search:focus-visible,
+.filter:focus-visible,
 .button:focus-visible,
 .secondary:focus-visible {
   outline: 3px solid var(--teal);
@@ -203,4 +205,63 @@ details:not([open]) > summary .chevron {
   color: var(--walnut);
   font: 700 15px var(--font-body);
   cursor: pointer;
+}
+
+.search {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--cork);
+  border-radius: var(--radius-input);
+  background: var(--paper);
+  color: var(--walnut);
+  font: 400 16px var(--font-body);
+}
+
+/* On narrow phones the filter row scrolls sideways by itself; the page never does. */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin: 12px -16px 16px;
+  padding: 2px 16px 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border: 2px solid var(--walnut);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--walnut);
+  font: 500 15px var(--font-body);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.filter[aria-pressed='true'] {
+  background: var(--walnut);
+  color: var(--paper);
+  font-weight: 700;
+}
+
+.noMatch {
+  margin-bottom: 16px;
+}
+
+.noMatch p {
+  margin: 0 0 4px;
+}
+
+/* Running low stands out with the Low chip's rust colors; its label already says what it is. */
+.lowFilter {
+  border-color: var(--rust);
+  background: var(--paper);
+  color: var(--rust);
+  font-weight: 700;
+}
+
+.lowFilter[aria-pressed='true'] {
+  background: var(--rust);
+  color: var(--paper);
 }

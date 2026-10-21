@@ -3,7 +3,15 @@ import { useEffect, useState } from 'react'
 import AddItemsSheet from '../components/AddItemsSheet.tsx'
 import BottleSheet from '../components/BottleSheet.tsx'
 import LevelChip from '../components/LevelChip.tsx'
-import { CATEGORY_LABELS, groupCart, ingredientName } from '../logic/cart.ts'
+import {
+  CART_FILTERS,
+  CATEGORY_LABELS,
+  FILTER_LABELS,
+  filterBottles,
+  groupCart,
+  ingredientName,
+  type CartFilter,
+} from '../logic/cart.ts'
 import { useStore } from '../store/useStore.ts'
 import type { Bottle, Level } from '../types.ts'
 import styles from './BarCart.module.css'
@@ -41,6 +49,8 @@ function BarCart() {
   const [adding, setAdding] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [removed, setRemoved] = useState<Bottle | null>(null)
+  const [query, setQuery] = useState('')
+  const [filter, setFilter] = useState<CartFilter>('all')
 
   // The undo bar hides itself after 6 seconds.
   useEffect(() => {
@@ -108,15 +118,57 @@ function BarCart() {
     )
   }
 
+  const shown = filterBottles(bottles, query, filter)
+  const narrowed = shown.length !== bottles.length
+
   // <details> gives open/close and keyboard support for free; sections start open.
   return (
     <>
       {header}
       <p className={styles.count}>
+        {narrowed && `${shown.length} of `}
         {bottles.length} {bottles.length === 1 ? 'bottle' : 'bottles'}
       </p>
 
-      {groupCart(bottles).map((section) => (
+      <input
+        type="search"
+        className={styles.search}
+        placeholder="Search by bottle or type"
+        aria-label="Search your cart"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
+      <div className={styles.filters} role="group" aria-label="Filter your cart">
+        {CART_FILTERS.map((f) => (
+          <button
+            key={f}
+            type="button"
+            className={f === 'low' ? `${styles.filter} ${styles.lowFilter}` : styles.filter}
+            aria-pressed={filter === f}
+            onClick={() => setFilter(f)}
+          >
+            {FILTER_LABELS[f]}
+          </button>
+        ))}
+      </div>
+
+      {shown.length === 0 && (
+        <div className={styles.noMatch}>
+          <p>No bottles match that.</p>
+          <button
+            type="button"
+            className={styles.secondary}
+            onClick={() => {
+              setQuery('')
+              setFilter('all')
+            }}
+          >
+            Show all
+          </button>
+        </div>
+      )}
+
+      {groupCart(shown).map((section) => (
         <details key={section.category} open className={styles.section}>
           <summary className={styles.sectionTitle}>
             <h2>{CATEGORY_LABELS[section.category]}</h2>
