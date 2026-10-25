@@ -16,7 +16,6 @@ type State = {
   removeBottle: (id: string) => void
   /** Moves a removed bottle back onto the cart, as it was. */
   undoRemove: (id: string) => void
-  loadSampleCart: () => void
 }
 
 const newBottle = (ingredientId: string, level: Level, name?: string): Bottle => ({
@@ -27,7 +26,8 @@ const newBottle = (ingredientId: string, level: Level, name?: string): Bottle =>
   addedAt: new Date().toISOString(),
 })
 
-// Temporary: remove with the "Load sample cart" button at Milestone A.
+// Temporary test data: the cart starts with these on a first visit (nothing saved yet).
+// Before sharing the app, set `bottles: []` below and delete this list.
 const SAMPLE: [ingredientId: string, level: Level, name?: string][] = [
   ['blanco-tequila', 'full', 'Espolòn Blanco'],
   ['blanco-tequila', 'half', 'Jose Cuervo Especial Silver'],
@@ -46,7 +46,7 @@ const SAMPLE: [ingredientId: string, level: Level, name?: string][] = [
 export const useStore = create<State>()(
   persist(
     (set) => ({
-      bottles: [],
+      bottles: SAMPLE.map(([ingredientId, level, name]) => newBottle(ingredientId, level, name)),
       pastBottles: [],
       favorites: [],
       settings: { allowSwaps: false },
@@ -85,8 +85,6 @@ export const useStore = create<State>()(
             bottles: [...s.bottles, { id: bottleId, ingredientId, name, level, addedAt }],
           }
         }),
-      loadSampleCart: () =>
-        set({ bottles: SAMPLE.map(([ingredientId, level, name]) => newBottle(ingredientId, level, name)) }),
     }),
     // Bump version (and add a migrate function) whenever the saved shape changes.
     { name: 'casa-del-cocktail', version: 1 },

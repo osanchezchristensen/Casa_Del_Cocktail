@@ -44,7 +44,6 @@ function BottleList({ bottles, onEdit }: { bottles: Bottle[]; onEdit: (id: strin
 
 function BarCart() {
   const bottles = useStore((s) => s.bottles)
-  const loadSampleCart = useStore((s) => s.loadSampleCart)
   const undoRemove = useStore((s) => s.undoRemove)
   const [adding, setAdding] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
@@ -109,10 +108,6 @@ function BarCart() {
       <>
         {header}
         <p>Your cart's looking a little bare. Add a bottle or two and we'll find you a drink.</p>
-        {/* Temporary: remove at Milestone A. */}
-        <button type="button" className={styles.secondary} onClick={loadSampleCart}>
-          Load sample cart
-        </button>
         {overlays}
       </>
     )
