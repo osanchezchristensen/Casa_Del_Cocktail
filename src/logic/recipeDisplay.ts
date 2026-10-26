@@ -1,7 +1,13 @@
 // How a recipe's amounts are written on screen. No React here.
 import type { Recipe, RecipeSource, Unit } from '../types.ts'
 
-const sourceKey = (s: RecipeSource) => (s.type === 'starter' ? 'starter' : `book:${s.title}`)
+/** Up to three names in full; longer lists show two and "and N more". */
+export function summarizeNames(names: string[]): string {
+  if (names.length <= 3) return names.join(', ')
+  return `${names.slice(0, 2).join(', ')}, and ${names.length - 2} more`
+}
+
+const sourceKey =(s: RecipeSource) => (s.type === 'starter' ? 'starter' : `book:${s.title}`)
 
 /**
  * The Make Now source buttons: All, Starter set, then one per book. Empty when there are

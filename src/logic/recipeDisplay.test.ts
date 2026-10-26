@@ -1,10 +1,15 @@
 import { expect, test } from 'vitest'
 import type { Recipe } from '../types.ts'
-import { formatAmount, matchesSource, sourceFilters } from './recipeDisplay.ts'
+import { formatAmount, matchesSource, sourceFilters, summarizeNames } from './recipeDisplay.ts'
 
 const withSource = (source: Recipe['source']) => ({ id: 'x', name: 'X', ingredients: [], steps: [], glass: 'rocks', method: 'built', tags: [], source }) as Recipe
 const starter = withSource({ type: 'starter' })
 const book = withSource({ type: 'book', title: 'Test Book', author: 'A', page: 1 })
+
+test('name lists are shortened after three', () => {
+  expect(summarizeNames(['A', 'B', 'C'])).toBe('A, B, C')
+  expect(summarizeNames(['A', 'B', 'C', 'D', 'E'])).toBe('A, B, and 3 more')
+})
 
 test('source buttons appear only when there is a book, one per book title', () => {
   expect(sourceFilters([starter, starter])).toEqual([])

@@ -1,0 +1,171 @@
+.title1 {
+  font-size: 30px;
+}
+
+.intro {
+  margin: 4px 0 14px;
+  color: var(--cork);
+  line-height: 1.4;
+}
+
+.added {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--avocado);
+  border-radius: 16px;
+  color: var(--avocado);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.added a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card,
+.open {
+  position: relative;
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.open {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+  padding: 18px 18px 16px;
+}
+
+/* The big badge pokes out of the top-right corner of the open card. */
+.corner {
+  position: absolute;
+  top: -18px;
+  right: -6px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--walnut);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.card .head {
+  padding: 14px 16px;
+  border-radius: var(--radius-card);
+  color: var(--cork);
+}
+
+.open .head {
+  padding-right: 70px;
+}
+
+.head:focus-visible,
+.recipe:focus-visible,
+.more:focus-visible,
+.bought:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.headText {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.label {
+  color: var(--cork);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.title {
+  color: var(--walnut);
+  font: 400 18px var(--font-heading);
+}
+
+.titleBig {
+  font: 400 24px var(--font-heading);
+}
+
+.sub {
+  color: var(--cork);
+  font-size: 13px;
+}
+
+.open .sub {
+  font-size: 14px;
+}
+
+.recipes {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--divider);
+  list-style: none;
+}
+
+.recipe {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  border-bottom: 1px solid var(--divider);
+  color: var(--walnut);
+  text-decoration: none;
+}
+
+.ingredients {
+  color: var(--cork);
+  font-size: 13px;
+  text-align: right;
+}
+
+.more {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--deep-amber);
+  font: 500 14px var(--font-body);
+  cursor: pointer;
+}
+
+.bought {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1.5px solid var(--teal);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--teal);
+  font: 500 15px var(--font-body);
+  cursor: pointer;
+}
