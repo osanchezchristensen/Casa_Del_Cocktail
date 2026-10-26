@@ -1,5 +1,23 @@
 import { expect, test } from 'vitest'
-import { formatAmount } from './recipeDisplay.ts'
+import type { Recipe } from '../types.ts'
+import { formatAmount, matchesSource, sourceFilters } from './recipeDisplay.ts'
+
+const withSource = (source: Recipe['source']) => ({ id: 'x', name: 'X', ingredients: [], steps: [], glass: 'rocks', method: 'built', tags: [], source }) as Recipe
+const starter = withSource({ type: 'starter' })
+const book = withSource({ type: 'book', title: 'Test Book', author: 'A', page: 1 })
+
+test('source buttons appear only when there is a book, one per book title', () => {
+  expect(sourceFilters([starter, starter])).toEqual([])
+  expect(sourceFilters([starter, book, book]).map((f) => f.label)).toEqual(['All', 'Starter set', 'Test Book'])
+})
+
+test('a source filter keeps only that source; All keeps everything', () => {
+  expect(matchesSource(starter, 'all')).toBe(true)
+  expect(matchesSource(starter, 'starter')).toBe(true)
+  expect(matchesSource(book, 'starter')).toBe(false)
+  expect(matchesSource(book, 'book:Test Book')).toBe(true)
+  expect(matchesSource(starter, 'book:Test Book')).toBe(false)
+})
 
 test('amounts use fractions and the right unit words', () => {
   expect(formatAmount(2, 'oz')).toBe('2 oz')

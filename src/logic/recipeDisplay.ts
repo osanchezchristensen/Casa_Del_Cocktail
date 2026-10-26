@@ -1,5 +1,23 @@
 // How a recipe's amounts are written on screen. No React here.
-import type { RecipeSource, Unit } from '../types.ts'
+import type { Recipe, RecipeSource, Unit } from '../types.ts'
+
+const sourceKey = (s: RecipeSource) => (s.type === 'starter' ? 'starter' : `book:${s.title}`)
+
+/**
+ * The Make Now source buttons: All, Starter set, then one per book. Empty when there are
+ * no book recipes, because "Starter set" would then be the same as "All".
+ */
+export function sourceFilters(recipes: Recipe[]): { key: string; label: string }[] {
+  const books = [...new Set(recipes.flatMap((r) => (r.source.type === 'book' ? [r.source.title] : [])))]
+  if (books.length === 0) return []
+  return [
+    { key: 'all', label: 'All' },
+    { key: 'starter', label: 'Starter set' },
+    ...books.map((title) => ({ key: `book:${title}`, label: title })),
+  ]
+}
+
+export const matchesSource = (recipe: Recipe, key: string) => key === 'all' || sourceKey(recipe.source) === key
 
 export const sourceLabel = (s: RecipeSource) =>
   s.type === 'starter' ? 'Casa starter set' : `From ${s.title}, p. ${s.page}`

@@ -10,6 +10,13 @@ beforeEach(() => {
 
 const bulleit = () => store().bottles.find((b) => b.name === 'Bulleit')!
 
+test('Allow swaps can be switched on and off', () => {
+  store().setAllowSwaps(true)
+  expect(store().settings.allowSwaps).toBe(true)
+  store().setAllowSwaps(false)
+  expect(store().settings.allowSwaps).toBe(false)
+})
+
 test('new bottles start at Full', () => {
   expect(store().bottles.map((b) => b.level)).toEqual(['full', 'full'])
 })

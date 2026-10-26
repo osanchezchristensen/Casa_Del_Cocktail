@@ -4,6 +4,109 @@
   line-height: 1.15;
 }
 
+.swaps {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.swapsText {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.swapsLabel {
+  font-weight: 700;
+}
+
+.swapsHint {
+  color: var(--cork);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* The word beside the switch means on/off never depends on color alone. */
+.switchWord {
+  width: 24px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 52px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--cork);
+  cursor: pointer;
+}
+
+.switch[aria-checked='true'] {
+  background: var(--avocado);
+}
+
+.switch:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.knob {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--paper);
+  transition: transform 150ms;
+}
+
+.switch[aria-checked='true'] .knob {
+  transform: translateX(20px);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.filter {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1.5px solid var(--teal);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--teal);
+  font: 500 14px var(--font-body);
+  cursor: pointer;
+}
+
+.filter[aria-pressed='true'] {
+  background: var(--teal);
+  color: var(--paper);
+}
+
+.filter:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.empty {
+  margin-bottom: 14px;
+}
+
 .list {
   display: flex;
   flex-direction: column;

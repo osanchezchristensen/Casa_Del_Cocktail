@@ -16,6 +16,7 @@ type State = {
   removeBottle: (id: string) => void
   /** Moves a removed bottle back onto the cart, as it was. */
   undoRemove: (id: string) => void
+  setAllowSwaps: (on: boolean) => void
 }
 
 const newBottle = (ingredientId: string, level: Level, name?: string): Bottle => ({
@@ -50,6 +51,7 @@ export const useStore = create<State>()(
       pastBottles: [],
       favorites: [],
       settings: { allowSwaps: false },
+      setAllowSwaps: (on) => set((s) => ({ settings: { ...s.settings, allowSwaps: on } })),
       addBottles: (picks) =>
         set((s) => ({
           bottles: [...s.bottles, ...picks.map((p) => newBottle(p.ingredientId, 'full', p.name))],
