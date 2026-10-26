@@ -3,6 +3,7 @@ import type { Recipe } from '../types.ts'
 import data from '../data/recipes-starter.json'
 import {
   canMake,
+  ingredientStatuses,
   makeableRecipes,
   mainIngredients,
   matchRecipe,
@@ -49,6 +50,26 @@ describe('makeableRecipes', () => {
   test('an Empty bottle does not count', () => {
     const owned = ownedIngredientIds([{ ingredientId: 'dark-rum', level: 'empty' }])
     expect(makeableRecipes([named('Beta', 'dark-rum')], owned)).toEqual([])
+  })
+})
+
+describe('ingredientStatuses', () => {
+  const byId = (id: string, owned: Set<string>, allowSwaps = false) => {
+    const r = recipe(id)
+    const statuses = ingredientStatuses(r, owned, allowSwaps)
+    return Object.fromEntries(r.ingredients.map((ri, i) => [ri.ingredientId, statuses[i]]))
+  }
+
+  test('a swap shows as swap only when Allow swaps is on', () => {
+    const owned = own('dark-rum', 'lime-juice', 'simple-syrup')
+    expect(byId('daiquiri', owned, true)).toMatchObject({ 'white-rum': 'swap', 'lime-juice': 'have' })
+    expect(byId('daiquiri', owned)).toMatchObject({ 'white-rum': 'missing', 'lime-juice': 'have' })
+  })
+
+  test('basics count as had; a garnish shows whether you own it', () => {
+    const base = byId('old-fashioned', own('bourbon', 'angostura-bitters'))
+    expect(base).toMatchObject({ whiskey: 'have', sugar: 'have', 'orange-peel': 'missing' })
+    expect(byId('old-fashioned', own('bourbon', 'angostura-bitters', 'orange-peel'))['orange-peel']).toBe('have')
   })
 })
 

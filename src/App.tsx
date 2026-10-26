@@ -4,6 +4,7 @@ import BarCart from './screens/BarCart.tsx'
 import Favorites from './screens/Favorites.tsx'
 import Home from './screens/Home.tsx'
 import MakeNow from './screens/MakeNow.tsx'
+import RecipeDetail from './screens/RecipeDetail.tsx'
 import Unlock from './screens/Unlock.tsx'
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<BarCart />} />
           <Route path="/make" element={<MakeNow />} />
+          <Route path="/make/:id" element={<RecipeDetail />} />
           <Route path="/unlock" element={<Unlock />} />
           <Route path="/favorites" element={<Favorites />} />
         </Routes>

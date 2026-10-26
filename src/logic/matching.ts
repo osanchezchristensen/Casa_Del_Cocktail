@@ -70,6 +70,23 @@ export function canMake(recipe: Recipe, owned: Set<string>, allowSwaps = false):
   return matchRecipe(recipe, owned, allowSwaps).status !== 'missing'
 }
 
+export type RowStatus = 'have' | 'swap' | 'missing'
+
+/**
+ * One status per recipe ingredient, in order, for the recipe page. Garnishes and optional
+ * rows never block a recipe, but still show whether you own them; basics count as had.
+ */
+export function ingredientStatuses(recipe: Recipe, owned: Set<string>, allowSwaps = false): RowStatus[] {
+  const { swaps, missing } = matchRecipe(recipe, owned, allowSwaps)
+  return recipe.ingredients.map((ri) => {
+    const id = ri.ingredientId
+    if (ri.garnish || ri.optional) return [...owned].some((o) => isUnder(o, id)) ? 'have' : 'missing'
+    if (ingredientsById.get(id)?.alwaysOnHand) return 'have'
+    if (missing.includes(id)) return 'missing'
+    return swaps.some((s) => s.needed === id) ? 'swap' : 'have'
+  })
+}
+
 export type MakeableRecipe = { recipe: Recipe; match: MatchResult }
 
 /** Recipes you can make now: Ready ones first, then swaps, each group A to Z. */

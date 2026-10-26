@@ -1,14 +1,10 @@
 import { ArrowLeftRight, Check } from 'lucide-react'
+import { Link } from 'react-router'
 import { ingredientName } from '../logic/cart.ts'
 import { mainIngredients, type MakeableRecipe } from '../logic/matching.ts'
-import type { RecipeSource } from '../types.ts'
+import { lowerFirst, sourceLabel } from '../logic/recipeDisplay.ts'
 import GlassIcon from './GlassIcon.tsx'
 import styles from './CocktailCard.module.css'
-
-const sourceLabel = (s: RecipeSource) => (s.type === 'starter' ? 'Casa starter set' : `From ${s.title}, p. ${s.page}`)
-
-// "Dark rum" reads better mid-sentence as "dark rum".
-const lowerFirst = (text: string) => text.charAt(0).toLowerCase() + text.slice(1)
 
 function CocktailCard({ recipe, match }: MakeableRecipe) {
   const swapText = match.swaps
@@ -17,6 +13,7 @@ function CocktailCard({ recipe, match }: MakeableRecipe) {
 
   return (
     <li className={styles.card}>
+      <Link to={`/make/${recipe.id}`} className={styles.link}>
       <span className={styles.glass}>
         <GlassIcon glass={recipe.glass} />
       </span>
@@ -36,6 +33,7 @@ function CocktailCard({ recipe, match }: MakeableRecipe) {
         )}
         <span className={styles.tag}>{sourceLabel(recipe.source)}</span>
       </div>
+      </Link>
     </li>
   )
 }
