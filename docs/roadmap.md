@@ -1,7 +1,12 @@
+---
+aliases: [Roadmap]
+tags: [casa, roadmap]
+---
 # Casa Del Cocktail: MVP Roadmap
 
+[[Home]] · [[prd|PRD]] · [[brand-kit|Brand Kit]] · [[screens/README|Screens]]
+
 **Version:** 0.1 | **Date:** October 12, 2026
-**Related docs:** `project-brief.md`, `brand-kit.md`, `prd.md`
 
 This roadmap breaks v1 into **about 27 small steps**. Each step is sized for **one session of about an hour**. Some will spill over; that's normal. At one session a day, expect:
 

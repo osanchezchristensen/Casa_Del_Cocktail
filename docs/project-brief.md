@@ -1,4 +1,10 @@
+---
+aliases: [Project Brief]
+tags: [casa, brief]
+---
 # Casa Del Cocktail: Project Brief
+
+[[Home]] · [[prd|PRD]] · [[brand-kit|Brand Kit]] · [[roadmap|Roadmap]]
 
 **Version:** 1.1 (draft, adds recipes from my own books) | **Date:** October 12, 2026 | **Owner:** [Your name]
 

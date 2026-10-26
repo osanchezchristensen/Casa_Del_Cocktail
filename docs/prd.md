@@ -1,7 +1,12 @@
+---
+aliases: [PRD]
+tags: [casa, prd]
+---
 # Casa Del Cocktail: Product Requirements Document (PRD)
 
+[[Home]] · [[project-brief|Brief]] · [[brand-kit|Brand Kit]] · [[roadmap|Roadmap]] · [[screens/README|Screens]] · [[decisions|Decisions]]
+
 **Version:** 0.2 (draft) | **Date:** October 13, 2026 (bottles, Bar Cart layout and navigation updated after the screen mockups)
-**Related docs:** `project-brief.md`, `brand-kit.md`
 
 ---
 

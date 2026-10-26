@@ -1,4 +1,10 @@
+---
+aliases: [Brand Kit]
+tags: [casa, brand]
+---
 # Casa Del Cocktail: Brand Kit
+
+[[Home]] · [[project-brief|Brief]] · [[prd|PRD]] · [[screens/README|Screens]]
 
 **Version:** 0.1 (prototype edition) | **Date:** October 12, 2026
 
