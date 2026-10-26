@@ -1,6 +1,7 @@
 import { ArrowLeftRight, Check, ChevronLeft, X } from 'lucide-react'
 import { useMemo } from 'react'
 import { Link, useParams } from 'react-router'
+import FavoriteButton from '../components/FavoriteButton.tsx'
 import GlassIcon from '../components/GlassIcon.tsx'
 import { ALL_RECIPES } from '../data/recipes.ts'
 import { ingredientName } from '../logic/cart.ts'
@@ -58,7 +59,10 @@ function RecipeDetail() {
 
   return (
     <>
-      {back}
+      <div className={styles.topRow}>
+        {back}
+        <FavoriteButton recipeId={recipe.id} large />
+      </div>
 
       <div className={styles.title}>
         <span className={styles.blob}>

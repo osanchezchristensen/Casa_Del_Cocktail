@@ -17,6 +17,8 @@ type State = {
   /** Moves a removed bottle back onto the cart, as it was. */
   undoRemove: (id: string) => void
   setAllowSwaps: (on: boolean) => void
+  /** Saves the recipe as a favorite, or removes it if it already is one. */
+  toggleFavorite: (recipeId: string) => void
 }
 
 const newBottle = (ingredientId: string, level: Level, name?: string): Bottle => ({
@@ -51,6 +53,12 @@ export const useStore = create<State>()(
       pastBottles: [],
       favorites: [],
       settings: { allowSwaps: false },
+      toggleFavorite: (recipeId) =>
+        set((s) => ({
+          favorites: s.favorites.some((f) => f.recipeId === recipeId)
+            ? s.favorites.filter((f) => f.recipeId !== recipeId)
+            : [...s.favorites, { recipeId, savedAt: new Date().toISOString() }],
+        })),
       setAllowSwaps: (on) => set((s) => ({ settings: { ...s.settings, allowSwaps: on } })),
       addBottles: (picks) =>
         set((s) => ({

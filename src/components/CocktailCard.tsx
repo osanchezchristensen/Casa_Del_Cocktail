@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { ingredientName } from '../logic/cart.ts'
 import { mainIngredients, type MakeableRecipe } from '../logic/matching.ts'
 import { lowerFirst, sourceLabel } from '../logic/recipeDisplay.ts'
+import FavoriteButton from './FavoriteButton.tsx'
 import GlassIcon from './GlassIcon.tsx'
 import styles from './CocktailCard.module.css'
 
@@ -34,6 +35,7 @@ function CocktailCard({ recipe, match }: MakeableRecipe) {
         <span className={styles.tag}>{sourceLabel(recipe.source)}</span>
       </div>
       </Link>
+      <FavoriteButton recipeId={recipe.id} className={styles.heart} />
     </li>
   )
 }

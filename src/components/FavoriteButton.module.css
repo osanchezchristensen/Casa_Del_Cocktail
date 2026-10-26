@@ -1,0 +1,30 @@
+.small,
+.large {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  color: var(--rust);
+  cursor: pointer;
+}
+
+.small {
+  border-radius: 50%;
+  background: transparent;
+}
+
+.large {
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: 0 2px 8px rgba(59, 42, 30, 0.1);
+}
+
+.small:focus-visible,
+.large:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}

@@ -17,6 +17,16 @@ test('Allow swaps can be switched on and off', () => {
   expect(store().settings.allowSwaps).toBe(false)
 })
 
+test('toggling a favorite saves it once, and again removes it', () => {
+  useStore.setState({ favorites: [] })
+  store().toggleFavorite('daiquiri')
+  expect(store().favorites).toHaveLength(1)
+  expect(store().favorites[0].recipeId).toBe('daiquiri')
+  expect(store().favorites[0].savedAt).toBeTruthy()
+  store().toggleFavorite('daiquiri')
+  expect(store().favorites).toEqual([])
+})
+
 test('new bottles start at Full', () => {
   expect(store().bottles.map((b) => b.level)).toEqual(['full', 'full'])
 })
