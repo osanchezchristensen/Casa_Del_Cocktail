@@ -1,0 +1,62 @@
+.card {
+  display: flex;
+  gap: 14px;
+  padding: 16px;
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.glass {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #f1e3c4;
+  color: var(--walnut);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.name {
+  font-size: 20px;
+}
+
+.ingredients {
+  color: var(--cork);
+  font-size: 13px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ready {
+  color: var(--avocado);
+}
+
+.swap {
+  color: var(--teal);
+}
+
+.tag {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 1px 10px;
+  border: 1.5px solid var(--teal);
+  border-radius: var(--radius-pill);
+  color: var(--teal);
+  font-size: 12px;
+}

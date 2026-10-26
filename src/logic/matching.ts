@@ -70,6 +70,28 @@ export function canMake(recipe: Recipe, owned: Set<string>, allowSwaps = false):
   return matchRecipe(recipe, owned, allowSwaps).status !== 'missing'
 }
 
+export type MakeableRecipe = { recipe: Recipe; match: MatchResult }
+
+/** Recipes you can make now: Ready ones first, then swaps, each group A to Z. */
+export function makeableRecipes(recipes: Recipe[], owned: Set<string>, allowSwaps = false): MakeableRecipe[] {
+  return recipes
+    .map((recipe) => ({ recipe, match: matchRecipe(recipe, owned, allowSwaps) }))
+    .filter((m) => m.match.status !== 'missing')
+    .sort(
+      (a, b) =>
+        Number(a.match.status === 'swap') - Number(b.match.status === 'swap') ||
+        a.recipe.name.localeCompare(b.recipe.name),
+    )
+}
+
+/** The first three ingredient ids worth showing on a card (rule 5's ingredients left out). */
+export function mainIngredients(recipe: Recipe): string[] {
+  return recipe.ingredients
+    .filter((ri) => !ri.garnish && !ri.optional && !ingredientsById.get(ri.ingredientId)?.alwaysOnHand)
+    .slice(0, 3)
+    .map((ri) => ri.ingredientId)
+}
+
 export type UnlockSuggestion = { ingredientId: string; recipes: Recipe[] }
 
 /**

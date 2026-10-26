@@ -1,7 +1,14 @@
 import { describe, expect, test } from 'vitest'
 import type { Recipe } from '../types.ts'
 import data from '../data/recipes-starter.json'
-import { canMake, matchRecipe, ownedIngredientIds, unlockSuggestions } from './matching.ts'
+import {
+  canMake,
+  makeableRecipes,
+  mainIngredients,
+  matchRecipe,
+  ownedIngredientIds,
+  unlockSuggestions,
+} from './matching.ts'
 
 const recipes = data as Recipe[]
 const recipe = (id: string) => recipes.find((r) => r.id === id)!
@@ -19,6 +26,37 @@ const needs = (ingredientId: string): Recipe => ({
   method: 'stirred',
   tags: [],
   source: { type: 'starter' },
+})
+
+describe('makeableRecipes', () => {
+  const named = (name: string, ingredientId: string): Recipe => ({ ...needs(ingredientId), id: name, name })
+
+  test('Ready recipes come first, then swaps, each A to Z; unmakeable ones are left out', () => {
+    const list = [named('Zed', 'dark-rum'), named('Alpha', 'white-rum'), named('Beta', 'dark-rum'), named('Gone', 'gin')]
+    const result = makeableRecipes(list, own('dark-rum'), true)
+    expect(result.map((m) => [m.recipe.name, m.match.status])).toEqual([
+      ['Beta', 'perfect'],
+      ['Zed', 'perfect'],
+      ['Alpha', 'swap'],
+    ])
+  })
+
+  test('swaps are left out when Allow swaps is off', () => {
+    const list = [named('Alpha', 'white-rum'), named('Beta', 'dark-rum')]
+    expect(makeableRecipes(list, own('dark-rum')).map((m) => m.recipe.name)).toEqual(['Beta'])
+  })
+
+  test('an Empty bottle does not count', () => {
+    const owned = ownedIngredientIds([{ ingredientId: 'dark-rum', level: 'empty' }])
+    expect(makeableRecipes([named('Beta', 'dark-rum')], owned)).toEqual([])
+  })
+})
+
+describe('mainIngredients', () => {
+  test('skips garnishes and always-on-hand basics, and stops at three', () => {
+    expect(mainIngredients(recipe('old-fashioned'))).toEqual(['whiskey', 'angostura-bitters'])
+    expect(mainIngredients(recipe('daiquiri')).length).toBeLessThanOrEqual(3)
+  })
 })
 
 describe('roadmap examples', () => {
