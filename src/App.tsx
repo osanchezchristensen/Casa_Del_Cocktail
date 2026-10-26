@@ -5,6 +5,7 @@ import Favorites from './screens/Favorites.tsx'
 import Home from './screens/Home.tsx'
 import MakeNow from './screens/MakeNow.tsx'
 import RecipeDetail from './screens/RecipeDetail.tsx'
+import Settings from './screens/Settings.tsx'
 import Unlock from './screens/Unlock.tsx'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
           <Route path="/make/:id" element={<RecipeDetail />} />
           <Route path="/unlock" element={<Unlock />} />
           <Route path="/favorites" element={<Favorites />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
       <BottomNav />

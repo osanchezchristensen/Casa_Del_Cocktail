@@ -51,3 +51,6 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 
 ## October 25, 2026: recipe page
 - **Steps heading is "Recipe", not "Method"** (the mockup says Method). The "Shaken · Coupe" line still names the technique.
+
+## October 25, 2026: Home
+- **"Tonight's pick" on Home is fully random** among the cocktails you can make (not weighted toward favorites). Closes PRD open question 2.
