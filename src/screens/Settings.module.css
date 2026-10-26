@@ -1,0 +1,102 @@
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.title {
+  margin: 4px 0 14px;
+  font-size: 30px;
+}
+
+.card {
+  margin-bottom: 14px;
+  padding: 16px;
+  border-radius: var(--radius-card);
+  background: var(--paper);
+  box-shadow: var(--shadow-card);
+}
+
+.heading {
+  margin-bottom: 6px;
+  font-size: 20px;
+}
+
+.text {
+  color: var(--cork);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  font: 500 15px var(--font-body);
+  cursor: pointer;
+}
+
+.primary {
+  border: none;
+  background: var(--deep-amber);
+  color: var(--paper);
+}
+
+.secondary {
+  border: 1.5px solid var(--teal);
+  background: transparent;
+  color: var(--teal);
+}
+
+/* The real file input stays hidden; the Import button opens it. */
+.file {
+  display: none;
+}
+
+.ok,
+.error {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ok {
+  color: var(--avocado);
+}
+
+.error {
+  color: var(--rust);
+}
+
+.backupSummary {
+  margin-top: 8px;
+  color: var(--cork);
+}
+
+.back:focus-visible,
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.note {
+  margin-top: 6px;
+  color: var(--cork);
+  font-size: 13px;
+  text-align: center;
+}

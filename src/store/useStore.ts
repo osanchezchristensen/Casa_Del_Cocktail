@@ -1,6 +1,7 @@
 // The app's saved data (PRD section 8), kept in localStorage by persist.
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import type { BackupData } from '../logic/backup.ts'
 import type { Bottle, Favorite, Level, PastBottle, Settings } from '../types.ts'
 
 type State = {
@@ -19,6 +20,8 @@ type State = {
   setAllowSwaps: (on: boolean) => void
   /** Saves the recipe as a favorite, or removes it if it already is one. */
   toggleFavorite: (recipeId: string) => void
+  /** Replaces everything with a checked backup (see src/logic/backup.ts). */
+  restoreBackup: (data: BackupData) => void
 }
 
 const newBottle = (ingredientId: string, level: Level, name?: string): Bottle => ({
@@ -53,6 +56,8 @@ export const useStore = create<State>()(
       pastBottles: [],
       favorites: [],
       settings: { allowSwaps: false },
+      restoreBackup: ({ bottles, pastBottles, favorites, settings }) =>
+        set({ bottles, pastBottles, favorites, settings }),
       toggleFavorite: (recipeId) =>
         set((s) => ({
           favorites: s.favorites.some((f) => f.recipeId === recipeId)

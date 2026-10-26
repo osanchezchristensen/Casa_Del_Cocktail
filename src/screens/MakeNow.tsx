@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import AllowSwapsCard from '../components/AllowSwapsCard.tsx'
 import CocktailCard from '../components/CocktailCard.tsx'
 import { ALL_RECIPES } from '../data/recipes.ts'
 import { makeableRecipes, ownedIngredientIds } from '../logic/matching.ts'
@@ -11,7 +12,6 @@ const FILTERS = sourceFilters(ALL_RECIPES)
 function MakeNow() {
   const bottles = useStore((s) => s.bottles)
   const allowSwaps = useStore((s) => s.settings.allowSwaps)
-  const setAllowSwaps = useStore((s) => s.setAllowSwaps)
   const [source, setSource] = useState('all')
 
   const list = useMemo(
@@ -30,25 +30,7 @@ function MakeNow() {
           : `You can make ${list.length} ${list.length === 1 ? 'cocktail' : 'cocktails'} tonight.`}
       </h1>
 
-      <div className={styles.swaps}>
-        <div className={styles.swapsText}>
-          <span className={styles.swapsLabel}>Allow swaps</span>
-          <span className={styles.swapsHint}>Lets a close cousin stand in, like aged rum for white rum.</span>
-        </div>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={allowSwaps}
-          aria-label="Allow swaps"
-          className={styles.switch}
-          onClick={() => setAllowSwaps(!allowSwaps)}
-        >
-          <span className={styles.knob} aria-hidden />
-        </button>
-        <span className={styles.switchWord} aria-hidden>
-          {allowSwaps ? 'On' : 'Off'}
-        </span>
-      </div>
+      <AllowSwapsCard />
 
       {FILTERS.length > 0 && (
         <div className={styles.filters} role="group" aria-label="Recipe source">

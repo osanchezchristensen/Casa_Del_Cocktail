@@ -27,6 +27,20 @@ test('toggling a favorite saves it once, and again removes it', () => {
   expect(store().favorites).toEqual([])
 })
 
+test('restoring a backup replaces bottles, past bottles, favorites and settings', () => {
+  const bottle = { id: 'r1', ingredientId: 'gin', level: 'half', addedAt: '2026-10-01T00:00:00.000Z' } as const
+  store().restoreBackup({
+    bottles: [bottle],
+    pastBottles: [],
+    favorites: [{ recipeId: 'negroni', savedAt: '2026-10-02T00:00:00.000Z' }],
+    settings: { allowSwaps: true },
+  })
+  expect(store().bottles).toEqual([bottle])
+  expect(store().pastBottles).toEqual([])
+  expect(store().favorites.map((f) => f.recipeId)).toEqual(['negroni'])
+  expect(store().settings.allowSwaps).toBe(true)
+})
+
 test('new bottles start at Full', () => {
   expect(store().bottles.map((b) => b.level)).toEqual(['full', 'full'])
 })
