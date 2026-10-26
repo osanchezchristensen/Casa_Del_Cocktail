@@ -73,6 +73,14 @@ export function groupCart(bottles: Bottle[]): CartSection[] {
   }).filter((s) => s.bottles.length > 0)
 }
 
+export const countLow = (bottles: Bottle[]) => bottles.filter((b) => b.level === 'low').length
+
+/** The rust badge on closed groups: "1 low · 1 empty", or '' when all is well. */
+export function levelSummary(bottles: Bottle[]): string {
+  const empty = bottles.filter((b) => b.level === 'empty').length
+  return [countLow(bottles) && `${countLow(bottles)} low`, empty && `${empty} empty`].filter(Boolean).join(' · ')
+}
+
 /**
  * Bar Cart search and filter. The query matches the bottle name, its type or its family
  * ("whiskey" finds bourbon), ignoring accents. "Running low" keeps only Low bottles.

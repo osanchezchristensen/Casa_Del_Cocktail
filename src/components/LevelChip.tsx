@@ -5,7 +5,8 @@ import styles from './LevelChip.module.css'
 /** A plain label, or a button when onClick is given. */
 function LevelChip({ level, onClick }: { level: Level; onClick?: () => void }) {
   const className = `${styles.chip} ${styles[level]}`
-  if (!onClick) return <span className={className}>{LEVEL_LABELS[level]}</span>
+  const text = level === 'low' ? `${LEVEL_LABELS.low} · refill` : LEVEL_LABELS[level]
+  if (!onClick) return <span className={className}>{text}</span>
   return (
     <button
       type="button"
@@ -13,7 +14,7 @@ function LevelChip({ level, onClick }: { level: Level; onClick?: () => void }) {
       onClick={onClick}
       aria-label={`Level: ${LEVEL_LABELS[level]}. Tap to change`}
     >
-      {LEVEL_LABELS[level]}
+      {text}
     </button>
   )
 }

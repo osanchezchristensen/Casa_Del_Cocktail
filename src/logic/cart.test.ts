@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import type { Bottle, Level } from '../types.ts'
-import { filterBottles, groupCart, type CartFilter } from './cart.ts'
+import { countLow, filterBottles, groupCart, levelSummary, type CartFilter } from './cart.ts'
 
 const bottle = (ingredientId: string, name?: string, level: Level = 'full'): Bottle => ({
   id: `${ingredientId}-${name ?? ''}`,
@@ -18,6 +18,15 @@ const cart = [
   bottle('bourbon', 'Bulleit'),
   bottle('campari'),
 ]
+
+test('levelSummary counts low and empty bottles, and is blank when none', () => {
+  expect(levelSummary([bottle('campari', 'a', 'low'), bottle('campari', 'b', 'empty'), bottle('bourbon')])).toBe(
+    '1 low · 1 empty',
+  )
+  expect(levelSummary([bottle('bourbon', 'a', 'low')])).toBe('1 low')
+  expect(levelSummary([bottle('bourbon')])).toBe('')
+  expect(countLow([bottle('bourbon', 'a', 'low'), bottle('bourbon', 'b', 'half')])).toBe(1)
+})
 
 test('sections follow category order and skip empty ones', () => {
   expect(groupCart(cart).map((s) => s.category)).toEqual(['spirit', 'liqueur', 'juice'])

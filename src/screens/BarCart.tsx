@@ -1,4 +1,4 @@
-import { ChevronDown, Plus } from 'lucide-react'
+import { ChevronDown, Plus, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import AddItemsSheet from '../components/AddItemsSheet.tsx'
 import BottleSheet from '../components/BottleSheet.tsx'
@@ -6,10 +6,12 @@ import LevelChip from '../components/LevelChip.tsx'
 import {
   CART_FILTERS,
   CATEGORY_LABELS,
+  countLow,
   FILTER_LABELS,
   filterBottles,
   groupCart,
   ingredientName,
+  levelSummary,
   type CartFilter,
 } from '../logic/cart.ts'
 import { useStore } from '../store/useStore.ts'
@@ -60,9 +62,21 @@ function BarCart() {
 
   const editing = bottles.find((b) => b.id === editingId)
 
+  const shown = filterBottles(bottles, query, filter)
+  const narrowed = shown.length !== bottles.length
+  const lowCount = countLow(bottles)
+
   const header = (
     <div className={styles.header}>
-      <h1>Bar Cart</h1>
+      <div>
+        <h1>Bar Cart</h1>
+        {bottles.length > 0 && (
+          <p className={styles.count}>
+            {narrowed && `${shown.length} of `}
+            {bottles.length} {bottles.length === 1 ? 'bottle' : 'bottles'} on your cart
+          </p>
+        )}
+      </div>
       <button type="button" className={styles.button} onClick={() => setAdding(true)}>
         <Plus size={18} aria-hidden />
         Add items
@@ -113,26 +127,25 @@ function BarCart() {
     )
   }
 
-  const shown = filterBottles(bottles, query, filter)
-  const narrowed = shown.length !== bottles.length
-
-  // <details> gives open/close and keyboard support for free; sections start open.
+  // <details> gives open/close and keyboard support for free. Sections start open and
+  // only the first spirit family does; a search or filter opens every family so hits show.
   return (
-    <>
+    <div className={styles.screen}>
+      <div className={styles.blobClip} aria-hidden>
+        <div className={styles.blob} />
+      </div>
       {header}
-      <p className={styles.count}>
-        {narrowed && `${shown.length} of `}
-        {bottles.length} {bottles.length === 1 ? 'bottle' : 'bottles'}
-      </p>
 
-      <input
-        type="search"
-        className={styles.search}
-        placeholder="Search by bottle or type"
-        aria-label="Search your cart"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      <label className={styles.search}>
+        <Search size={18} aria-hidden />
+        <input
+          type="search"
+          placeholder="Search by bottle or type"
+          aria-label="Search your cart"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+        />
+      </label>
       <div className={styles.filters} role="group" aria-label="Filter your cart">
         {CART_FILTERS.map((f) => (
           <button
@@ -142,7 +155,7 @@ function BarCart() {
             aria-pressed={filter === f}
             onClick={() => setFilter(f)}
           >
-            {FILTER_LABELS[f]}
+            {f === 'low' && lowCount > 0 ? `${FILTER_LABELS[f]} · ${lowCount}` : FILTER_LABELS[f]}
           </button>
         ))}
       </div>
@@ -163,37 +176,49 @@ function BarCart() {
         </div>
       )}
 
-      {groupCart(shown).map((section) => (
-        <details key={section.category} open className={styles.section}>
-          <summary className={styles.sectionTitle}>
-            <h2>{CATEGORY_LABELS[section.category]}</h2>
-            <span className={styles.sectionCount}>{section.bottles.length}</span>
-            <ChevronDown size={20} className={styles.chevron} aria-hidden />
-          </summary>
+      {groupCart(shown).map((section) => {
+        const summary = levelSummary(section.bottles)
+        return (
+          <details key={section.category} open className={styles.section}>
+            <summary className={styles.sectionTitle}>
+              <h2>
+                {CATEGORY_LABELS[section.category]} · {section.bottles.length}
+              </h2>
+              {summary && <span className={styles.lowBadge}>{summary}</span>}
+              <ChevronDown size={20} className={styles.chevron} aria-hidden />
+            </summary>
 
-          {section.families.length > 0 ? (
-            section.families.map((family) => {
-              const low = family.bottles.filter((b) => b.level === 'low').length
-              return (
-                <details key={family.familyId} open className={styles.family}>
-                  <summary className={styles.familyTitle}>
-                    <span className={styles.familyName}>{family.name}</span>
-                    <span className={styles.preview}>{family.bottles.map(label).join(', ')}</span>
-                    {low > 0 && <span className={styles.lowBadge}>{low} low</span>}
-                    <ChevronDown size={18} className={styles.chevron} aria-hidden />
-                  </summary>
-                  <BottleList bottles={family.bottles} onEdit={setEditingId} />
-                </details>
-              )
-            })
-          ) : (
-            <BottleList bottles={section.bottles} onEdit={setEditingId} />
-          )}
-        </details>
-      ))}
+            <div className={styles.card}>
+              {section.families.length > 0 ? (
+                section.families.map((family, i) => {
+                  const familySummary = levelSummary(family.bottles)
+                  return (
+                    <details key={family.familyId} open={narrowed || i === 0} className={styles.family}>
+                      <summary className={styles.familyTitle}>
+                        <span className={styles.familyText}>
+                          <span className={styles.familyName}>{family.name}</span>
+                          <span className={styles.preview}>{family.bottles.map(label).join(', ')}</span>
+                        </span>
+                        <span className={styles.familyCount}>
+                          {family.bottles.length} {family.bottles.length === 1 ? 'bottle' : 'bottles'}
+                        </span>
+                        {familySummary && <span className={styles.lowBadge}>{familySummary}</span>}
+                        <ChevronDown size={18} className={styles.chevron} aria-hidden />
+                      </summary>
+                      <BottleList bottles={family.bottles} onEdit={setEditingId} />
+                    </details>
+                  )
+                })
+              ) : (
+                <BottleList bottles={section.bottles} onEdit={setEditingId} />
+              )}
+            </div>
+          </details>
+        )
+      })}
 
       {overlays}
-    </>
+    </div>
   )
 }
 

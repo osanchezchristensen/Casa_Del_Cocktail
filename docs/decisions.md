@@ -44,3 +44,7 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **The PRD gained a "Maybe" list** for ideas to weigh, starting with smarter Unlock counting.
 - **The screen mockups were added to `docs/screens/`** so Claude Code can match them.
 - **The `docs` folder became an Obsidian vault,** with a [[Home]] page, this log and an [[ideas]] inbox.
+
+## October 25, 2026: Bar Cart matches its mockup
+- **Differences fixed** (layout, copy, chip text "Low · refill", first spirit family open, mustard blob); see step 3.6.
+- **Kept ours on purpose:** "Running low" sits next to "All" (roadmap 3.5); Tequila and mezcal stay separate families; Liqueurs and Vermouth stay separate sections.
