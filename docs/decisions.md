@@ -54,3 +54,7 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 
 ## October 25, 2026: Home
 - **"Tonight's pick" on Home is fully random** among the cocktails you can make (not weighted toward favorites). Closes PRD open question 2.
+
+## October 30, 2026: starter set
+- **Starter set grown to 60 classics with no new ingredients.** Bramble (needs crème de mûre) and Painkiller (trademarked name) were left out. Recipes use general ingredient ids where the drink allows it, so more of them match a real cart.
+- **Egg-white sours use `egg-white-foamer`** (the family top), so aquafaba counts too.
