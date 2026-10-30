@@ -10,7 +10,7 @@ import Unlock from './screens/Unlock.tsx'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <main>
         <Routes>
           <Route path="/" element={<Home />} />

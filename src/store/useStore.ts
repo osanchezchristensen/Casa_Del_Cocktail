@@ -1,6 +1,7 @@
 // The app's saved data (PRD section 8), kept in localStorage by persist.
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { SAMPLE_CART } from '../data/sampleCart.ts'
 import type { BackupData } from '../logic/backup.ts'
 import type { Bottle, Favorite, Level, PastBottle, Settings } from '../types.ts'
 
@@ -22,6 +23,8 @@ type State = {
   toggleFavorite: (recipeId: string) => void
   /** Replaces everything with a checked backup (see src/logic/backup.ts). */
   restoreBackup: (data: BackupData) => void
+  /** Fills the cart with the demo bottles in src/data/sampleCart.ts. */
+  loadSampleCart: () => void
 }
 
 const newBottle = (ingredientId: string, level: Level, name?: string): Bottle => ({
@@ -41,6 +44,7 @@ export const useStore = create<State>()(
       settings: { allowSwaps: false },
       restoreBackup: ({ bottles, pastBottles, favorites, settings }) =>
         set({ bottles, pastBottles, favorites, settings }),
+      loadSampleCart: () => set({ bottles: SAMPLE_CART.map((b) => newBottle(b.ingredientId, b.level, b.name)) }),
       toggleFavorite: (recipeId) =>
         set((s) => ({
           favorites: s.favorites.some((f) => f.recipeId === recipeId)

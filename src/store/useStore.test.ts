@@ -1,4 +1,6 @@
 import { beforeEach, expect, test } from 'vitest'
+import ingredients from '../data/ingredients.json'
+import { SAMPLE_CART } from '../data/sampleCart.ts'
 import { buildBackup, parseBackup } from '../logic/backup.ts'
 import { useStore } from './useStore.ts'
 
@@ -55,6 +57,15 @@ test('export, wipe, import: everything comes back (PRD v1 check)', () => {
 
   const { bottles: b, pastBottles: p, favorites: f, settings: s } = store()
   expect({ bottles: b, pastBottles: p, favorites: f, settings: s }).toEqual(before)
+})
+
+test('the sample cart replaces the bottles, uses known ingredients and shows every level', () => {
+  store().loadSampleCart()
+  const bottles = store().bottles
+  expect(bottles).toHaveLength(SAMPLE_CART.length)
+  const known = new Set(ingredients.map((i) => i.id))
+  expect(bottles.filter((b) => !known.has(b.ingredientId))).toEqual([])
+  expect(new Set(bottles.map((b) => b.level))).toEqual(new Set(['full', 'half', 'low', 'empty']))
 })
 
 test('new bottles start at Full', () => {

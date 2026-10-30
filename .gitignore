@@ -31,3 +31,6 @@ Thumbs.db
 
 # Obsidian personal settings
 .obsidian/
+
+# Claude Code project notes: kept locally, not published
+CLAUDE.md
