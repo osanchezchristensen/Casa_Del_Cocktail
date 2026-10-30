@@ -48,38 +48,43 @@ function Home() {
           </p>
         </>
       ) : (
-        <h1 className={styles.greeting}>
-          Welcome back
-          <br />
-          to Casa.
-        </h1>
+        // The counts only make sense once there's something on the cart.
+        <>
+          <h1 className={styles.greeting}>
+            Welcome back
+            <br />
+            to Casa.
+          </h1>
+
+          <Link to="/make" className={styles.count}>
+            <span className={styles.countText}>
+              <span className={styles.countSmall}>You can make</span>
+              <span className={styles.countBig}>{makeable.length}</span>
+              <span className={styles.countSmall}>{makeable.length === 1 ? 'cocktail' : 'cocktails'} tonight</span>
+            </span>
+            <span className={styles.arrow}>
+              <ArrowRight size={22} aria-hidden />
+            </span>
+          </Link>
+
+          <div className={styles.grid}>
+            <Link to="/cart" className={styles.small}>
+              <span className={`${styles.number} ${styles.rust}`}>{low.length}</span>
+              <span className={styles.smallText}>{low.length === 1 ? 'bottle' : 'bottles'} running low</span>
+              <span className={styles.detail}>
+                {low.length === 0
+                  ? 'All stocked up'
+                  : summarizeNames(low.map((b) => b.name ?? ingredientName(b.ingredientId)))}
+              </span>
+            </Link>
+            <Link to="/favorites" className={styles.small}>
+              <span className={`${styles.number} ${styles.avocado}`}>{readyFavorites}</span>
+              <span className={styles.smallText}>{readyFavorites === 1 ? 'favorite' : 'favorites'} ready to make</span>
+              <span className={styles.detail}>{favorites.length === 0 ? 'Save one with the heart' : 'See your list'}</span>
+            </Link>
+          </div>
+        </>
       )}
-
-      <Link to="/make" className={styles.count}>
-        <span className={styles.countText}>
-          <span className={styles.countSmall}>You can make</span>
-          <span className={styles.countBig}>{makeable.length}</span>
-          <span className={styles.countSmall}>{makeable.length === 1 ? 'cocktail' : 'cocktails'} tonight</span>
-        </span>
-        <span className={styles.arrow}>
-          <ArrowRight size={22} aria-hidden />
-        </span>
-      </Link>
-
-      <div className={styles.grid}>
-        <Link to="/cart" className={styles.small}>
-          <span className={`${styles.number} ${styles.rust}`}>{low.length}</span>
-          <span className={styles.smallText}>{low.length === 1 ? 'bottle' : 'bottles'} running low</span>
-          <span className={styles.detail}>
-            {low.length === 0 ? 'All stocked up' : summarizeNames(low.map((b) => b.name ?? ingredientName(b.ingredientId)))}
-          </span>
-        </Link>
-        <Link to="/favorites" className={styles.small}>
-          <span className={`${styles.number} ${styles.avocado}`}>{readyFavorites}</span>
-          <span className={styles.smallText}>{readyFavorites === 1 ? 'favorite' : 'favorites'} ready to make</span>
-          <span className={styles.detail}>{favorites.length === 0 ? 'Save one with the heart' : 'See your list'}</span>
-        </Link>
-      </div>
 
       {pick && (
         <div className={styles.pick}>

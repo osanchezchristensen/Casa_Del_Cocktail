@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { Link } from 'react-router'
 import FavoriteButton from '../components/FavoriteButton.tsx'
 import GlassIcon from '../components/GlassIcon.tsx'
+import HeaderBlob from '../components/HeaderBlob.tsx'
 import { ALL_RECIPES } from '../data/recipes.ts'
 import { ingredientName } from '../logic/cart.ts'
 import { splitFavorites } from '../logic/favorites.ts'
@@ -48,9 +49,12 @@ function Favorites() {
 
   return (
     <>
+      <HeaderBlob variant="favorites" />
       <h1 className={styles.title}>Favorites</h1>
       {total === 0 ? (
-        <p className={styles.empty}>No favorites yet. Tap the heart on any recipe to save it here.</p>
+        <p className={styles.empty}>
+          Tap the heart on any recipe to save it here. Start on <Link to="/make">Make Now</Link>.
+        </p>
       ) : (
         <p className={styles.count}>
           {total} saved {total === 1 ? 'cocktail' : 'cocktails'}

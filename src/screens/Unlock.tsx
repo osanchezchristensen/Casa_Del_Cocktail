@@ -1,6 +1,7 @@
 import { ChevronDown, Plus } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router'
+import HeaderBlob from '../components/HeaderBlob.tsx'
 import Starburst from '../components/Starburst.tsx'
 import { ALL_RECIPES } from '../data/recipes.ts'
 import { ingredientName } from '../logic/cart.ts'
@@ -82,6 +83,7 @@ function Unlock() {
 
   return (
     <>
+      <HeaderBlob variant="unlock" />
       <h1 className={styles.title1}>One more bottle</h1>
       <p className={styles.intro}>Add one of these and new cocktails open up.</p>
 
@@ -93,7 +95,10 @@ function Unlock() {
       )}
 
       {list.length === 0 ? (
-        <p>Nothing is one bottle away right now. Add a few more bottles on the Bar Cart and check back.</p>
+        <p className={styles.intro}>
+          Nothing is one bottle away right now. Add a few more on your <Link to="/cart">Bar Cart</Link> and check
+          back.
+        </p>
       ) : (
         <ul className={styles.list}>
           {list.map((s, i) => (

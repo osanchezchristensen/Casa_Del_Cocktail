@@ -19,6 +19,7 @@
   --radius-pill: 999px;
   --line: #e5d7b8;
   --divider: #efe4cc;
+  --glass-bg: #f1e3c4; /* circle behind glass icons */
   --shadow-card: 0 3px 14px rgba(59, 42, 30, 0.1);
 
   --column-width: 480px;
@@ -81,6 +82,7 @@ small {
 }
 
 main {
+  position: relative; /* anchors HeaderBlob */
   /* room for the fixed bottom nav and its raised Home button */
   padding: 24px 16px calc(var(--nav-height) + 40px);
 }

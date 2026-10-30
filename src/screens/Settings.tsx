@@ -2,6 +2,7 @@ import { ChevronLeft, Download, Upload } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import AllowSwapsCard from '../components/AllowSwapsCard.tsx'
+import HeaderBlob from '../components/HeaderBlob.tsx'
 import sheet from '../components/Sheet.module.css'
 import { buildBackup, parseBackup, type BackupData } from '../logic/backup.ts'
 import { useStore } from '../store/useStore.ts'
@@ -73,6 +74,7 @@ function Settings() {
 
   return (
     <>
+      <HeaderBlob variant="settings" />
       <Link to="/" className={styles.back}>
         <ChevronLeft size={20} aria-hidden />
         Home

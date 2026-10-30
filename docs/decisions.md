@@ -58,3 +58,7 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 ## October 30, 2026: starter set
 - **Starter set grown to 60 classics with no new ingredients.** Bramble (needs crème de mûre) and Painkiller (trademarked name) were left out. Recipes use general ingredient ids where the drink allows it, so more of them match a real cart.
 - **Egg-white sours use `egg-white-foamer`** (the family top), so aquafaba counts too.
+
+## October 30, 2026: copy and empty states (step 7.1)
+- **Settings gets a mustard header shape**, the same one as Bar Cart. It has no mockup, and mustard is the calmest of the brand fills. Every screen's shape now comes from one shared `HeaderBlob` component.
+- **Home hides the counts while the cart is empty.** "You can make 0" and "All stocked up" read wrong before any bottles are added, so a first visit sees only the welcome and the link to the Bar Cart.

@@ -2,6 +2,7 @@ import { ChevronDown, Plus, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import AddItemsSheet from '../components/AddItemsSheet.tsx'
 import BottleSheet from '../components/BottleSheet.tsx'
+import HeaderBlob from '../components/HeaderBlob.tsx'
 import LevelChip from '../components/LevelChip.tsx'
 import {
   CART_FILTERS,
@@ -120,8 +121,9 @@ function BarCart() {
   if (bottles.length === 0) {
     return (
       <>
+        <HeaderBlob variant="cart" />
         {header}
-        <p>Your cart's looking a little bare. Add a bottle or two and we'll find you a drink.</p>
+        <p className={styles.empty}>Your cart's looking a little bare. Add a bottle or two and we'll find you a drink.</p>
         {overlays}
       </>
     )
@@ -130,10 +132,8 @@ function BarCart() {
   // <details> gives open/close and keyboard support for free. Sections start open and
   // only the first spirit family does; a search or filter opens every family so hits show.
   return (
-    <div className={styles.screen}>
-      <div className={styles.blobClip} aria-hidden>
-        <div className={styles.blob} />
-      </div>
+    <>
+      <HeaderBlob variant="cart" />
       {header}
 
       <label className={styles.search}>
@@ -218,7 +218,7 @@ function BarCart() {
       })}
 
       {overlays}
-    </div>
+    </>
   )
 }
 

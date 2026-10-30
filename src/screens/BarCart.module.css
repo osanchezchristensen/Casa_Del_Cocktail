@@ -1,28 +1,3 @@
-.screen {
-  position: relative;
-}
-
-/* The mustard blob from the mockup sits behind the content, clipped to the column. */
-.blobClip {
-  position: absolute;
-  top: -24px;
-  left: -16px;
-  z-index: -1;
-  width: calc(100% + 32px);
-  height: 140px;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.blob {
-  width: 260px;
-  height: 200px;
-  margin: -66px 0 0 -80px;
-  border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
-  background: var(--mustard);
-  opacity: 0.45;
-}
-
 .count {
   margin-top: 2px;
   color: var(--cork);
@@ -317,6 +292,11 @@ details:not([open]) > summary .chevron {
 
 .noMatch {
   margin-bottom: 16px;
+}
+
+.empty {
+  margin-top: 16px;
+  color: var(--cork);
 }
 
 .noMatch p {

@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router'
 import AllowSwapsCard from '../components/AllowSwapsCard.tsx'
 import CocktailCard from '../components/CocktailCard.tsx'
+import HeaderBlob from '../components/HeaderBlob.tsx'
 import { ALL_RECIPES } from '../data/recipes.ts'
 import { makeableRecipes, ownedIngredientIds } from '../logic/matching.ts'
 import { matchesSource, sourceFilters } from '../logic/recipeDisplay.ts'
@@ -24,6 +26,7 @@ function MakeNow() {
 
   return (
     <>
+      <HeaderBlob variant="make" />
       <h1 className={styles.title}>
         {list.length === 0
           ? 'Nothing quite yet.'
@@ -50,9 +53,14 @@ function MakeNow() {
 
       {list.length === 0 && (
         <p className={styles.empty}>
-          {source === 'all'
-            ? 'But you might be close. Add a bottle or two on the Bar Cart, or see what one more would open up on Unlock.'
-            : 'Nothing from this source right now. Try another one, or switch on Allow swaps.'}
+          {source === 'all' ? (
+            <>
+              But you're close. See what one more bottle would open up on <Link to="/unlock">Unlock</Link>, or add a
+              few on your <Link to="/cart">Bar Cart</Link>.
+            </>
+          ) : (
+            `Nothing from this source right now. Try another one${allowSwaps ? '' : ', or switch on Allow swaps'}.`
+          )}
         </p>
       )}
       <ul className={styles.list}>

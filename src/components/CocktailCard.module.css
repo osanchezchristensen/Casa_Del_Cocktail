@@ -27,7 +27,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #f1e3c4;
+  background: var(--glass-bg);
   color: var(--walnut);
 }
 
