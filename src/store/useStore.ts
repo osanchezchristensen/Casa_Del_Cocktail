@@ -32,27 +32,10 @@ const newBottle = (ingredientId: string, level: Level, name?: string): Bottle =>
   addedAt: new Date().toISOString(),
 })
 
-// Temporary test data: the cart starts with these on a first visit (nothing saved yet).
-// Before sharing the app, set `bottles: []` below and delete this list.
-const SAMPLE: [ingredientId: string, level: Level, name?: string][] = [
-  ['blanco-tequila', 'full', 'Espolòn Blanco'],
-  ['blanco-tequila', 'half', 'Jose Cuervo Especial Silver'],
-  ['mezcal', 'low', 'Del Maguey Vida'],
-  ['bourbon', 'full', 'Bulleit'],
-  ['rye-whiskey', 'half'],
-  ['london-dry-gin', 'full', 'Tanqueray'],
-  ['white-rum', 'low'],
-  ['campari', 'half'],
-  ['sweet-vermouth', 'empty', 'Carpano Antica'],
-  ['angostura-bitters', 'full'],
-  ['lime-juice', 'full'],
-  ['tonic-water', 'half'],
-]
-
 export const useStore = create<State>()(
   persist(
     (set) => ({
-      bottles: SAMPLE.map(([ingredientId, level, name]) => newBottle(ingredientId, level, name)),
+      bottles: [],
       pastBottles: [],
       favorites: [],
       settings: { allowSwaps: false },
