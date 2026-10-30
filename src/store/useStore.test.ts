@@ -1,4 +1,5 @@
 import { beforeEach, expect, test } from 'vitest'
+import { buildBackup, parseBackup } from '../logic/backup.ts'
 import { useStore } from './useStore.ts'
 
 const store = () => useStore.getState()
@@ -39,6 +40,21 @@ test('restoring a backup replaces bottles, past bottles, favorites and settings'
   expect(store().pastBottles).toEqual([])
   expect(store().favorites.map((f) => f.recipeId)).toEqual(['negroni'])
   expect(store().settings.allowSwaps).toBe(true)
+})
+
+test('export, wipe, import: everything comes back (PRD v1 check)', () => {
+  store().removeBottle(bulleit().id)
+  store().toggleFavorite('negroni')
+  store().setAllowSwaps(true)
+  const { bottles, pastBottles, favorites, settings } = store()
+  const before = { bottles, pastBottles, favorites, settings }
+  const file = JSON.stringify(buildBackup(before))
+
+  useStore.setState({ bottles: [], pastBottles: [], favorites: [], settings: { allowSwaps: false } })
+  store().restoreBackup(parseBackup(file)!)
+
+  const { bottles: b, pastBottles: p, favorites: f, settings: s } = store()
+  expect({ bottles: b, pastBottles: p, favorites: f, settings: s }).toEqual(before)
 })
 
 test('new bottles start at Full', () => {

@@ -230,10 +230,10 @@ Stand at your bar cart, open the app, and make something it suggested. This is t
 
 ### 7.2 The v1 test
 Check the PRD's "How we'll know v1 works" list (section 12) yourself:
-- [ ] 40-item cart setup in under 5 minutes
-- [ ] 10 hand-checked cases correct in Make Now and Unlock
-- [ ] Export, browser wipe, import: everything restored
-- [ ] Book recipes never appear on GitHub
+- [x] 40-item cart setup in under 5 minutes
+- [x] 10 hand-checked cases correct in Make Now and Unlock
+- [x] Export, browser wipe, import: everything restored
+- [x] Book recipes never appear on GitHub
 
 Write down anything that fails or annoys you.
 
@@ -253,11 +253,11 @@ Pick from the PRD's "Later" list. The suggested next three:
 
 | Phase | Steps | Status |
 |---|---|---|
-| 0 Setup | 0.1, 0.2 | ☐ |
-| 1 Foundations | 1.1, 1.2, 1.3 | ☐ |
-| 2 Matching engine | 2.1, 2.2, 2.3 | ☐ |
-| 3 Bar Cart | 3.0-3.5, Milestone A | ☐ |
-| 4 Make Now | 4.1-4.3, Milestone B | ☐ |
-| 5 Unlock, Favorites, Home | 5.1-5.3 | ☐ |
-| 6 Your data | 6.1-6.3 | ☐ |
-| 7 Polish | 7.1-7.3 | ☐ |
+| 0 Setup | 0.1, 0.2 | ☑ |
+| 1 Foundations | 1.1, 1.2, 1.3 | ☑ |
+| 2 Matching engine | 2.1, 2.2, 2.3 | ☑ |
+| 3 Bar Cart | 3.0-3.5, Milestone A | ☑ |
+| 4 Make Now | 4.1-4.3, Milestone B | ☑ |
+| 5 Unlock, Favorites, Home | 5.1-5.3 | ☑ |
+| 6 Your data | 6.1-6.3 | ☑ |
+| 7 Polish | 7.1-7.3 | ☑ |
