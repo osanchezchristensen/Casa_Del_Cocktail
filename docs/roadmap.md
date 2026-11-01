@@ -292,12 +292,12 @@ The rules are in PRD section 13 and the mockups are the `onboarding-*.html` file
 > Add an age question right after the welcome screen: "Are you 21 or older?" with Yes and No. Save `ageConfirmed`, bump the store version so everyone is asked once, and make sure Skip, direct links and the main screens can't get around it. No shows a friendly message and keeps you out. Add tests for the migration, the backup rule and the redirect rule.
 
 **Done when:**
-- [ ] A fresh browser goes Welcome, then the age question, then tour screen 2
-- [ ] Skip on the welcome screen still asks the age question before Home
-- [ ] Opening `/make` or `/welcome/3` without answering lands on the age question
-- [ ] "No" shows the message and no way into the app
-- [ ] Replaying the tour doesn't ask again
-- [ ] `npm test` and `npm run build` pass
+- [x] A fresh browser goes Welcome, then the age question, then tour screen 2
+- [x] Skip on the welcome screen still asks the age question before Home
+- [x] Opening `/make` or `/welcome/3` without answering lands on the age question
+- [x] "No" shows the message and no way into the app
+- [x] Replaying the tour doesn't ask again
+- [x] `npm test` and `npm run build` pass
 
 ## Progress tracker
 
@@ -312,4 +312,4 @@ The rules are in PRD section 13 and the mockups are the `onboarding-*.html` file
 | 6 Your data               | 6.1-6.3              | ☑      |
 | 7 Polish                  | 7.1-7.3              | ☑      |
 | 8 Onboarding (v1.1)       | 8.1-8.3              | ☑      |
-| 8.4 Age gate | 8.4 | ☐ |
+| 8.4 Age gate | 8.4 | ☑ |
