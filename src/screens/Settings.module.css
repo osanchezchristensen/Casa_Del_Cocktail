@@ -47,7 +47,12 @@
   padding: 0 18px;
   border-radius: var(--radius-pill);
   font: 500 15px var(--font-body);
+  text-decoration: none; /* "Replay the tour" is a link */
   cursor: pointer;
+}
+
+.tourText {
+  margin-top: 12px;
 }
 
 .primary {

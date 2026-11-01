@@ -1,4 +1,4 @@
-import { ChevronLeft, Download, Upload } from 'lucide-react'
+import { ChevronLeft, Download, RotateCcw, Upload } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router'
 import AllowSwapsCard from '../components/AllowSwapsCard.tsx'
@@ -120,6 +120,13 @@ function Settings() {
           Casa Del Cocktail is a home bar helper. Your cart, favorites and settings stay in this browser and are never
           sent anywhere.
         </p>
+        <p className={`${styles.text} ${styles.tourText}`}>New here, or want a refresher?</p>
+        <div className={styles.buttons}>
+          <Link to="/welcome/1" className={styles.secondary}>
+            <RotateCcw size={18} aria-hidden />
+            Replay the tour
+          </Link>
+        </div>
       </section>
 
       <p className={styles.note}>Made for enjoying, not overdoing. Please drink responsibly.</p>

@@ -74,3 +74,7 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **Screen 5 uses tap-to-pick pills with no bottle names**, to keep first setup under a minute. Picks go on as Full; names and levels can be changed later on the Bar Cart.
 - **Existing users skip it.** The store migration sets `onboardingDone` to true when there are already bottles or favorites, and older backups import as done.
 - **Screen 5 groups categories into five sections** (Spirits; Liqueurs & vermouth; Bitters; Juices, syrups & mixers; Wine, beer & more), following the mockup instead of one section per category: five short lists are quicker to scan. The groups and their common picks live in `src/logic/onboarding.ts`.
+
+## November 1, 2026: onboarding mockup check (step 8.3)
+- **Kept on purpose:** screen 2 uses the real `LevelChip` (bolder than the mockup) so the preview looks like the Bar Cart; pills use full ingredient names ("Maraschino liqueur"); screen 5 shows 10 common picks per section; the screen 1 heading uses the shared 32px size (mockup 34px); screen 5 adds "Nothing picked yet." with a disabled button and a no-results message, which the mockup does not show.
+- **"Replay the tour" lives in the Settings About card** (Settings has no mockup). It keeps `onboardingDone` true, so leaving the replay halfway never traps you in the tour.

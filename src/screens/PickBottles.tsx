@@ -46,7 +46,7 @@ function PickBottles({ onDone }: { onDone: () => void }) {
 
   return (
     <>
-      <HeaderBlob variant="cart" />
+      <HeaderBlob variant="pick" />
       <div className={styles.intro}>
         <h1>What's on your cart?</h1>
         <p>Tap everything you've got. You can add bottle names and more later.</p>

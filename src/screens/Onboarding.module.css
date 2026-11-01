@@ -16,9 +16,10 @@
   height: 44px;
   display: flex;
   align-items: center;
-  color: var(--walnut);
+  color: var(--deep-amber);
 }
 
+/* Underlined like links, as in the mockups */
 .skip,
 .later {
   min-height: 44px;
@@ -27,6 +28,7 @@
   background: none;
   color: var(--deep-amber);
   font: 500 15px var(--font-body);
+  text-decoration: underline;
   cursor: pointer;
 }
 

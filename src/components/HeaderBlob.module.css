@@ -25,6 +25,17 @@
   opacity: 0.45;
 }
 
+/* Onboarding screen 5 */
+.pick {
+  top: -80px;
+  right: -70px;
+  width: 240px;
+  height: 190px;
+  border-radius: 62% 38% 55% 45% / 55% 50% 50% 45%;
+  background: var(--mustard);
+  opacity: 0.45;
+}
+
 .make {
   top: -60px;
   right: -70px;
