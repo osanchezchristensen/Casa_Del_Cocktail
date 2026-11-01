@@ -97,4 +97,6 @@ export type Favorite = {
 
 export type Settings = {
   allowSwaps: boolean
+  /** True once the first-run tour is finished or skipped (PRD section 13). */
+  onboardingDone: boolean
 }

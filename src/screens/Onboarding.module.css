@@ -1,0 +1,276 @@
+/* Layout from docs/screens/onboarding-*.html. Overrides the global main padding (no bottom nav here). */
+.screen {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px 36px;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+}
+
+.back {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  color: var(--walnut);
+}
+
+.skip,
+.later {
+  min-height: 44px;
+  padding: 0 6px;
+  border: none;
+  background: none;
+  color: var(--deep-amber);
+  font: 500 15px var(--font-body);
+  cursor: pointer;
+}
+
+.skip {
+  margin-left: auto;
+}
+
+/* Illustration area */
+.art {
+  position: relative;
+  height: 340px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blob {
+  position: absolute;
+  width: 310px;
+  height: 270px;
+}
+.blob1 {
+  width: 300px;
+  height: 260px;
+  background: var(--mustard);
+  opacity: 0.55;
+  border-radius: 62% 38% 55% 45% / 55% 50% 50% 45%;
+}
+.blob1b {
+  top: 40px;
+  right: calc(50% - 160px);
+  width: 120px;
+  height: 100px;
+  background: var(--amber);
+  opacity: 0.6;
+  border-radius: 50% 50% 40% 60% / 60% 40% 60% 40%;
+}
+.blob1c {
+  bottom: 36px;
+  left: calc(50% - 160px);
+  width: 90px;
+  height: 74px;
+  background: var(--avocado);
+  opacity: 0.25;
+  border-radius: 55% 45% 50% 50% / 45% 55% 45% 55%;
+}
+.blob2 {
+  background: var(--mustard);
+  opacity: 0.45;
+  border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+}
+.blob3 {
+  background: var(--avocado);
+  opacity: 0.22;
+  border-radius: 55% 45% 50% 50% / 45% 55% 45% 55%;
+}
+.blob4 {
+  background: var(--amber);
+  opacity: 0.35;
+  border-radius: 48% 52% 60% 40% / 55% 42% 58% 45%;
+}
+
+.coupe {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--paper);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 20px rgba(59, 42, 30, 0.14);
+}
+
+/* Shared look of the preview cards */
+.cartCard,
+.drinkCard,
+.unlockCard {
+  position: relative;
+  background: var(--paper);
+  border-radius: var(--radius-card);
+  box-shadow: 0 8px 24px rgba(59, 42, 30, 0.16);
+}
+
+/* Step 2: bottle rows */
+.cartCard {
+  width: 292px;
+  padding: 6px 16px;
+}
+.cartHead {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border-bottom: 1px solid var(--divider);
+}
+.cartFamily {
+  flex-grow: 1;
+  font: 16px var(--font-heading);
+}
+.cartRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 52px;
+}
+.cartRow + .cartRow {
+  border-top: 1px solid var(--divider);
+}
+.bottleText,
+.drinkText {
+  display: flex;
+  flex-direction: column;
+}
+.bottleName {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+/* Step 3: cocktail cards */
+.cards {
+  position: relative;
+  width: 292px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.drinkCard {
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+}
+.offset {
+  margin: 0 -12px 0 24px;
+}
+.glass {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.drinkText {
+  gap: 3px;
+}
+.drinkName {
+  font: 18px var(--font-heading);
+}
+.status {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.ready {
+  color: var(--avocado);
+}
+.swap {
+  color: var(--teal);
+}
+
+/* Step 4: Unlock card */
+.unlockCard {
+  width: 280px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.burst {
+  position: absolute;
+  top: -22px;
+  right: -14px;
+}
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--cork);
+  letter-spacing: 0.04em;
+}
+.unlockName {
+  font: 24px var(--font-heading);
+}
+.unlockText {
+  padding-right: 30px;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--cork);
+}
+
+/* Text and buttons */
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 28px;
+}
+.copy h1 {
+  line-height: 1.1;
+}
+.copy p {
+  font-size: 17px;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+.dot,
+.dotOn {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: var(--dot-off);
+}
+.dotOn {
+  width: 24px;
+  background: var(--deep-amber);
+}
+
+.primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 54px;
+  border-radius: var(--radius-pill);
+  background: var(--deep-amber);
+  color: var(--paper);
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 700;
+}

@@ -16,7 +16,7 @@ const data: BackupData = {
     },
   ],
   favorites: [{ recipeId: 'negroni', savedAt: '2026-10-22T00:00:00.000Z' }],
-  settings: { allowSwaps: true },
+  settings: { allowSwaps: true, onboardingDone: true },
 }
 
 const fileFor = (changes: object) => JSON.stringify({ ...buildBackup(data), ...changes })
@@ -28,7 +28,7 @@ test('export then import gives back exactly what went in', () => {
 
 test('the export has the app name, version and date', () => {
   const backup = buildBackup(data, new Date('2026-10-25T12:00:00Z'))
-  expect(backup).toMatchObject({ app: 'casa-del-cocktail', version: 1, exportedAt: '2026-10-25T12:00:00.000Z' })
+  expect(backup).toMatchObject({ app: 'casa-del-cocktail', version: 2, exportedAt: '2026-10-25T12:00:00.000Z' })
 })
 
 test('extra fields in the file are dropped', () => {
@@ -40,7 +40,7 @@ describe('invalid files are rejected', () => {
   test.each([
     ['broken JSON', '{ not json'],
     ['another app', fileFor({ app: 'other-app' })],
-    ['a newer version', fileFor({ version: 2 })],
+    ['a newer version', fileFor({ version: 3 })],
     ['no version', fileFor({ version: undefined })],
     ['bottles missing', fileFor({ bottles: undefined })],
     ['a bad level', fileFor({ bottles: [{ ...data.bottles[0], level: 'half-ish' }] })],
@@ -51,5 +51,17 @@ describe('invalid files are rejected', () => {
     ['a plain list', '[]'],
   ])('%s', (_, text) => {
     expect(parseBackup(text)).toBeNull()
+  })
+})
+
+describe('onboardingDone (PRD section 13)', () => {
+  test('a version 1 backup has no onboardingDone and imports as done', () => {
+    const text = fileFor({ version: 1, settings: { allowSwaps: false } })
+    expect(parseBackup(text)?.settings).toEqual({ allowSwaps: false, onboardingDone: true })
+  })
+
+  test('a version 2 backup keeps its value', () => {
+    const text = fileFor({ settings: { allowSwaps: false, onboardingDone: false } })
+    expect(parseBackup(text)?.settings.onboardingDone).toBe(false)
   })
 })

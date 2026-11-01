@@ -20,6 +20,7 @@
   --line: #e5d7b8;
   --divider: #efe4cc;
   --glass-bg: #f1e3c4; /* circle behind glass icons */
+  --dot-off: #d8c9a8; /* onboarding progress dots that aren't the current step */
   --shadow-card: 0 3px 14px rgba(59, 42, 30, 0.1);
 
   --column-width: 480px;

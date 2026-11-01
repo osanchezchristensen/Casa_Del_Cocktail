@@ -1,8 +1,8 @@
-import { beforeEach, expect, test } from 'vitest'
+import { beforeEach, describe, expect, test } from 'vitest'
 import ingredients from '../data/ingredients.json'
 import { SAMPLE_CART } from '../data/sampleCart.ts'
 import { buildBackup, parseBackup } from '../logic/backup.ts'
-import { useStore } from './useStore.ts'
+import { migrateSaved, useStore } from './useStore.ts'
 
 const store = () => useStore.getState()
 
@@ -36,7 +36,7 @@ test('restoring a backup replaces bottles, past bottles, favorites and settings'
     bottles: [bottle],
     pastBottles: [],
     favorites: [{ recipeId: 'negroni', savedAt: '2026-10-02T00:00:00.000Z' }],
-    settings: { allowSwaps: true },
+    settings: { allowSwaps: true, onboardingDone: true },
   })
   expect(store().bottles).toEqual([bottle])
   expect(store().pastBottles).toEqual([])
@@ -52,7 +52,7 @@ test('export, wipe, import: everything comes back (PRD v1 check)', () => {
   const before = { bottles, pastBottles, favorites, settings }
   const file = JSON.stringify(buildBackup(before))
 
-  useStore.setState({ bottles: [], pastBottles: [], favorites: [], settings: { allowSwaps: false } })
+  useStore.setState({ bottles: [], pastBottles: [], favorites: [], settings: { allowSwaps: false, onboardingDone: false } })
   store().restoreBackup(parseBackup(file)!)
 
   const { bottles: b, pastBottles: p, favorites: f, settings: s } = store()
@@ -102,4 +102,32 @@ test('undo puts the bottle back as it was, without finishedAt', () => {
   store().undoRemove(before.id)
   expect(store().pastBottles).toEqual([])
   expect(bulleit()).toEqual({ ...before, level: 'low' })
+})
+
+describe('the tour setting (PRD section 13)', () => {
+  const v1Save = (bottles: unknown[], favorites: unknown[]) => ({
+    bottles,
+    pastBottles: [],
+    favorites,
+    settings: { allowSwaps: true },
+  })
+
+  test('a v1 save with bottles skips the tour and keeps its other settings', () => {
+    const migrated = migrateSaved(v1Save([{ id: 'x' }], []), 1)
+    expect(migrated.settings).toEqual({ allowSwaps: true, onboardingDone: true })
+  })
+
+  test('a v1 save with only favorites skips the tour', () => {
+    expect(migrateSaved(v1Save([], [{ recipeId: 'negroni' }]), 1).settings.onboardingDone).toBe(true)
+  })
+
+  test('an empty v1 save sees the tour', () => {
+    expect(migrateSaved(v1Save([], []), 1).settings.onboardingDone).toBe(false)
+  })
+
+  test('finishOnboarding marks the tour as done', () => {
+    useStore.setState({ settings: { allowSwaps: false, onboardingDone: false } })
+    store().finishOnboarding()
+    expect(store().settings.onboardingDone).toBe(true)
+  })
 })

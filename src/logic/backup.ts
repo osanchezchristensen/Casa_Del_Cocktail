@@ -2,7 +2,7 @@
 import type { Bottle, Favorite, PastBottle, Settings } from '../types.ts'
 
 /** Keep in step with the store's persist version in src/store/useStore.ts. */
-export const BACKUP_VERSION = 1
+export const BACKUP_VERSION = 2
 
 export type BackupData = { bottles: Bottle[]; pastBottles: PastBottle[]; favorites: Favorite[]; settings: Settings }
 export type Backup = BackupData & { app: 'casa-del-cocktail'; version: number; exportedAt: string }
@@ -59,6 +59,7 @@ export function parseBackup(text: string): BackupData | null {
     bottles: bottles.map(toBottle),
     pastBottles: pastBottles.map((b) => ({ ...toBottle(b), finishedAt: b.finishedAt as string })),
     favorites: favorites.map((f) => ({ recipeId: f.recipeId as string, savedAt: f.savedAt as string })),
-    settings: { allowSwaps: settings.allowSwaps },
+    // Version 1 files have no onboardingDone; someone restoring a backup isn't new, so it counts as done.
+    settings: { allowSwaps: settings.allowSwaps, onboardingDone: settings.onboardingDone !== false },
   }
 }
