@@ -68,3 +68,8 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **A "Try a sample cart" button on the empty Bar Cart** fills the cart with 17 demo bottles (`src/data/sampleCart.ts`), so a visitor sees results in one tap. It shows every level, and sweet vermouth is Empty so Unlock has a clear top suggestion.
 - **MIT license**, the usual choice for a portfolio project.
 - **CLAUDE.md is no longer published.** It stays on this computer for Claude Code, but it's git-ignored. Older commits still contain it.
+
+## November 1, 2026: v1.1 onboarding
+- **First-run onboarding is v1.1**, the first step after v1. Rules in PRD section 13, build steps in roadmap Phase 8.
+- **Screen 5 uses tap-to-pick pills with no bottle names**, to keep first setup under a minute. Picks go on as Full; names and levels can be changed later on the Bar Cart.
+- **Existing users skip it.** The store migration sets `onboardingDone` to true when there are already bottles or favorites, and older backups import as done.

@@ -249,6 +249,44 @@ Pick from the PRD's "Later" list. The suggested next three:
 2. Refill list / shopping list
 3. PWA, free hosting and phone install (this unlocks using it at the liquor store)
 
+---
+
+## Phase 8: v1.1 First-run onboarding (3 sessions)
+
+The rules are in PRD section 13 and the mockups are the `onboarding-*.html` files in [[screens/README|Screens]].
+
+### 8.1 The setting, the migration and tour screens 1 to 4
+**Prompt:**
+> Read PRD section 13 and the onboarding mockups. Add an `onboardingDone` setting (false by default) and bump the store version with a migrate function that sets it to true when there are already bottles or favorites. Make old backups without the field import as true. Add an onboarding route outside the bottom-navigation layout, send first-time visitors there, and build tour screens 1 to 4 with Skip, Back (screens 2 to 4), progress dots and Next. Skip and "I'll do it later" set `onboardingDone` and go to Home. "Stock my cart" can go to a placeholder for screen 5. Add tests for the migration and the backup rule.
+
+**Done when:**
+- [ ] A fresh browser (clear site data) opens on screen 1 with no bottom navigation
+- [ ] Skip on any screen and "I'll do it later" land on Home, and a refresh stays on Home
+- [ ] Back works on screens 2 to 4; the progress dots match the screen
+- [ ] An existing cart with bottles or favorites never sees the tour after the update
+- [ ] An old backup still imports
+- [ ] `npm test` and `npm run build` pass
+
+### 8.2 Screen 5: pick your bottles
+**Prompt:**
+> Build onboarding screen 5 from its mockup: tap-to-pick pills grouped by category, about 10 common ingredients per category with "More …" for the rest, and a search box using `searchIngredients`. Show an "N picked" bar and "Add N bottles and start", which adds the picks as Full bottles with no names (reuse `addBottles`), sets `onboardingDone` and goes to Home. Ingredients already on the cart show as already added.
+
+**Done when:**
+- [ ] Picking 6 pills and tapping "Add 6 bottles and start" puts 6 Full bottles on the Bar Cart
+- [ ] "cachaca" in the search finds Cachaça
+- [ ] "More …" shows the rest of a category
+- [ ] Picked pills are clear without color (check icon)
+- [ ] Setup of a typical cart takes under a minute
+
+### 8.3 Replay the tour and the mockup check
+**Prompt:**
+> Add a "Replay the tour" button to Settings. Then compare every onboarding screen with its mockup (layout, copy, colors, states) and list the differences before fixing them.
+
+**Done when:**
+- [ ] "Replay the tour" opens screen 1, and finishing or skipping returns to Home
+- [ ] On replay, bottles already on the cart show as added on screen 5
+- [ ] Every onboarding screen matches its mockup, or the difference is written in `decisions.md`
+
 ## Progress tracker
 
 | Phase | Steps | Status |
@@ -261,3 +299,4 @@ Pick from the PRD's "Later" list. The suggested next three:
 | 5 Unlock, Favorites, Home | 5.1-5.3 | ☑ |
 | 6 Your data | 6.1-6.3 | ☑ |
 | 7 Polish | 7.1-7.3 | ☑ |
+| 8 Onboarding (v1.1) | 8.1-8.3 | ☐ |

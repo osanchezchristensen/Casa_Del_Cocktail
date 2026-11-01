@@ -6,7 +6,7 @@ tags: [casa, prd]
 
 [[Home]] · [[project-brief|Brief]] · [[brand-kit|Brand Kit]] · [[roadmap|Roadmap]] · [[screens/README|Screens]] · [[decisions|Decisions]]
 
-**Version:** 0.2 (draft) | **Date:** October 13, 2026 (bottles, Bar Cart layout and navigation updated after the screen mockups)
+**Version:** 0.2 (draft) | **Date:** October 13, 2026 (bottles, Bar Cart layout and navigation updated after the screen mockups; v1.1 onboarding added November 1, 2026)
 
 ---
 
@@ -238,7 +238,7 @@ Each **recipe ingredient**:
 | Bottle (the cart is a list of these) | id (unique), ingredientId, name (optional bottle name or brand, e.g. "Jose Cuervo Especial Silver"), level (full/half/low/empty), addedAt |
 | Past bottle | everything a bottle has, plus finishedAt. A bottle moves here when removed, instead of being deleted |
 | Favorite | recipeId, savedAt |
-| Settings | allowSwaps (on/off) |
+| Settings | allowSwaps (on/off), onboardingDone (true/false, default false; v1.1, see section 13) |
 
 Several bottles can share one ingredientId. Matching never looks at bottles directly: the app first works out the **set of owned ingredient ids** (every ingredient with at least one bottle that isn't Empty) and passes that to the matching logic.
 
@@ -300,3 +300,40 @@ The app loads the private file if it exists and works normally if it doesn't. Bo
 - For 10 hand-checked test cases, Make Now and Unlock give the right answer.
 - You reach for the app at your bar cart at least a few times in the first month.
 - Your cart survives an export, a browser data wipe, and an import.
+
+## 13. v1.1: First-run onboarding
+
+A first visit lands on an empty cart with no idea what the app does. A short tour explains the three big ideas (stock your cart, see what you can make, find your next bottle) and then gets bottles onto the cart in under a minute. Mockups: [[screens/README|Screens]] (the "v1.1" section).
+
+### User stories
+| # | Story | Priority |
+|---|---|---|
+| O1 | As a first-time visitor, I want a short tour the first time I open the app, so I understand what it does. | Must |
+| O2 | As a first-time visitor, I want to skip the tour from any screen, so it never gets in my way. | Must |
+| O3 | As a first-time visitor, I want to tap the common bottles I own from a list, so my cart is set up in under a minute. | Must |
+| O4 | As a first-time visitor, I want to search for anything not in the common list. | Must |
+| O5 | As the owner, I want to replay the tour from Settings. | Should |
+| O6 | As an existing user, I don't want to see the tour after the update. | Must |
+
+### Screens
+| # | Screen | What's on it |
+|---|---|---|
+| 1 | **Welcome** | Blob illustration with a coupe, "Welcome to Casa.", one line on what the app does, **Show me around**, **Skip**. No back arrow. |
+| 2 | **Stock your cart** | Preview of two bottle rows with level chips, short explanation, **Next**. |
+| 3 | **See what you can make** | Preview cards, one Ready and one Swap, short explanation of Make Now and swaps, **Next**. |
+| 4 | **Find your next bottle** | Unlock preview card with the starburst badge, short explanation, **Stock my cart** (goes to screen 5) and **I'll do it later**. |
+| 5 | **What's on your cart?** | "Tap everything you've got." Tap-to-pick pills grouped by category, a search box, an "N picked" bar ("They'll go on as Full."), **Add N bottles and start**. |
+
+Every screen has **Skip** at the top right. Screens 2 to 5 have a back arrow. Progress dots show steps 1 to 4; screen 5 is not counted. The previews on screens 2 to 4 are fixed sample content, not the user's data.
+
+### Rules
+- **Shown automatically the first time the app opens.** A saved setting `onboardingDone` (false by default) controls it.
+- **Skip** on every screen and **I'll do it later** on screen 4 set `onboardingDone` and go to Home.
+- **Add N bottles and start** on screen 5 adds the picks as **Full** bottles with **no names**, sets `onboardingDone` and goes to Home. Names can be added later on the Bar Cart.
+- **Screen 5 pills:** grouped by category, about 10 common ingredients per category, with "More …" to show the rest of that category. A search box uses the existing accent-insensitive ingredient search. When the tour is replayed, ingredients already on the cart show as already added.
+- **No bottom navigation** during onboarding.
+- **Settings** gets a **Replay the tour** button.
+- **Existing users skip it:** when the store version goes up, `onboardingDone` is set to true if there are already bottles or favorites.
+- **Backups:** an older backup without `onboardingDone` still imports, and counts as true (someone restoring a backup isn't new).
+- The mustard starburst is allowed on screen 4 because it previews Unlock.
+- **If an age gate is added** before a public launch, it comes before onboarding.
