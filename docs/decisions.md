@@ -73,3 +73,4 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **First-run onboarding is v1.1**, the first step after v1. Rules in PRD section 13, build steps in roadmap Phase 8.
 - **Screen 5 uses tap-to-pick pills with no bottle names**, to keep first setup under a minute. Picks go on as Full; names and levels can be changed later on the Bar Cart.
 - **Existing users skip it.** The store migration sets `onboardingDone` to true when there are already bottles or favorites, and older backups import as done.
+- **Screen 5 groups categories into five sections** (Spirits; Liqueurs & vermouth; Bitters; Juices, syrups & mixers; Wine, beer & more), following the mockup instead of one section per category: five short lists are quicker to scan. The groups and their common picks live in `src/logic/onboarding.ts`.

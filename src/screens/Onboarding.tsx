@@ -7,9 +7,10 @@ import LevelChip from '../components/LevelChip.tsx'
 import Starburst from '../components/Starburst.tsx'
 import { useStore } from '../store/useStore.ts'
 import styles from './Onboarding.module.css'
+import PickBottles from './PickBottles.tsx'
 
-// The previews are fixed sample content (one story: Campari is missing), never the user's data.
-type Step = { title: string; text: string; art?: ReactNode; next?: string }
+// Steps 1 to 4. Step 5 is PickBottles. The previews are fixed sample content (one story: Campari is missing).
+type Step = { title: string; text: string; art: ReactNode; next: string }
 
 const STEPS: Step[] = [
   {
@@ -110,8 +111,6 @@ const STEPS: Step[] = [
       </>
     ),
   },
-  // shortcut: placeholder for screen 5; step 8.2 builds the tap-to-pick list.
-  { title: "What's on your cart?", text: "Tap everything you've got. You can add bottle names and more later." },
 ]
 
 function Onboarding() {
@@ -119,7 +118,7 @@ function Onboarding() {
   const navigate = useNavigate()
   const finishOnboarding = useStore((s) => s.finishOnboarding)
   const current = STEPS[step - 1]
-  if (!current) return <Navigate to="/welcome/1" replace />
+  if (!current && step !== 5) return <Navigate to="/welcome/1" replace />
 
   const finish = () => {
     finishOnboarding()
@@ -139,36 +138,36 @@ function Onboarding() {
         </button>
       </div>
 
-      {current.art && (
-        <div className={styles.art} aria-hidden>
-          {current.art}
-        </div>
-      )}
-
-      <div className={styles.copy}>
-        <h1>{current.title}</h1>
-        <p>{current.text}</p>
-      </div>
-
-      <div className={styles.footer}>
-        {step <= 4 && (
-          <div className={styles.dots} role="img" aria-label={`Step ${step} of 4`}>
-            {[1, 2, 3, 4].map((n) => (
-              <span key={n} className={n === step ? styles.dotOn : styles.dot} />
-            ))}
+      {current ? (
+        <>
+          <div className={styles.art} aria-hidden>
+            {current.art}
           </div>
-        )}
-        {current.next && (
-          <Link to={`/welcome/${step + 1}`} className={styles.primary}>
-            {current.next}
-          </Link>
-        )}
-        {step === 4 && (
-          <button type="button" className={styles.later} onClick={finish}>
-            I'll do it later
-          </button>
-        )}
-      </div>
+
+          <div className={styles.copy}>
+            <h1>{current.title}</h1>
+            <p>{current.text}</p>
+          </div>
+
+          <div className={styles.footer}>
+            <div className={styles.dots} role="img" aria-label={`Step ${step} of 4`}>
+              {[1, 2, 3, 4].map((n) => (
+                <span key={n} className={n === step ? styles.dotOn : styles.dot} />
+              ))}
+            </div>
+            <Link to={`/welcome/${step + 1}`} className={styles.primary}>
+              {current.next}
+            </Link>
+            {step === 4 && (
+              <button type="button" className={styles.later} onClick={finish}>
+                I'll do it later
+              </button>
+            )}
+          </div>
+        </>
+      ) : (
+        <PickBottles onDone={finish} />
+      )}
     </main>
   )
 }

@@ -322,7 +322,7 @@ A first visit lands on an empty cart with no idea what the app does. A short tou
 | 2 | **Stock your cart** | Preview of two bottle rows with level chips, short explanation, **Next**. |
 | 3 | **See what you can make** | Preview cards, one Ready and one Swap, short explanation of Make Now and swaps, **Next**. |
 | 4 | **Find your next bottle** | Unlock preview card with the starburst badge, short explanation, **Stock my cart** (goes to screen 5) and **I'll do it later**. |
-| 5 | **What's on your cart?** | "Tap everything you've got." Tap-to-pick pills grouped by category, a search box, an "N picked" bar ("They'll go on as Full."), **Add N bottles and start**. |
+| 5 | **What's on your cart?** | "Tap everything you've got." Tap-to-pick pills in five sections (Spirits; Liqueurs & vermouth; Bitters; Juices, syrups & mixers; Wine, beer & more), a search box, an "N picked" bar ("They'll go on as Full."), **Add N bottles and start**. |
 
 Every screen has **Skip** at the top right. Screens 2 to 5 have a back arrow. Progress dots show steps 1 to 4; screen 5 is not counted. The previews on screens 2 to 4 are fixed sample content, not the user's data.
 
@@ -330,7 +330,7 @@ Every screen has **Skip** at the top right. Screens 2 to 5 have a back arrow. Pr
 - **Shown automatically the first time the app opens.** A saved setting `onboardingDone` (false by default) controls it.
 - **Skip** on every screen and **I'll do it later** on screen 4 set `onboardingDone` and go to Home.
 - **Add N bottles and start** on screen 5 adds the picks as **Full** bottles with **no names**, sets `onboardingDone` and goes to Home. Names can be added later on the Bar Cart.
-- **Screen 5 pills:** grouped by category, about 10 common ingredients per category, with "More …" to show the rest of that category. A search box uses the existing accent-insensitive ingredient search. When the tour is replayed, ingredients already on the cart show as already added.
+- **Screen 5 pills:** grouped into five sections that each cover one or more categories (as in the mockup), about 10 common ingredients per section, with "More …" to show the rest of that section. With nothing picked, the button is disabled. A search box uses the existing accent-insensitive ingredient search. When the tour is replayed, ingredients already on the cart show as already added.
 - **No bottom navigation** during onboarding.
 - **Settings** gets a **Replay the tour** button.
 - **Existing users skip it:** when the store version goes up, `onboardingDone` is set to true if there are already bottles or favorites.
