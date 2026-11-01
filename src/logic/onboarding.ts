@@ -1,5 +1,5 @@
 // The tap-to-pick groups on onboarding screen 5 (PRD section 13). No React here.
-import type { Ingredient, IngredientCategory } from '../types.ts'
+import type { Ingredient, IngredientCategory, Settings } from '../types.ts'
 import { addableIngredients } from './search.ts'
 
 export type PickGroup = {
@@ -90,4 +90,11 @@ export function groupIngredients(group: PickGroup, showAll = false): Ingredient[
   if (!showAll) return common
   const rest = addableIngredients.filter((i) => group.categories.includes(i.category) && !group.common.includes(i.id))
   return [...common, ...rest]
+}
+
+/** Where the main screens send someone first: the tour, then the age question. null lets them in. */
+export function gateRedirect({ onboardingDone, ageConfirmed }: Settings): string | null {
+  if (!onboardingDone) return '/welcome/1'
+  if (!ageConfirmed) return '/welcome/age'
+  return null
 }

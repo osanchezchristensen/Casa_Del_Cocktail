@@ -21,6 +21,8 @@ type State = {
   setAllowSwaps: (on: boolean) => void
   /** Marks the first-run tour as done, so it isn't shown again. */
   finishOnboarding: () => void
+  /** Saves the "21 or older" answer, so the age question isn't asked again. */
+  confirmAge: () => void
   /** Saves the recipe as a favorite, or removes it if it already is one. */
   toggleFavorite: (recipeId: string) => void
   /** Replaces everything with a checked backup (see src/logic/backup.ts). */
@@ -37,11 +39,18 @@ const newBottle = (ingredientId: string, level: Level, name?: string): Bottle =>
   addedAt: new Date().toISOString(),
 })
 
-/** Upgrades data saved by an older version. v1 had no onboardingDone: anyone with bottles or favorites skips the tour. */
+/**
+ * Upgrades data saved by an older version.
+ * v1 had no onboardingDone: anyone with bottles or favorites skips the tour.
+ * v2 had no ageConfirmed: everyone is asked once.
+ */
 export function migrateSaved(saved: unknown, version: number) {
   const s = saved as Pick<State, 'bottles' | 'favorites' | 'settings'>
   if (version < 2) {
     s.settings = { ...s.settings, onboardingDone: (s.bottles?.length ?? 0) > 0 || (s.favorites?.length ?? 0) > 0 }
+  }
+  if (version < 3) {
+    s.settings = { ...s.settings, ageConfirmed: false }
   }
   return s as State
 }
@@ -52,7 +61,7 @@ export const useStore = create<State>()(
       bottles: [],
       pastBottles: [],
       favorites: [],
-      settings: { allowSwaps: false, onboardingDone: false },
+      settings: { allowSwaps: false, onboardingDone: false, ageConfirmed: false },
       restoreBackup: ({ bottles, pastBottles, favorites, settings }) =>
         set({ bottles, pastBottles, favorites, settings }),
       loadSampleCart: () => set({ bottles: SAMPLE_CART.map((b) => newBottle(b.ingredientId, b.level, b.name)) }),
@@ -64,6 +73,7 @@ export const useStore = create<State>()(
         })),
       setAllowSwaps: (on) => set((s) => ({ settings: { ...s.settings, allowSwaps: on } })),
       finishOnboarding: () => set((s) => ({ settings: { ...s.settings, onboardingDone: true } })),
+      confirmAge: () => set((s) => ({ settings: { ...s.settings, ageConfirmed: true } })),
       addBottles: (picks) =>
         set((s) => ({
           bottles: [...s.bottles, ...picks.map((p) => newBottle(p.ingredientId, 'full', p.name))],
@@ -101,6 +111,6 @@ export const useStore = create<State>()(
         }),
     }),
     // Bump version (and add a migrate function) whenever the saved shape changes.
-    { name: 'casa-del-cocktail', version: 2, migrate: migrateSaved },
+    { name: 'casa-del-cocktail', version: 3, migrate: migrateSaved },
   ),
 )

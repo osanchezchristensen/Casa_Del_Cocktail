@@ -35,7 +35,7 @@ Recipes come from a curated starter set and from your own cocktail book, each ta
 - Accounts, login, syncing between devices
 - Phone install (PWA), offline mode, public hosting
 - An in-app recipe editor (book recipes come in through a file)
-- Age gate (private project; add before any public launch)
+- ~~Age gate~~ → added November 1, 2026, after the app went public (section 13)
 
 ## 3. Users
 
@@ -124,7 +124,7 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 8. Photo recognition of bottles; photo import of book pages
 9. Recipe import from a public API
 10. Accounts and sync
-11. Age gate (required before any public launch)
+11. ~~Age gate (required before any public launch)~~ → done November 1, 2026: an age question after the welcome screen (section 13)
 
 ### Maybe (ideas to weigh, not planned)
 - **Smarter Unlock counting.** Today Unlock credits the ingredient exactly as the recipe names it, so "gin" and "London dry gin" count as two separate suggestions. Testing every possible bottle instead would show that one bottle of London dry gin unlocks both, giving a truer "+N cocktails" number and better buying advice. The catch: near-identical bottles (London dry, Plymouth, Old Tom) would crowd the top 10, so it needs a way to group them.
@@ -238,7 +238,7 @@ Each **recipe ingredient**:
 | Bottle (the cart is a list of these) | id (unique), ingredientId, name (optional bottle name or brand, e.g. "Jose Cuervo Especial Silver"), level (full/half/low/empty), addedAt |
 | Past bottle | everything a bottle has, plus finishedAt. A bottle moves here when removed, instead of being deleted |
 | Favorite | recipeId, savedAt |
-| Settings | allowSwaps (on/off), onboardingDone (true/false, default false; v1.1, see section 13) |
+| Settings | allowSwaps (on/off), onboardingDone (true/false, default false; v1.1, see section 13), ageConfirmed (true/false, default false; age gate, see section 13) |
 
 Several bottles can share one ingredientId. Matching never looks at bottles directly: the app first works out the **set of owned ingredient ids** (every ingredient with at least one bottle that isn't Empty) and passes that to the matching logic.
 
@@ -314,17 +314,19 @@ A first visit lands on an empty cart with no idea what the app does. A short tou
 | O4 | As a first-time visitor, I want to search for anything not in the common list. | Must |
 | O5 | As the owner, I want to replay the tour from Settings. | Should |
 | O6 | As an existing user, I don't want to see the tour after the update. | Must |
+| O7 | As the owner of a public app, I want every visitor to confirm they're 21 or older before using it. | Must |
 
 ### Screens
 | # | Screen | What's on it |
 |---|---|---|
 | 1 | **Welcome** | Blob illustration with a coupe, "Welcome to Casa.", one line on what the app does, **Show me around**, **Skip**. No back arrow. |
+| Age | **Age question** | Shown right after Welcome. "One quick question" / "Are you 21 or older?", **Yes, I'm 21 or older** and **No**. "No" shows "Sorry, Casa is for grown-ups. Come back when you're 21. We'll keep the bar warm." and no way in. No Skip and no progress dots; back arrow to Welcome. No mockup: it reuses the tour layout. |
 | 2 | **Stock your cart** | Preview of two bottle rows with level chips, short explanation, **Next**. |
 | 3 | **See what you can make** | Preview cards, one Ready and one Swap, short explanation of Make Now and swaps, **Next**. |
 | 4 | **Find your next bottle** | Unlock preview card with the starburst badge, short explanation, **Stock my cart** (goes to screen 5) and **I'll do it later**. |
 | 5 | **What's on your cart?** | "Tap everything you've got." Tap-to-pick pills in five sections (Spirits; Liqueurs & vermouth; Bitters; Juices, syrups & mixers; Wine, beer & more), a search box, an "N picked" bar ("They'll go on as Full."), **Add N bottles and start**. |
 
-Every screen has **Skip** at the top right. Screens 2 to 5 have a back arrow. Progress dots show steps 1 to 4; screen 5 is not counted. The previews on screens 2 to 4 are fixed sample content, not the user's data.
+Every screen except the age question has **Skip** at the top right. The age question and screens 2 to 5 have a back arrow. Progress dots show steps 1 to 4; screen 5 is not counted. The previews on screens 2 to 4 are fixed sample content, not the user's data.
 
 ### Rules
 - **Shown automatically the first time the app opens.** A saved setting `onboardingDone` (false by default) controls it.
@@ -336,4 +338,6 @@ Every screen has **Skip** at the top right. Screens 2 to 5 have a back arrow. Pr
 - **Existing users skip it:** when the store version goes up, `onboardingDone` is set to true if there are already bottles or favorites.
 - **Backups:** an older backup without `onboardingDone` still imports, and counts as true (someone restoring a backup isn't new).
 - The mustard starburst is allowed on screen 4 because it previews Unlock.
-- **If an age gate is added** before a public launch, it comes before onboarding.
+- **Age gate:** a saved setting `ageConfirmed` (false by default). "Show me around" leads to the age question, and **Yes** saves the answer and continues to screen 2 (or to Home if the tour is already done). **No** is not saved, so a refresh asks again.
+- **Nothing gets around the age question:** Skip on the welcome screen ends the tour, but every main screen and tour screens 2 to 5 send you to the age question until it's answered. Replaying the tour never asks again.
+- **Everyone is asked once after the update** (store version 3 sets `ageConfirmed` to false). An imported backup counts as confirmed, since Import sits in Settings, behind the gate.

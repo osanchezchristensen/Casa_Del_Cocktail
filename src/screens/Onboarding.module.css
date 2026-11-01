@@ -9,6 +9,7 @@
 .top {
   display: flex;
   align-items: center;
+  min-height: 44px; /* keeps the layout steady when the age screen has no buttons up here */
 }
 
 .back {
@@ -264,15 +265,32 @@
   background: var(--deep-amber);
 }
 
-.primary {
+.primary,
+.secondary {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 54px;
+  border: 2px solid var(--deep-amber);
   border-radius: var(--radius-pill);
   background: var(--deep-amber);
   color: var(--paper);
   text-decoration: none;
-  font-size: 17px;
-  font-weight: 700;
+  font: 700 17px var(--font-body);
+  cursor: pointer;
+}
+
+/* "No" on the age question: same size as "Yes", outlined */
+.secondary {
+  background: transparent;
+  color: var(--deep-amber);
+}
+
+.back:focus-visible,
+.skip:focus-visible,
+.later:focus-visible,
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
 }

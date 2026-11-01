@@ -99,4 +99,6 @@ export type Settings = {
   allowSwaps: boolean
   /** True once the first-run tour is finished or skipped (PRD section 13). */
   onboardingDone: boolean
+  /** True once the visitor says they're 21 or older (PRD section 13, age gate). */
+  ageConfirmed: boolean
 }

@@ -78,3 +78,10 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 ## November 1, 2026: onboarding mockup check (step 8.3)
 - **Kept on purpose:** screen 2 uses the real `LevelChip` (bolder than the mockup) so the preview looks like the Bar Cart; pills use full ingredient names ("Maraschino liqueur"); screen 5 shows 10 common picks per section; the screen 1 heading uses the shared 32px size (mockup 34px); screen 5 adds "Nothing picked yet." with a disabled button and a no-results message, which the mockup does not show.
 - **"Replay the tour" lives in the Settings About card** (Settings has no mockup). It keeps `onboardingDone` true, so leaving the replay halfway never traps you in the tour.
+
+## November 1, 2026: age gate
+- **An age question ("Are you 21 or older?") now comes right after the welcome screen**, because the app is public on GitHub Pages and the PRD made a gate a must before any public launch. It replaces the earlier rule that a gate would come before onboarding: the welcome screen says what the app is first, then asks.
+- **21, the US drinking age.**
+- **Nothing gets around it:** Skip on the welcome screen still leads to the question before Home, and direct links to any screen are sent there first. "No" isn't saved, which is normal for a self-declared gate.
+- **Everyone is asked once,** including carts saved before the update. There are no outside users yet, so the extra tap only costs the owner.
+- **No mockup.** The screen reuses the tour layout and brand styles, with an outlined "No" button the same size as "Yes".

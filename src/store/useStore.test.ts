@@ -36,7 +36,7 @@ test('restoring a backup replaces bottles, past bottles, favorites and settings'
     bottles: [bottle],
     pastBottles: [],
     favorites: [{ recipeId: 'negroni', savedAt: '2026-10-02T00:00:00.000Z' }],
-    settings: { allowSwaps: true, onboardingDone: true },
+    settings: { allowSwaps: true, onboardingDone: true, ageConfirmed: true },
   })
   expect(store().bottles).toEqual([bottle])
   expect(store().pastBottles).toEqual([])
@@ -48,11 +48,12 @@ test('export, wipe, import: everything comes back (PRD v1 check)', () => {
   store().removeBottle(bulleit().id)
   store().toggleFavorite('negroni')
   store().setAllowSwaps(true)
+  store().confirmAge()
   const { bottles, pastBottles, favorites, settings } = store()
   const before = { bottles, pastBottles, favorites, settings }
   const file = JSON.stringify(buildBackup(before))
 
-  useStore.setState({ bottles: [], pastBottles: [], favorites: [], settings: { allowSwaps: false, onboardingDone: false } })
+  useStore.setState({ bottles: [], pastBottles: [], favorites: [], settings: { allowSwaps: false, onboardingDone: false, ageConfirmed: false } })
   store().restoreBackup(parseBackup(file)!)
 
   const { bottles: b, pastBottles: p, favorites: f, settings: s } = store()
@@ -114,7 +115,7 @@ describe('the tour setting (PRD section 13)', () => {
 
   test('a v1 save with bottles skips the tour and keeps its other settings', () => {
     const migrated = migrateSaved(v1Save([{ id: 'x' }], []), 1)
-    expect(migrated.settings).toEqual({ allowSwaps: true, onboardingDone: true })
+    expect(migrated.settings).toEqual({ allowSwaps: true, onboardingDone: true, ageConfirmed: false })
   })
 
   test('a v1 save with only favorites skips the tour', () => {
@@ -126,8 +127,21 @@ describe('the tour setting (PRD section 13)', () => {
   })
 
   test('finishOnboarding marks the tour as done', () => {
-    useStore.setState({ settings: { allowSwaps: false, onboardingDone: false } })
+    useStore.setState({ settings: { allowSwaps: false, onboardingDone: false, ageConfirmed: false } })
     store().finishOnboarding()
     expect(store().settings.onboardingDone).toBe(true)
+  })
+})
+
+describe('the age gate (PRD section 13)', () => {
+  test('a v2 save is asked the age question once, and keeps its tour setting', () => {
+    const v2Save = { bottles: [], pastBottles: [], favorites: [], settings: { allowSwaps: false, onboardingDone: true } }
+    expect(migrateSaved(v2Save, 2).settings).toEqual({ allowSwaps: false, onboardingDone: true, ageConfirmed: false })
+  })
+
+  test('confirmAge saves the answer', () => {
+    useStore.setState({ settings: { allowSwaps: false, onboardingDone: true, ageConfirmed: false } })
+    store().confirmAge()
+    expect(store().settings.ageConfirmed).toBe(true)
   })
 })

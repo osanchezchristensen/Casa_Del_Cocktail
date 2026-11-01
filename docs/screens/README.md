@@ -32,7 +32,7 @@ Shown once, the first time someone opens the app. The tour screens have no botto
 | [onboarding-4-unlock.html](onboarding-4-unlock.html) | 4. Find your next bottle | Unlock preview with the starburst (allowed here because it previews Unlock), **Stock my cart** and **I'll do it later** |
 | [onboarding-5-pick-bottles.html](onboarding-5-pick-bottles.html) | 5. What's on your cart? | Tap-to-pick pills by category (picked = Avocado fill with a check), search for anything else, "N picked" bar, **Add N bottles and start**. No bottle names here; those can be added later |
 
-**Onboarding rules:** every screen has **Skip** (goes to Home). Screens 2 to 5 have a back arrow. Progress dots show steps 1 to 4. Screen 5 is not counted in the dots. "Add N bottles and start" and "I'll do it later" both finish onboarding and go to Home.
+**Onboarding rules:** every screen has **Skip** (goes to Home). Screens 2 to 5 have a back arrow. Progress dots show steps 1 to 4. Screen 5 is not counted in the dots. "Add N bottles and start" and "I'll do it later" both finish onboarding and go to Home. An **age question** (no mockup; added after these were made) comes right after Welcome and has no Skip; see PRD section 13.
 
 **Shared across the main screens (not onboarding):** bottom navigation with Bar Cart and Make Now on the left, a round Amber Home button in the center (level with the other tabs), Unlock and Favorites on the right. The active tab is Deep Amber and bold.
 

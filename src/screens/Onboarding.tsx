@@ -7,6 +7,7 @@ import LevelChip from '../components/LevelChip.tsx'
 import Starburst from '../components/Starburst.tsx'
 import { useStore } from '../store/useStore.ts'
 import styles from './Onboarding.module.css'
+import AgeCheck from './AgeCheck.tsx'
 import PickBottles from './PickBottles.tsx'
 
 // Steps 1 to 4. Step 5 is PickBottles. The previews are fixed sample content (one story: Campari is missing).
@@ -114,11 +115,16 @@ const STEPS: Step[] = [
 ]
 
 function Onboarding() {
-  const step = Number(useParams().step)
+  const param = useParams().step
+  const step = Number(param)
   const navigate = useNavigate()
   const finishOnboarding = useStore((s) => s.finishOnboarding)
+  const ageConfirmed = useStore((s) => s.settings.ageConfirmed)
   const current = STEPS[step - 1]
+  if (param === 'age') return <AgeCheck />
   if (!current && step !== 5) return <Navigate to="/welcome/1" replace />
+  // Past the welcome screen, the age question comes first (PRD section 13).
+  if (step > 1 && !ageConfirmed) return <Navigate to="/welcome/age" replace />
 
   const finish = () => {
     finishOnboarding()

@@ -8,12 +8,13 @@ import Onboarding from './screens/Onboarding.tsx'
 import RecipeDetail from './screens/RecipeDetail.tsx'
 import Settings from './screens/Settings.tsx'
 import Unlock from './screens/Unlock.tsx'
+import { gateRedirect } from './logic/onboarding.ts'
 import { useStore } from './store/useStore.ts'
 
-/** The main screens with the bottom nav. First-time visitors are sent to the tour instead. */
+/** The main screens with the bottom nav. First-time visitors go to the tour, then the age question. */
 function MainLayout() {
-  const onboardingDone = useStore((s) => s.settings.onboardingDone)
-  if (!onboardingDone) return <Navigate to="/welcome/1" replace />
+  const redirect = useStore((s) => gateRedirect(s.settings))
+  if (redirect) return <Navigate to={redirect} replace />
   return (
     <>
       <main>
