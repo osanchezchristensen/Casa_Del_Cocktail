@@ -4,7 +4,7 @@ A virtual bar cart. Add the bottles on your cart, and Casa shows which cocktails
 
 It runs entirely in your browser. There is no server and no account.
 
-**[Try the live demo](https://osanchezchristensen.github.io/Casa_Del_Cocktail/)**: a short tour shows you around and lets you tap the bottles you own. Or skip it, open the Bar Cart and tap **Try a sample cart** to see it in action.
+**[Try the live demo](https://osanchezchristensen.github.io/Casa_Del_Cocktail/)**: after a quick age check (21 or older), a short tour shows you around and lets you tap the bottles you own. Or skip it, open the Bar Cart and tap **Try a sample cart** to see it in action.
 
 | Home | Bar Cart | Make Now | Unlock | Recipe |
 |---|---|---|---|---|
@@ -12,7 +12,7 @@ It runs entirely in your browser. There is no server and no account.
 
 ## What it does
 
-- **First-run tour:** four quick screens explain the app, then you tap the bottles you own from common picks (or search for anything else) to stock your cart in under a minute.
+- **First-run tour:** a welcome screen, a quick "Are you 21 or older?" check, then a few screens that explain the app. Last, you tap the bottles you own from common picks (or search for anything else) to stock your cart in under a minute.
 - **Bar Cart:** add bottles by search or by browsing categories, give them a name ("Bulleit"), and track each one as Full, Half, Low or Empty.
 - **Make Now:** every cocktail you can make right now, with the full recipe one tap away.
 - **Unlock:** the top 10 bottles to buy next, ranked by how many new cocktails each one opens up.
@@ -63,8 +63,8 @@ I planned it before writing code: a project brief, a PRD with user stories and e
 
 Things I'm happy with:
 
-- **The matching logic is plain TypeScript with no React in it**, so it's easy to test. Every matching rule has a test (108 tests in all), including data checks that every recipe uses real ingredient ids.
-- **Saved data is versioned.** When v1.1 added the tour, a migration marked it as done for anyone who already had a cart, so existing users never saw it. Older backup files still import.
+- **The matching logic is plain TypeScript with no React in it**, so it's easy to test. Every matching rule has a test (112 tests in all), including data checks that every recipe uses real ingredient ids.
+- **Saved data is versioned.** When v1.1 added the tour, a migration marked it as done for anyone who already had a cart, so existing users never saw it. When the age check followed, everyone was asked once. Older backup files still import.
 - **Ingredients form a family tree** (rum → white rum, aged rum, ...), which makes "general recipe ingredient matches a specific bottle" and "swaps stay inside a family" simple tree lookups.
 - **Search is accent-insensitive**: "cachaca" finds Cachaça and "anejo" finds Añejo tequila.
 - **Copyrighted recipes never touch git.** Book recipes load from a git-ignored folder at build time, and the app works the same without them.
