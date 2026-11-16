@@ -73,7 +73,7 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 | M3 | As the owner, I want to turn on **"Allow swaps"** so that recipes needing a specific type (white rum) also show when I have a related one (dark rum), clearly labeled as a swap. | Must |
 | M4 | As the owner, I want to filter results by source (starter set or my book). | Must |
 | M5 | As the owner, I want to search and filter by base spirit. | Should |
-| M6 | As the owner, I want to filter to non-alcoholic recipes. | Later |
+| M6 | As the owner, I want to filter to non-alcoholic recipes. | v1.2 (section 14) |
 
 ### Unlock
 | # | Story | Priority |
@@ -114,11 +114,13 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 11. **Settings** (small: Allow swaps default, export/import, about)
 
 ### Later (rough order)
+**Next up, after v1.2: smarter Unlock counting** (moved from Maybe on November 16, 2026). Today Unlock credits the ingredient exactly as the recipe names it, so "gin" and "London dry gin" count as two separate suggestions. Testing every possible bottle instead would show that one bottle of London dry gin unlocks both, giving a truer "+N cocktails" number and better buying advice. The catch: near-identical bottles (London dry, Plymouth, Old Tom) would crowd the top 10, so it needs a way to group them.
+
 1. In-app "Add my own recipe" form, including adding a new recipe source (a book) from Make Now
 2. Refill reminders and a shopping list
-3. Bottle history: every bottle I've ever owned, with dates (built on the v1 "past bottles" list)
+3. ~~Bottle history: every bottle I've ever owned, with dates (built on the v1 "past bottles" list)~~ → v1.2 (section 14)
 4. Home features: photos of your drinks, highlighted favorites
-5. Non-alcoholic filter and a mocktail recipe set
+5. ~~Non-alcoholic filter and a mocktail recipe set~~ → v1.2 (section 14)
 6. PWA: install on phone, offline mode, free hosting
 7. Barcode scanning, with a confirm-each-scan step (could fill in bottle names automatically)
 8. Photo recognition of bottles; photo import of book pages
@@ -127,7 +129,7 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 11. ~~Age gate (required before any public launch)~~ → done November 1, 2026: an age question after the welcome screen (section 13)
 
 ### Maybe (ideas to weigh, not planned)
-- **Smarter Unlock counting.** Today Unlock credits the ingredient exactly as the recipe names it, so "gin" and "London dry gin" count as two separate suggestions. Testing every possible bottle instead would show that one bottle of London dry gin unlocks both, giving a truer "+N cocktails" number and better buying advice. The catch: near-identical bottles (London dry, Plymouth, Old Tom) would crowd the top 10, so it needs a way to group them.
+- ~~Smarter Unlock counting~~ → Later list, next after v1.2 (November 16, 2026)
 
 ## 6. Key screens
 
@@ -341,3 +343,31 @@ Every screen except the age question has **Skip** at the top right. The age ques
 - **Age gate:** a saved setting `ageConfirmed` (false by default). "Show me around" leads to the age question, and **Yes** saves the answer and continues to screen 2 (or to Home if the tour is already done). **No** is not saved, so a refresh asks again.
 - **Nothing gets around the age question:** Skip on the welcome screen ends the tour, but every main screen and tour screens 2 to 5 send you to the age question until it's answered. Replaying the tour never asks again.
 - **Everyone is asked once after the update** (store version 3 sets `ageConfirmed` to false). An imported backup counts as confirmed, since Import sits in Settings, behind the gate.
+
+## 14. v1.2: Past bottles and mocktails
+
+Two small additions built on data the app already keeps: the "past bottles" list saved since v1, and the `non-alcoholic` recipe tag and `alcoholic` ingredient flag that have been in the data from day one. **No data shape changes.** No mockups: both reuse existing layouts (see [[decisions|Decisions]]).
+
+### User stories
+| # | Story | Priority |
+|---|---|---|
+| H1 | As the owner, I want to see every bottle I've finished, with the dates, so I remember what I've had. | Must |
+| H2 | As the owner, I want to put a past bottle back on my cart in one tap when I buy it again. | Should |
+| N1 | As the owner, I want to filter Make Now to non-alcoholic recipes (was M6). | Must |
+| N2 | As the owner, I want a small set of mocktails, so the filter has something to show. | Must |
+
+### Screens
+| Screen | What's on it |
+|---|---|
+| **Past bottles** (new, `/cart/past`) | Opened from a **Past bottles** link at the bottom of the Bar Cart, shown when there is at least one. Header with the count ("N past bottles") and a back arrow to the Bar Cart. Rows newest-finished first, styled like Bar Cart rows: name first, type second, then "Added Oct 3 · Finished Nov 2". Each row has an **Add again** button. A friendly empty state links back to the Bar Cart. |
+| **Make Now** (changed) | A **Non-alcoholic** filter button next to the source filters. Unlike the source filters, it's always shown. |
+
+### Rules
+- **Add again** adds a new Full bottle with the same `ingredientId` and `name`, a new `id` and today's `addedAt`. The past bottle stays in the list: it's history.
+- Past bottles never count toward matching (already true in v1). Remove and undo on the Bar Cart work as before.
+- No deleting from history in v1.2; that can go on the Later list if wanted.
+- **A recipe is non-alcoholic when it has the `non-alcoholic` tag.** A data test checks that every tagged recipe uses only ingredients with `alcoholic: false`, so the tag can't be wrong.
+- The Non-alcoholic filter combines with the source filter and Allow swaps, and isn't saved (no new setting).
+- **Mocktails:** about 10 starter recipes, written in our own words, with `source: { type: "starter" }` and the `non-alcoholic` tag, using existing ingredient ids where possible. Any new ingredient gets a sensible `category` and `parentId` and is listed in the step summary.
+- Mocktails show everywhere recipes do (Make Now, Unlock, Favorites, Home); only the filter treats them specially.
+- The filter button has a word label, never color alone. The responsible-drinking note is unchanged.

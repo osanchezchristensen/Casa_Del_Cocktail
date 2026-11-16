@@ -85,3 +85,9 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **Nothing gets around it:** Skip on the welcome screen still leads to the question before Home, and direct links to any screen are sent there first. "No" isn't saved, which is normal for a self-declared gate.
 - **Everyone is asked once,** including carts saved before the update. There are no outside users yet, so the extra tap only costs the owner.
 - **No mockup.** The screen reuses the tour layout and brand styles, with an outlined "No" button the same size as "Yes".
+
+## November 16, 2026: v1.2 plan
+- **v1.2 combines bottle history and the non-alcoholic filter with mocktails** (Later items 3 and 5), because both are small and built on data the app already keeps (`pastBottles`, the `non-alcoholic` tag and the `alcoholic` flag). No data shape changes.
+- **Non-alcoholic means the recipe has the tag**, as the PRD data section already said. A data test makes sure tagged recipes use no alcoholic ingredients.
+- **No mockups for v1.2.** The Past bottles screen reuses the Bar Cart row style and the filter reuses the Make Now filter buttons.
+- **Smarter Unlock counting moves from Maybe to the Later list, next after v1.2**, because it gives better buying advice than today's count.

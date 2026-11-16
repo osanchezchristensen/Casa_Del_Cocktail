@@ -242,15 +242,6 @@ Fix the most important issues from 7.2. Then ask Claude Code to update the READM
 
 ---
 
-## After v1
-
-Pick from the PRD's "Later" list. The suggested next three:
-1. In-app "Add my own recipe" form
-2. Refill list / shopping list
-3. PWA, free hosting and phone install (this unlocks using it at the liquor store)
-
----
-
 ## Phase 8: v1.1 First-run onboarding (3 sessions)
 
 The rules are in PRD section 13 and the mockups are the `onboarding-*.html` files in [[screens/README|Screens]].
@@ -299,6 +290,48 @@ The rules are in PRD section 13 and the mockups are the `onboarding-*.html` file
 - [x] Replaying the tour doesn't ask again
 - [x] `npm test` and `npm run build` pass
 
+---
+
+## Phase 9: v1.2 Past bottles and mocktails (3 sessions)
+
+The rules are in PRD section 14. There are no mockups: the Past bottles screen reuses the Bar Cart row style, and the filter reuses the Make Now filter buttons.
+
+### 9.1 Past bottles screen
+**Prompt:**
+> Read PRD section 14. Add a Past bottles screen at `/cart/past`, opened from a link at the bottom of the Bar Cart that shows only when `pastBottles` isn't empty. List past bottles newest-finished first in the Bar Cart row style (name first, type second, added and finished dates), with an empty state and a back arrow. Add an "Add again" button that adds a new Full bottle with the same ingredient and name, and keeps the past bottle in the list. Put the sorting in `src/logic/` and add tests for it and the store action.
+
+**Done when:**
+- [ ] Removing a bottle makes it show up on Past bottles with today's finished date
+- [ ] "Add again" puts a Full bottle with the same name back on the Bar Cart, and the past bottle stays listed
+- [ ] The link is hidden when there are no past bottles
+- [ ] An export and import keeps past bottles
+- [ ] `npm test` and `npm run build` pass
+
+### 9.2 Mocktails and the Non-alcoholic filter
+**Prompt:**
+> Write about 10 starter mocktails in our own words, tagged `non-alcoholic`, using existing ingredient ids where possible (tell me about any new ingredients). Add a data test that every `non-alcoholic` recipe uses only ingredients with `alcoholic: false`. Add a Non-alcoholic filter button on Make Now next to the source filters that combines with them and with Allow swaps. Put the filter logic in `src/logic/recipeDisplay.ts` with tests.
+
+**Done when:**
+- [ ] With only juices, syrups and mixers on the cart, the Non-alcoholic filter shows mocktails I can make
+- [ ] The filter works together with the source filter and Allow swaps
+- [ ] The data test fails if a tagged recipe uses an alcoholic ingredient
+- [ ] `npm test`, `npm run build` and `npm run lint` pass
+
+### 9.3 Check and release v1.2
+**Prompt:**
+> Check the new screen and the filter against the brand kit (copy, colors, states, phone width). List the differences before fixing them. Then update the README, set the version to 1.2.0 and tag `v1.2`.
+
+**Done when:**
+- [ ] Past bottles and the filter follow the brand kit, or the difference is written in `decisions.md`
+- [ ] README mentions past bottles and mocktails
+- [ ] Version 1.2.0, tagged `v1.2`
+
+---
+
+## What's next
+
+After v1.2, pick from the PRD's "Later" list (section 5). **Next up: smarter Unlock counting**, so one bottle of London dry gin counts for recipes that ask for "gin" too. It needs a way to group near-identical bottles so they don't crowd the top 10; the full write-up is in the [[prd|PRD]].
+
 ## Progress tracker
 
 | Phase                     | Steps                | Status |
@@ -313,3 +346,4 @@ The rules are in PRD section 13 and the mockups are the `onboarding-*.html` file
 | 7 Polish                  | 7.1-7.3              | ☑      |
 | 8 Onboarding (v1.1)       | 8.1-8.3              | ☑      |
 | 8.4 Age gate | 8.4 | ☑ |
+| 9 Past bottles & mocktails (v1.2) | 9.1-9.3 | ☐ |
