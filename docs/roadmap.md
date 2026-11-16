@@ -334,15 +334,15 @@ The rule is in PRD section 7, "Unlock calculation." No screen changes and no moc
 
 ### 10.1 Test every bottle
 **Prompt:**
-> Read PRD section 7, "Unlock calculation." Rewrite `unlockSuggestions` in `src/logic/matching.ts` to try every ingredient you don't own and count the recipes it would make makeable, using `matchRecipe`. Rank by count, put the more general ingredient first on a tie, hide a suggestion when one ranked above it already unlocks all its recipes, and keep the top 10. Keep the same inputs and output so the Unlock screen doesn't change. Remove the old `shortcut:` comment. Add tests for each rule.
+> Read PRD section 7, "Unlock calculation." Rewrite `unlockSuggestions` in `src/logic/matching.ts` to try every ingredient you don't own and count the recipes it would make makeable, using `matchRecipe`. Rank by count, break ties as PRD section 7 says (fewer swaps, then by family, general first inside a family), hide a suggestion when one ranked above it already unlocks all its recipes, and keep the top 10. Keep the same inputs and output so the Unlock screen doesn't change. Remove the old `shortcut:` comment. Add tests for each rule.
 
 **Done when:**
-- [ ] London dry gin gets credit for recipes that ask for "gin"
-- [ ] Plymouth gin is hidden when London dry gin covers all its recipes
-- [ ] Simple syrup hides behind demerara syrup
-- [ ] An Empty bottle can still be suggested, and Allow swaps still changes the results
-- [ ] At most 10 suggestions
-- [ ] `npm test`, `npm run build` and `npm run lint` pass
+- [x] London dry gin gets credit for recipes that ask for "gin"
+- [x] Plymouth gin is hidden when London dry gin covers all its recipes
+- [x] Simple syrup hides behind demerara syrup
+- [x] An Empty bottle can still be suggested, and Allow swaps still changes the results
+- [x] At most 10 suggestions
+- [x] `npm test`, `npm run build` and `npm run lint` pass
 
 ### 10.2 Check and release v1.3
 **Prompt:**

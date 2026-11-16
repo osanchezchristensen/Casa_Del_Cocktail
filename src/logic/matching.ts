@@ -111,25 +111,57 @@ export function mainIngredients(recipe: Recipe): string[] {
 
 export type UnlockSuggestion = { ingredientId: string; recipes: Recipe[] }
 
+// The ingredient's line up to its family's top: "london-dry-gin" gives ["london-dry-gin", "gin"].
+function lineage(id: string): string[] {
+  const line = [id]
+  for (let c = ingredientsById.get(id)?.parentId; c; c = ingredientsById.get(c)?.parentId) line.push(c)
+  return line
+}
+
 /**
- * Unlock (PRD section 7): ingredients ranked by how many recipes they're the only
- * missing required ingredient for. Top 10, ties sorted by id.
- * shortcut: credits the id the recipe names, so "gin" and "london-dry-gin" count apart;
- * see the PRD "Maybe" list for the smarter version.
+ * Unlock (PRD section 7, "Unlock calculation"): try every ingredient you don't own and count
+ * the recipes it would make makeable. Most first. On a tie: fewer swaps, then by family, and within
+ * a family the more general ingredient, then id. A suggestion is hidden when one kept above it
+ * already unlocks all its recipes. Top 10.
  */
 export function unlockSuggestions(
   owned: Set<string>,
   recipes: Recipe[],
   allowSwaps = false,
 ): UnlockSuggestion[] {
-  const unlocks = new Map<string, Recipe[]>()
-  for (const recipe of recipes) {
-    const { missing } = matchRecipe(recipe, owned, allowSwaps)
-    if (missing.length !== 1) continue
-    unlocks.set(missing[0], [...(unlocks.get(missing[0]) ?? []), recipe])
+  const notYet = recipes.filter((r) => !canMake(r, owned, allowSwaps))
+  const ranked = [...ingredientsById.values()]
+    .filter((i) => !owned.has(i.id) && !i.alwaysOnHand)
+    .map((i) => {
+      const withIt = new Set(owned).add(i.id)
+      const unlocked = notYet.map((r) => ({ r, match: matchRecipe(r, withIt, allowSwaps) })).filter((u) => u.match.status !== 'missing')
+      const line = lineage(i.id)
+      return {
+        ingredientId: i.id,
+        recipes: unlocked.map((u) => u.r),
+        // Buying what the recipe names beats buying a stand-in: Nonino over "any amaro".
+        // Only swaps where this bottle is the stand-in; swaps the recipe needs anyway don't count.
+        swaps: unlocked.reduce((n, u) => n + u.match.swaps.filter((s) => s.used === i.id).length, 0),
+        family: line[line.length - 1],
+        depth: line.length - 1,
+      }
+    })
+    .filter((s) => s.recipes.length > 0)
+    .sort(
+      (a, b) =>
+        b.recipes.length - a.recipes.length ||
+        a.swaps - b.swaps ||
+        a.family.localeCompare(b.family) ||
+        a.depth - b.depth ||
+        a.ingredientId.localeCompare(b.ingredientId),
+    )
+
+  const kept: UnlockSuggestion[] = []
+  for (const s of ranked) {
+    if (kept.length === 10) break
+    if (!kept.some((k) => s.recipes.every((r) => k.recipes.includes(r)))) {
+      kept.push({ ingredientId: s.ingredientId, recipes: s.recipes })
+    }
   }
-  return [...unlocks]
-    .map(([ingredientId, recipes]) => ({ ingredientId, recipes }))
-    .sort((a, b) => b.recipes.length - a.recipes.length || a.ingredientId.localeCompare(b.ingredientId))
-    .slice(0, 10)
+  return kept
 }

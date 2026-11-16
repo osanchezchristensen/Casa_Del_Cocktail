@@ -198,7 +198,10 @@ spirit
 *Changed in v1.3. Until then, Unlock credited the ingredient exactly as the recipe names it, so "gin" and "London dry gin" counted apart.*
 
 1. **Test every bottle.** For every ingredient you **don't** own (no bottles, or all its bottles Empty), pretend you bought it and count the recipes you can't make now but could then. Matching rules 1 to 8 decide, so one bottle of London dry gin gets credit for recipes that ask for "gin" and for "London dry gin." With swaps on, swap matches count as makeable.
-2. **Rank** by that count, highest first. On a tie, the more general ingredient comes first ("gin" before "London dry gin"), then alphabetical by id.
+2. **Rank** by that count, highest first. On a tie:
+   - **Fewer swaps first,** counting only swaps where the new bottle is the stand-in. Buying what the recipe names beats a stand-in: Amaro Nonino before "any amaro," cognac before "any brandy."
+   - **Then by family, and inside a family the more general ingredient first** ("gin" before "London dry gin"). The general-first rule never pushes a specific bottle below a different family.
+   - **Then alphabetical by id.**
 3. **Hide repeats.** Going down the ranking, a suggestion is hidden when one suggestion above it already unlocks every recipe it would. Plymouth gin only shows if it unlocks something London dry gin doesn't; simple syrup hides behind demerara syrup, which covers the same recipes and more.
 4. **Show the top 10** that are left.
 

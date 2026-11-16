@@ -243,11 +243,52 @@ describe('unlock suggestions', () => {
     expect(unlock(rumCart, true).some((s) => s.startsWith('white-rum'))).toBe(false)
   })
 
+  // Test recipes with their own ids, so each suggestion lists which ones it unlocks.
+  const asks = (id: string, ingredientId: string): Recipe => ({ ...needs(ingredientId), id })
+
+  test('a specific bottle gets credit for recipes that ask for its family', () => {
+    const list = [asks('any-gin', 'gin'), asks('dry', 'london-dry-gin')]
+    expect(unlock(own(), false, list)).toEqual(['london-dry-gin: any-gin, dry'])
+  })
+
+  test('a sibling shows only when it unlocks something the one above it does not', () => {
+    const list = [asks('any-gin', 'gin'), asks('dry', 'london-dry-gin'), asks('plym', 'plymouth-gin')]
+    // Old Tom and plain gin only unlock "any-gin", which London dry already covers.
+    expect(unlock(own(), false, list)).toEqual(['london-dry-gin: any-gin, dry', 'plymouth-gin: any-gin, plym'])
+  })
+
+  test('on a tie, the more general ingredient wins and the rest hide behind it', () => {
+    expect(unlock(own(), false, [asks('any-gin', 'gin')])).toEqual(['gin: any-gin'])
+  })
+
+  test('on a tie, the bottle the recipe names beats a stand-in that needs a swap', () => {
+    // With swaps on, any brandy fills in for cognac, but cognac itself needs no swap.
+    expect(unlock(own(), true, [asks('side', 'cognac')])).toEqual(['cognac: side'])
+  })
+
+  test("a swap the recipe needs anyway doesn't count against a bottle", () => {
+    // Campari already stands in for Aperol; Nonino still beats "any amaro" and isn't pushed below Galliano.
+    const paper = { ...asks('paper', 'amaro-nonino'), ingredients: [...needs('amaro-nonino').ingredients, ...needs('aperol').ingredients] }
+    expect(unlock(own('campari'), true, [paper, asks('yellow', 'galliano')])).toEqual(['amaro-nonino: paper', 'galliano: yellow'])
+  })
+
+  test('the general-first tie rule only works inside a family', () => {
+    // Cognac sits one step down the brandy family and Chartreuse is a family top, yet "brandy"
+    // sorts before "chartreuse", so cognac isn't pushed down for being specific.
+    const list = [asks('green', 'chartreuse'), asks('side', 'cognac')]
+    expect(unlock(own(), false, list)).toEqual(['cognac: side', 'chartreuse: green'])
+  })
+
+  test('simple syrup hides behind demerara syrup, which covers the same recipes and more', () => {
+    const list = [asks('plain', 'simple-syrup'), asks('rich', 'demerara-syrup')]
+    expect(unlock(own(), false, list)).toEqual(['demerara-syrup: plain, rich'])
+  })
+
   test('returns at most 10, ties sorted by id', () => {
-    const ids = ['absinthe', 'aperol', 'bourbon', 'campari', 'cognac', 'gin', 'mezcal', 'mint', 'rum', 'tequila', 'vodka', 'white-rum']
-    const result = unlock(own(), false, ids.map(needs))
+    const tops = ['absinthe', 'amaretto', 'aquavit', 'benedictine', 'brandy', 'cachaca', 'chartreuse', 'drambuie', 'falernum', 'galliano', 'genever', 'gin']
+    const result = unlock(own(), false, tops.map((id) => asks(id, id)))
     expect(result).toHaveLength(10)
-    expect(result[0]).toBe('absinthe: test')
-    expect(result[9]).toBe('tequila: test')
+    expect(result[0]).toBe('absinthe: absinthe')
+    expect(result[9]).toBe('galliano: galliano')
   })
 })
