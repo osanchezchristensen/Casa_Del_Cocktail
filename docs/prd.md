@@ -114,7 +114,7 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 11. **Settings** (small: Allow swaps default, export/import, about)
 
 ### Later (rough order)
-**Next up, after v1.2: smarter Unlock counting** (moved from Maybe on November 16, 2026). Today Unlock credits the ingredient exactly as the recipe names it, so "gin" and "London dry gin" count as two separate suggestions. Testing every possible bottle instead would show that one bottle of London dry gin unlocks both, giving a truer "+N cocktails" number and better buying advice. The catch: near-identical bottles (London dry, Plymouth, Old Tom) would crowd the top 10, so it needs a way to group them.
+~~**Smarter Unlock counting**~~ → v1.3 (section 7, "Unlock calculation")
 
 1. In-app "Add my own recipe" form, including adding a new recipe source (a book) from Make Now
 2. Refill reminders and a shopping list
@@ -195,7 +195,14 @@ spirit
 8. **No-swap ingredients.** Some family members are too different to stand in for each other (sweet and dry vermouth, fino and oloroso sherry, spiced rum, blue curaçao). An ingredient marked `noSwap` can't fill in for a sibling, and a sibling can't fill in for it, even with **Allow swaps** on. Rules 1 and 4 still apply: a recipe that says "vermouth," or marks vermouth as "any of this family," accepts any vermouth you own.
 
 ### Unlock calculation
-For every ingredient you **don't** own (no bottles, or all its bottles Empty): count the recipes where it's the **only** missing required ingredient. Rank by that count, highest first, and show the top 10. With swaps on, swap matches count as makeable.
+*Changed in v1.3. Until then, Unlock credited the ingredient exactly as the recipe names it, so "gin" and "London dry gin" counted apart.*
+
+1. **Test every bottle.** For every ingredient you **don't** own (no bottles, or all its bottles Empty), pretend you bought it and count the recipes you can't make now but could then. Matching rules 1 to 8 decide, so one bottle of London dry gin gets credit for recipes that ask for "gin" and for "London dry gin." With swaps on, swap matches count as makeable.
+2. **Rank** by that count, highest first. On a tie, the more general ingredient comes first ("gin" before "London dry gin"), then alphabetical by id.
+3. **Hide repeats.** Going down the ranking, a suggestion is hidden when one suggestion above it already unlocks every recipe it would. Plymouth gin only shows if it unlocks something London dry gin doesn't; simple syrup hides behind demerara syrup, which covers the same recipes and more.
+4. **Show the top 10** that are left.
+
+The Unlock screen itself doesn't change: each card still names one ingredient and the cocktails it unlocks, and "I bought it" adds that ingredient as a Full bottle.
 
 ## 8. Data needed
 

@@ -328,9 +328,36 @@ The rules are in PRD section 14. There are no mockups: the Past bottles screen r
 
 ---
 
+## Phase 10: v1.3 Smarter Unlock counting (2 sessions)
+
+The rule is in PRD section 7, "Unlock calculation." No screen changes and no mockups.
+
+### 10.1 Test every bottle
+**Prompt:**
+> Read PRD section 7, "Unlock calculation." Rewrite `unlockSuggestions` in `src/logic/matching.ts` to try every ingredient you don't own and count the recipes it would make makeable, using `matchRecipe`. Rank by count, put the more general ingredient first on a tie, hide a suggestion when one ranked above it already unlocks all its recipes, and keep the top 10. Keep the same inputs and output so the Unlock screen doesn't change. Remove the old `shortcut:` comment. Add tests for each rule.
+
+**Done when:**
+- [ ] London dry gin gets credit for recipes that ask for "gin"
+- [ ] Plymouth gin is hidden when London dry gin covers all its recipes
+- [ ] Simple syrup hides behind demerara syrup
+- [ ] An Empty bottle can still be suggested, and Allow swaps still changes the results
+- [ ] At most 10 suggestions
+- [ ] `npm test`, `npm run build` and `npm run lint` pass
+
+### 10.2 Check and release v1.3
+**Prompt:**
+> Compare the Unlock list before and after on the sample cart and on my real cart, and list anything that looks like bad buying advice before fixing it. Then update the README, set the version to 1.3.0 and tag `v1.3`.
+
+**Done when:**
+- [ ] The top suggestions make sense for the sample cart and my cart, or the difference is written in `decisions.md`
+- [ ] README describes the new counting
+- [ ] Version 1.3.0, tagged `v1.3`
+
+---
+
 ## What's next
 
-After v1.2, pick from the PRD's "Later" list (section 5). **Next up: smarter Unlock counting**, so one bottle of London dry gin counts for recipes that ask for "gin" too. It needs a way to group near-identical bottles so they don't crowd the top 10; the full write-up is in the [[prd|PRD]].
+After v1.3, pick from the PRD's "Later" list (section 5).
 
 ## Progress tracker
 
@@ -347,3 +374,4 @@ After v1.2, pick from the PRD's "Later" list (section 5). **Next up: smarter Unl
 | 8 Onboarding (v1.1)       | 8.1-8.3              | ☑      |
 | 8.4 Age gate | 8.4 | ☑ |
 | 9 Past bottles & mocktails (v1.2) | 9.1-9.3 | ☑ |
+| 10 Smarter Unlock (v1.3) | 10.1-10.2 | ☐ |

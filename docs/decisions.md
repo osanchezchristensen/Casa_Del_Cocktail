@@ -96,3 +96,8 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **The Non-alcoholic button is teal**, like every other filter, with a check mark when it's on. Avocado is kept for "you can make this," so the button can't be mistaken for a status.
 - **"Add again" on Past bottles keeps a Walnut outline**, not the brand kit's teal for secondary buttons, to match "Try a sample cart" and the age question's "No," which already use it.
 - **Make Now says "drinks" instead of "cocktails" while the Non-alcoholic filter is on.**
+
+## November 16, 2026: smarter Unlock counting (v1.3)
+- **Unlock tests every bottle you don't have** instead of crediting the ingredient a recipe names, so one bottle of London dry gin counts for "gin" recipes too. This gives truer "+N" numbers and better buying advice.
+- **Near-identical bottles are handled by hiding repeats**, not by grouping cards by family: a suggestion is hidden when one ranked above it already unlocks all its recipes. It keeps the Unlock screen and "I bought it" exactly as they are. Grouping by family stays an option if repeats still crowd the list.
+- **On a tie, the more general ingredient wins** ("gin" before "London dry gin"), because "any gin" is the easier thing to buy.
