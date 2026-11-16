@@ -349,9 +349,9 @@ The rule is in PRD section 7, "Unlock calculation." No screen changes and no moc
 > Compare the Unlock list before and after on the sample cart and on my real cart, and list anything that looks like bad buying advice before fixing it. Then update the README, set the version to 1.3.0 and tag `v1.3`.
 
 **Done when:**
-- [ ] The top suggestions make sense for the sample cart and my cart, or the difference is written in `decisions.md`
-- [ ] README describes the new counting
-- [ ] Version 1.3.0, tagged `v1.3`
+- [x] The top suggestions make sense for the sample cart and my cart, or the difference is written in `decisions.md`
+- [x] README describes the new counting
+- [x] Version 1.3.0, tagged `v1.3`
 
 ---
 
@@ -374,4 +374,4 @@ After v1.3, pick from the PRD's "Later" list (section 5).
 | 8 Onboarding (v1.1)       | 8.1-8.3              | ☑      |
 | 8.4 Age gate | 8.4 | ☑ |
 | 9 Past bottles & mocktails (v1.2) | 9.1-9.3 | ☑ |
-| 10 Smarter Unlock (v1.3) | 10.1-10.2 | ☐ |
+| 10 Smarter Unlock (v1.3) | 10.1-10.2 | ☑ |

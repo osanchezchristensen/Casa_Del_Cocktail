@@ -102,3 +102,6 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **Near-identical bottles are handled by hiding repeats**, not by grouping cards by family: a suggestion is hidden when one ranked above it already unlocks all its recipes. It keeps the Unlock screen and "I bought it" exactly as they are. Grouping by family stays an option if repeats still crowd the list.
 - **On a tie, the more general ingredient wins** ("gin" before "London dry gin"), because "any gin" is the easier thing to buy.
 - **Changed in step 10.1, after trying it on the sample cart:** ties first go to the bottle that needs fewer swaps as a stand-in, and general-first only applies inside a family. Without that, Unlock suggested "any amaro" for a Paper Plane instead of Amaro Nonino, and every family top crowded out specific bottles like dry vermouth and cognac.
+
+## November 16, 2026: v1.3 release check (step 10.2)
+- **Checked on the sample cart only.** The before-and-after comparison on my own cart was skipped by choice; the sample cart, with swaps off and on, already showed the tie-rule problems that step 10.1 fixed.
