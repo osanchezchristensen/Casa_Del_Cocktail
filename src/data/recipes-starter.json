@@ -1162,5 +1162,198 @@
     "method": "built",
     "tags": ["classic", "sparkling"],
     "source": { "type": "starter" }
+  },
+  {
+    "id": "shirley-temple",
+    "name": "Shirley Temple",
+    "ingredients": [
+      { "ingredientId": "ginger-ale", "amount": 5, "unit": "oz" },
+      { "ingredientId": "grenadine", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "cocktail-cherry", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Fill a highball glass with ice and pour in the ginger ale.",
+      "Drizzle the grenadine over the top and let it sink.",
+      "Drop in a cherry. Stir if you like, or leave the sunset."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["non-alcoholic", "classic", "sweet"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "nojito",
+    "name": "Nojito",
+    "ingredients": [
+      { "ingredientId": "mint", "amount": 8, "unit": "piece" },
+      { "ingredientId": "lime-juice", "amount": 1, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "soda-water", "amount": 4, "unit": "oz" }
+    ],
+    "steps": [
+      "Gently press the mint leaves with the syrup in a highball glass.",
+      "Add the lime juice, fill with ice and stir.",
+      "Top with soda water and add a mint sprig."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["non-alcoholic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "lime-rickey",
+    "name": "Lime Rickey",
+    "ingredients": [
+      { "ingredientId": "lime-juice", "amount": 1, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "soda-water", "amount": 5, "unit": "oz" },
+      { "ingredientId": "lime-wedge", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Pour the lime juice and syrup into a highball glass full of ice.",
+      "Top with soda water and give it one stir.",
+      "Squeeze in the lime wedge and drop it in."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["non-alcoholic", "classic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "virgin-mary",
+    "name": "Virgin Mary",
+    "ingredients": [
+      { "ingredientId": "tomato-juice", "amount": 5, "unit": "oz" },
+      { "ingredientId": "lemon-juice", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "worcestershire-sauce", "amount": 2, "unit": "dash" },
+      { "ingredientId": "hot-sauce", "amount": 2, "unit": "dash" },
+      { "ingredientId": "salt", "amount": 1, "unit": "dash" },
+      { "ingredientId": "celery", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Add everything but the celery to a highball glass with ice.",
+      "Roll it into a second glass and back a few times to mix without frothing.",
+      "Taste, add more hot sauce if you dare, and finish with a celery stalk."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["non-alcoholic", "classic", "savory"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "arnold-palmer",
+    "name": "Arnold Palmer",
+    "ingredients": [
+      { "ingredientId": "tea", "amount": 4, "unit": "oz" },
+      { "ingredientId": "lemon-juice", "amount": 1, "unit": "oz" },
+      { "ingredientId": "simple-syrup", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "water", "amount": 2, "unit": "oz" }
+    ],
+    "steps": [
+      "Brew the tea strong and let it cool.",
+      "Stir the lemon juice, syrup and water together in a highball glass for a quick lemonade.",
+      "Fill with ice and top with the tea."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["non-alcoholic", "classic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "ginger-lime-cooler",
+    "name": "Ginger Lime Cooler",
+    "ingredients": [
+      { "ingredientId": "lime-juice", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "ginger-beer", "amount": 5, "unit": "oz" },
+      { "ingredientId": "mint", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Squeeze the lime juice into a mug full of ice.",
+      "Top with ginger beer and stir once.",
+      "Slap a mint sprig between your hands and tuck it in."
+    ],
+    "glass": "mug",
+    "method": "built",
+    "tags": ["non-alcoholic", "refreshing", "spicy"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "virgin-pina-colada",
+    "name": "Virgin Piña Colada",
+    "ingredients": [
+      { "ingredientId": "pineapple-juice", "amount": 4, "unit": "oz" },
+      { "ingredientId": "coconut-cream", "amount": 2, "unit": "oz" },
+      { "ingredientId": "lime-juice", "amount": 0.5, "unit": "oz", "optional": true },
+      { "ingredientId": "pineapple-wedge", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Blend the pineapple juice, coconut cream and lime with a cup of ice until smooth.",
+      "Pour into a tall glass.",
+      "Perch a pineapple wedge on the rim."
+    ],
+    "glass": "other",
+    "method": "blended",
+    "tags": ["non-alcoholic", "sweet", "creamy"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "no-loma",
+    "name": "No-loma",
+    "ingredients": [
+      { "ingredientId": "grapefruit-juice", "amount": 3, "unit": "oz" },
+      { "ingredientId": "lime-juice", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "agave-syrup", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "soda-water", "amount": 3, "unit": "oz" },
+      { "ingredientId": "salt", "amount": 1, "unit": "tsp", "garnish": true }
+    ],
+    "steps": [
+      "Salt half the rim of a highball glass, if you like.",
+      "Add the grapefruit juice, lime juice and agave syrup, then fill with ice and stir.",
+      "Top with soda water."
+    ],
+    "glass": "highball",
+    "method": "built",
+    "tags": ["non-alcoholic", "refreshing"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "cinderella",
+    "name": "Cinderella",
+    "ingredients": [
+      { "ingredientId": "orange-juice", "amount": 1.5, "unit": "oz" },
+      { "ingredientId": "pineapple-juice", "amount": 1.5, "unit": "oz" },
+      { "ingredientId": "lemon-juice", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "grenadine", "amount": 0.25, "unit": "oz" },
+      { "ingredientId": "soda-water", "amount": 2, "unit": "oz" },
+      { "ingredientId": "orange-slice", "amount": 1, "unit": "piece", "garnish": true }
+    ],
+    "steps": [
+      "Shake the orange, pineapple and lemon juices with the grenadine and ice.",
+      "Strain into a collins glass over fresh ice.",
+      "Top with soda water and add an orange slice."
+    ],
+    "glass": "collins",
+    "method": "shaken",
+    "tags": ["non-alcoholic", "fruity"],
+    "source": { "type": "starter" }
+  },
+  {
+    "id": "honey-ginger-fizz",
+    "name": "Honey Ginger Fizz",
+    "ingredients": [
+      { "ingredientId": "lemon-juice", "amount": 0.75, "unit": "oz" },
+      { "ingredientId": "honey-syrup", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "ginger-syrup", "amount": 0.5, "unit": "oz" },
+      { "ingredientId": "soda-water", "amount": 4, "unit": "oz" }
+    ],
+    "steps": [
+      "Shake the lemon juice, honey syrup and ginger syrup with ice.",
+      "Strain into a highball glass over fresh ice.",
+      "Top with soda water and stir once."
+    ],
+    "glass": "highball",
+    "method": "shaken",
+    "tags": ["non-alcoholic", "refreshing", "spicy"],
+    "source": { "type": "starter" }
   }
 ]

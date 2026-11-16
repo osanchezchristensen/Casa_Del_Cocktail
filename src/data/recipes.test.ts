@@ -51,3 +51,13 @@ test('every recipe has at least one required ingredient and one step', () => {
     expect(r.steps.length, r.id).toBeGreaterThan(0)
   }
 })
+
+// PRD section 14: the tag is what the Non-alcoholic filter trusts, so it must never be wrong.
+test('a recipe tagged non-alcoholic uses no alcoholic ingredient', () => {
+  const alcoholic = new Set(ingredients.filter((i) => i.alcoholic).map((i) => i.id))
+  const tagged = ALL_RECIPES.filter((r) => r.tags.includes('non-alcoholic'))
+  expect(tagged.length).toBeGreaterThanOrEqual(10)
+  for (const r of tagged) {
+    for (const ri of r.ingredients) expect(alcoholic.has(ri.ingredientId), `${r.id}: ${ri.ingredientId}`).toBe(false)
+  }
+})

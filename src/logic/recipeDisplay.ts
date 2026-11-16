@@ -23,6 +23,9 @@ export function sourceFilters(recipes: Recipe[]): { key: string; label: string }
   ]
 }
 
+/** The Non-alcoholic filter on Make Now (PRD section 14): the tag decides, and a data test keeps it honest. */
+export const isNonAlcoholic = (recipe: Recipe) => recipe.tags.includes('non-alcoholic')
+
 export const matchesSource = (recipe: Recipe, key: string) => key === 'all' || sourceKey(recipe.source) === key
 
 export const sourceLabel = (s: RecipeSource) =>

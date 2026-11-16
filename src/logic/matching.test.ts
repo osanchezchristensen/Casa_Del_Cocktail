@@ -213,8 +213,8 @@ describe('unlock suggestions', () => {
 
   const cart = own('white-rum', 'lime-juice', 'simple-syrup', 'mint', 'gin', 'lemon-juice', 'aperol', 'prosecco')
 
-  test('soda water ranks first, unlocking Mojito, Tom Collins and Aperol Spritz', () => {
-    expect(unlock(cart)[0]).toBe('soda-water: mojito, tom-collins, aperol-spritz')
+  test('soda water ranks first, unlocking Mojito, Tom Collins, Aperol Spritz and two mocktails', () => {
+    expect(unlock(cart)[0]).toBe('soda-water: mojito, tom-collins, aperol-spritz, nojito, lime-rickey')
   })
 
   test('never suggests owned ingredients or counts makeable recipes', () => {
@@ -239,7 +239,7 @@ describe('unlock suggestions', () => {
     // Swaps off: white rum is the one thing the Daiquiri lacks.
     expect(unlock(rumCart)).toContain('white-rum: daiquiri')
     // Swaps on: the Daiquiri is already makeable, and the Mojito only lacks soda water.
-    expect(unlock(rumCart, true)).toContain('soda-water: mojito')
+    expect(unlock(rumCart, true)).toContain('soda-water: mojito, nojito, lime-rickey')
     expect(unlock(rumCart, true).some((s) => s.startsWith('white-rum'))).toBe(false)
   })
 

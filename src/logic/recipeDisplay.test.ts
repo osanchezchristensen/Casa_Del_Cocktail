@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import type { Recipe } from '../types.ts'
-import { formatAmount, matchesSource, sourceFilters, summarizeNames } from './recipeDisplay.ts'
+import { formatAmount, isNonAlcoholic, matchesSource, sourceFilters, summarizeNames } from './recipeDisplay.ts'
 
 const withSource = (source: Recipe['source']) => ({ id: 'x', name: 'X', ingredients: [], steps: [], glass: 'rocks', method: 'built', tags: [], source }) as Recipe
 const starter = withSource({ type: 'starter' })
@@ -35,4 +35,9 @@ test('amounts use fractions and the right unit words', () => {
   expect(formatAmount(1, 'tsp')).toBe('1 tsp')
   expect(formatAmount(8, 'piece')).toBe('8')
   expect(formatAmount(4, 'top')).toBe('Top')
+})
+
+test('only recipes tagged non-alcoholic pass the Non-alcoholic filter', () => {
+  expect(isNonAlcoholic({ ...starter, tags: ['non-alcoholic', 'refreshing'] })).toBe(true)
+  expect(isNonAlcoholic({ ...starter, tags: ['classic'] })).toBe(false)
 })

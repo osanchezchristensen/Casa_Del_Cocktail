@@ -312,10 +312,10 @@ The rules are in PRD section 14. There are no mockups: the Past bottles screen r
 > Write about 10 starter mocktails in our own words, tagged `non-alcoholic`, using existing ingredient ids where possible (tell me about any new ingredients). Add a data test that every `non-alcoholic` recipe uses only ingredients with `alcoholic: false`. Add a Non-alcoholic filter button on Make Now next to the source filters that combines with them and with Allow swaps. Put the filter logic in `src/logic/recipeDisplay.ts` with tests.
 
 **Done when:**
-- [ ] With only juices, syrups and mixers on the cart, the Non-alcoholic filter shows mocktails I can make
-- [ ] The filter works together with the source filter and Allow swaps
-- [ ] The data test fails if a tagged recipe uses an alcoholic ingredient
-- [ ] `npm test`, `npm run build` and `npm run lint` pass
+- [x] With only juices, syrups and mixers on the cart, the Non-alcoholic filter shows mocktails I can make
+- [x] The filter works together with the source filter and Allow swaps
+- [x] The data test fails if a tagged recipe uses an alcoholic ingredient
+- [x] `npm test`, `npm run build` and `npm run lint` pass
 
 ### 9.3 Check and release v1.2
 **Prompt:**

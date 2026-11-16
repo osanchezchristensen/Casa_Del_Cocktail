@@ -45,3 +45,17 @@
   padding: 0;
   list-style: none;
 }
+
+/* The check icon shows it's on without relying on the fill color. */
+.noAlcohol {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border-color: var(--avocado);
+  color: var(--avocado);
+}
+
+.noAlcohol[aria-pressed='true'] {
+  background: var(--avocado);
+  color: var(--paper);
+}
