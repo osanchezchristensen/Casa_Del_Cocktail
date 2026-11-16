@@ -1,0 +1,51 @@
+/* Rows, card and header come from BarCart.module.css so both lists look the same. */
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 8px 0;
+}
+
+.again,
+.added {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 4px;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-pill);
+  font: 500 14px var(--font-body);
+  white-space: nowrap;
+}
+
+.again {
+  border: 1.5px solid var(--walnut);
+  background: transparent;
+  color: var(--walnut);
+  cursor: pointer;
+}
+
+.added {
+  color: var(--avocado);
+  font-weight: 700;
+}
+
+.back:focus-visible,
+.again:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.plain {
+  text-decoration: none;
+}

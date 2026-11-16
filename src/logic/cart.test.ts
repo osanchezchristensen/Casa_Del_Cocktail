@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import type { Bottle, Level } from '../types.ts'
-import { countLow, filterBottles, groupCart, levelSummary, type CartFilter } from './cart.ts'
+import { countLow, filterBottles, groupCart, levelSummary, pastBottlesNewestFirst, type CartFilter } from './cart.ts'
 
 const bottle = (ingredientId: string, name?: string, level: Level = 'full'): Bottle => ({
   id: `${ingredientId}-${name ?? ''}`,
@@ -90,4 +90,14 @@ describe('filterBottles', () => {
   test('an empty search with All keeps everything', () => {
     expect(names('  ')).toHaveLength(shelf.length)
   })
+})
+
+test('past bottles list the most recently finished first', () => {
+  const past = [
+    { ...bottle('gin'), finishedAt: '2026-10-05T10:00:00.000Z' },
+    { ...bottle('rum'), finishedAt: '2026-11-02T09:00:00.000Z' },
+    { ...bottle('vodka'), finishedAt: '2026-10-20T18:30:00.000Z' },
+  ]
+  expect(pastBottlesNewestFirst(past).map((b) => b.ingredientId)).toEqual(['rum', 'vodka', 'gin'])
+  expect(past[0].ingredientId).toBe('gin') // the saved list is left alone
 })

@@ -301,11 +301,11 @@ The rules are in PRD section 14. There are no mockups: the Past bottles screen r
 > Read PRD section 14. Add a Past bottles screen at `/cart/past`, opened from a link at the bottom of the Bar Cart that shows only when `pastBottles` isn't empty. List past bottles newest-finished first in the Bar Cart row style (name first, type second, added and finished dates), with an empty state and a back arrow. Add an "Add again" button that adds a new Full bottle with the same ingredient and name, and keeps the past bottle in the list. Put the sorting in `src/logic/` and add tests for it and the store action.
 
 **Done when:**
-- [ ] Removing a bottle makes it show up on Past bottles with today's finished date
-- [ ] "Add again" puts a Full bottle with the same name back on the Bar Cart, and the past bottle stays listed
-- [ ] The link is hidden when there are no past bottles
-- [ ] An export and import keeps past bottles
-- [ ] `npm test` and `npm run build` pass
+- [x] Removing a bottle makes it show up on Past bottles with today's finished date
+- [x] "Add again" puts a Full bottle with the same name back on the Bar Cart, and the past bottle stays listed
+- [x] The link is hidden when there are no past bottles
+- [x] An export and import keeps past bottles
+- [x] `npm test` and `npm run build` pass
 
 ### 9.2 Mocktails and the Non-alcoholic filter
 **Prompt:**

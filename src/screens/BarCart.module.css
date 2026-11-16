@@ -315,3 +315,19 @@ details:not([open]) > summary .chevron {
   background: var(--rust);
   color: var(--paper);
 }
+
+.pastLink {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 44px;
+  margin-top: 8px;
+  color: var(--deep-amber);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.pastLink:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}

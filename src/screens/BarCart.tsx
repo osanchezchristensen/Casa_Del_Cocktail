@@ -1,5 +1,6 @@
-import { ChevronDown, Plus, Search } from 'lucide-react'
+import { ChevronDown, ChevronRight, Plus, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router'
 import AddItemsSheet from '../components/AddItemsSheet.tsx'
 import BottleSheet from '../components/BottleSheet.tsx'
 import HeaderBlob from '../components/HeaderBlob.tsx'
@@ -49,6 +50,7 @@ function BarCart() {
   const bottles = useStore((s) => s.bottles)
   const undoRemove = useStore((s) => s.undoRemove)
   const loadSampleCart = useStore((s) => s.loadSampleCart)
+  const pastCount = useStore((s) => s.pastBottles.length)
   const [adding, setAdding] = useState(false)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [removed, setRemoved] = useState<Bottle | null>(null)
@@ -84,6 +86,14 @@ function BarCart() {
         Add items
       </button>
     </div>
+  )
+
+  // Shown on the empty cart too: finishing your last bottle is when history is most useful.
+  const pastLink = pastCount > 0 && (
+    <Link to="/cart/past" className={styles.pastLink}>
+      Past bottles ({pastCount})
+      <ChevronRight size={18} aria-hidden />
+    </Link>
   )
 
   const overlays = (
@@ -128,6 +138,7 @@ function BarCart() {
         <button type="button" className={styles.secondary} onClick={loadSampleCart}>
           Try a sample cart
         </button>
+        {pastLink}
         {overlays}
       </>
     )
@@ -221,6 +232,7 @@ function BarCart() {
         )
       })}
 
+      {pastLink}
       {overlays}
     </>
   )

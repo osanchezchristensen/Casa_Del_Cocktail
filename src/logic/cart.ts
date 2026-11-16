@@ -1,5 +1,5 @@
 // How the Bar Cart groups bottles (PRD section 6). No React here.
-import { INGREDIENT_CATEGORIES, type Bottle, type Ingredient, type IngredientCategory, type Level } from '../types.ts'
+import { INGREDIENT_CATEGORIES, type Bottle, type Ingredient, type IngredientCategory, type Level, type PastBottle } from '../types.ts'
 import data from '../data/ingredients.json'
 import { normalize } from './search.ts'
 
@@ -94,3 +94,11 @@ export function filterBottles(bottles: Bottle[], query: string, filter: CartFilt
     return texts.some((text) => normalize(text).includes(q))
   })
 }
+
+/** Past bottles for the history screen (PRD section 14), the most recently finished first. */
+export const pastBottlesNewestFirst = (past: PastBottle[]) =>
+  [...past].sort((a, b) => b.finishedAt.localeCompare(a.finishedAt))
+
+/** "Oct 3": the PRD shows no year. */
+export const shortDate = (iso: string) =>
+  new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })

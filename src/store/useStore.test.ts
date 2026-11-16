@@ -30,6 +30,20 @@ test('toggling a favorite saves it once, and again removes it', () => {
   expect(store().favorites).toEqual([])
 })
 
+test('a removed bottle can be added again from Past bottles and stays in the history', () => {
+  const { id } = bulleit()
+  store().removeBottle(id)
+  const [past] = store().pastBottles
+  expect(past.finishedAt).toBeTruthy()
+
+  // What the Add again button does (PRD section 14).
+  store().addBottles([{ ingredientId: past.ingredientId, name: past.name }])
+  const again = bulleit()
+  expect(again.id).not.toBe(id)
+  expect(again.level).toBe('full')
+  expect(store().pastBottles.map((b) => b.id)).toEqual([id])
+})
+
 test('restoring a backup replaces bottles, past bottles, favorites and settings', () => {
   const bottle = { id: 'r1', ingredientId: 'gin', level: 'half', addedAt: '2026-10-01T00:00:00.000Z' } as const
   store().restoreBackup({
