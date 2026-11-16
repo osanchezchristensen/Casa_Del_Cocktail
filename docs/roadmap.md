@@ -322,9 +322,9 @@ The rules are in PRD section 14. There are no mockups: the Past bottles screen r
 > Check the new screen and the filter against the brand kit (copy, colors, states, phone width). List the differences before fixing them. Then update the README, set the version to 1.2.0 and tag `v1.2`.
 
 **Done when:**
-- [ ] Past bottles and the filter follow the brand kit, or the difference is written in `decisions.md`
-- [ ] README mentions past bottles and mocktails
-- [ ] Version 1.2.0, tagged `v1.2`
+- [x] Past bottles and the filter follow the brand kit, or the difference is written in `decisions.md`
+- [x] README mentions past bottles and mocktails
+- [x] Version 1.2.0, tagged `v1.2`
 
 ---
 
@@ -346,4 +346,4 @@ After v1.2, pick from the PRD's "Later" list (section 5). **Next up: smarter Unl
 | 7 Polish                  | 7.1-7.3              | ☑      |
 | 8 Onboarding (v1.1)       | 8.1-8.3              | ☑      |
 | 8.4 Age gate | 8.4 | ☑ |
-| 9 Past bottles & mocktails (v1.2) | 9.1-9.3 | ☐ |
+| 9 Past bottles & mocktails (v1.2) | 9.1-9.3 | ☑ |

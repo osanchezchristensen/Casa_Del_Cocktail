@@ -91,3 +91,8 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **Non-alcoholic means the recipe has the tag**, as the PRD data section already said. A data test makes sure tagged recipes use no alcoholic ingredients.
 - **No mockups for v1.2.** The Past bottles screen reuses the Bar Cart row style and the filter reuses the Make Now filter buttons.
 - **Smarter Unlock counting moves from Maybe to the Later list, next after v1.2**, because it gives better buying advice than today's count.
+
+## November 16, 2026: v1.2 brand check (step 9.3)
+- **The Non-alcoholic button is teal**, like every other filter, with a check mark when it's on. Avocado is kept for "you can make this," so the button can't be mistaken for a status.
+- **"Add again" on Past bottles keeps a Walnut outline**, not the brand kit's teal for secondary buttons, to match "Try a sample cart" and the age question's "No," which already use it.
+- **Make Now says "drinks" instead of "cocktails" while the Non-alcoholic filter is on.**

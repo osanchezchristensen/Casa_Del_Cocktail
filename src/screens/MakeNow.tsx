@@ -32,7 +32,7 @@ function MakeNow() {
       <h1 className={styles.title}>
         {list.length === 0
           ? 'Nothing quite yet.'
-          : `You can make ${list.length} ${list.length === 1 ? 'cocktail' : 'cocktails'} tonight.`}
+          : `You can make ${list.length} ${noAlcohol ? 'drink' : 'cocktail'}${list.length === 1 ? '' : 's'} tonight.`}
       </h1>
 
       <AllowSwapsCard />
