@@ -426,6 +426,104 @@ The rules are in [[motion|Motion guide]]. No new libraries: plain CSS transition
 
 ---
 
+## Phase 12: Party Mode (10 sessions)
+
+The full plan is in [[party-mode|Party Mode]]. Offline steps come first, so the logic and screens can be built and checked before any server exists. The online service is chosen in P.0; ask before adding any package.
+
+### P.0 Choose the online service
+**Prompt:**
+> Read `docs/party-mode.md`, "What the online part must do". Compare two or three free hosted options in plain language (cost, limits, how live updates work, how hard it is to learn). Recommend one, and also decide how guest links work on GitHub Pages (hash router or a 404 redirect). Don't install anything yet. Write the choice into `docs/decisions.md` once I agree.
+
+**Done when:**
+- [ ] I picked a service and a link style
+- [ ] The decision is in `docs/decisions.md` with the reason
+- [ ] No code changed
+
+### P.1 Party logic (offline, pure TypeScript)
+**Prompt:**
+> Read `docs/party-mode.md` (Rules, Data model). Add the party types and `src/logic/party.ts`: the party pool, menu status for each drink (Ready / Coming / Needs more), the Still needed list with open counts for the menu, and the three templates. Reuse `matchRecipe` and `unlockSuggestions`. Don't touch the matching rules. Tests for each rule.
+
+**Done when:**
+- [ ] Types match the data model
+- [ ] Tests cover: pool merging, Ready / Coming / Needs more, Still needed counts, book recipes excluded, Allow swaps on and off, empty menu
+- [ ] The existing matching tests still pass
+- [ ] `npm test`, `npm run build` and `npm run lint` pass
+
+### P.2 Host screens with local data (no server)
+**Prompt:**
+> Open the mockups `PartyHome`, `PartyJustCreated` and `PartyPickDrinks`. Build the Party home and Pick drinks screens using local data only (saved in the browser), including search, templates, filters and the picked-count bar. Add a link to Party mode that is hidden until the feature is on. Match the mockups; follow the PRD if they disagree and tell me.
+
+**Done when:**
+- [ ] I can create a local party, pick drinks and see Ready / Needs counts
+- [ ] Screens match the mockups; brand tokens and CSS Modules used
+- [ ] Store version bump and a migration, if the saved shape changed (ask first)
+
+### P.3 What the menu needs
+**Prompt:**
+> Open `PartyMenuNeeds`. Build the screen with the Still needed list, the Ask guests switch, I'll get it, and Copy shopping list. Sending to guests does nothing yet (disabled with "Coming with the online step").
+
+**Done when:**
+- [ ] Switches change the request mode; the shopping list copies as plain text
+- [ ] Starburst is used only on the Still needed counts
+- [ ] Matches the mockup
+
+### P.4 Menu preview, Finalize and print
+**Prompt:**
+> Open `PartyMenuPreview`, `PartyMenuFinal`, `PartyMenuPrint` and `PartyMenuPrintBW`. Build the preview, Finalize / Unlock, and two print layouts for A4 using print CSS (no new package). Black and white must use black ink only, no blobs, no colors.
+
+**Done when:**
+- [ ] Both print versions fit one A4 page in the browser's print preview
+- [ ] Finalize locks the menu; Unlock to edit reverses it
+- [ ] The responsible-drinking line is on the printout
+
+### P.5 The online service: create, read, join
+**Prompt:**
+> Using the choice in `decisions.md`, set up the service. Ask before installing the package. Build create party, read party, guest join and the security rules from `docs/party-mode.md`. Put all network code in one folder (`src/party/`) so the screens never call the service directly. Add the 7-day expiry. Test the rules where possible.
+
+**Done when:**
+- [ ] A party created on my laptop opens on my phone from the link
+- [ ] A guest can't change host data, and a wrong host key is refused
+- [ ] The app still works fully offline outside Party Mode
+- [ ] Keys and secrets are not in git
+
+### P.6 Guest screens
+**Prompt:**
+> Open `GuestJoin`, `GuestParty`, `GuestDrinks`, `GuestMenu` and `GuestAddItems`. Build them with live updates. Guests can claim a request, add something else, and remove their own claim. Show the duplicate nudge.
+
+**Done when:**
+- [ ] Two phones see each other's claims within a few seconds
+- [ ] Guests never see levels, bottle names or the host's name
+- [ ] The 21+ checkbox is required
+
+### P.7 Host: send, guests and items
+**Prompt:**
+> Open `PartyGuests` and finish **Send to guests** on `PartyMenuNeeds`. The first send is explicit; later changes sync live. The host can remove any claim.
+
+**Done when:**
+- [ ] Guests see nothing until the first send
+- [ ] By guest and By item views both work
+- [ ] Removing a claim updates the guest's screen
+
+### P.8 Loading, offline, errors and expiry
+**Prompt:**
+> Open `GuestLoading`, `GuestLinkNotFound`, `GuestPartyEnded`, `OfflineBanner` and `ErrorMessages`. Build them and wire them to real conditions: slow load, bad code, past the party date, no network, failed save.
+
+**Done when:**
+- [ ] Each state appears in the right situation
+- [ ] Buttons that need the network are disabled when offline, with a reason
+
+### P.9 Motion, brand check and release
+**Prompt:**
+> Add the motion from the table at the end of `docs/party-mode.md`, using the helpers from the Motion guide. Then check every Party screen against its mockup and the brand rules (starburst use, word plus icon for status, no amber text on cream). Update README and `decisions.md`. Choose the version number with me.
+
+**Done when:**
+- [ ] Motion follows the table and the reduce-motion rules
+- [ ] A full test run on two phones passes
+- [ ] README mentions Party Mode, and the hosting note is correct
+- [ ] Release tagged
+
+---
+
 ## What's next
 
 After v1.4, pick from the PRD's "Later" list (section 5).
@@ -447,3 +545,4 @@ After v1.4, pick from the PRD's "Later" list (section 5).
 | 9 Past bottles & mocktails (v1.2) | 9.1-9.3 | ☑ |
 | 10 Smarter Unlock (v1.3) | 10.1-10.2 | ☑ |
 | 11 Motion (v1.4) | M.1-M.6 | ☐ |
+| 12 Party Mode | P.0-P.9 | ☐ |

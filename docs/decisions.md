@@ -111,3 +111,14 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **Only rewards and button releases get a springy overshoot.** Everything else eases calmly, so the bounce stays special.
 - **We follow the device's reduce-motion setting, with no switch in Settings.** The device setting already says what the person wants; a second switch would be one more thing to explain.
 - **Sound is left out for now.** If it comes back, it's off by default with its own Settings switch, separate from reduce motion.
+
+## November 17, 2026: Party Mode planned
+- **Party Mode is menu first:** the host picks drinks, and the app works out what is still needed.
+- **Guests join by browser link with a name only and a 21+ checkbox.** Accounts and the installed app come later.
+- **Guests see ingredient names only,** never levels, bottle names, the host's cart or name.
+- **Guests see every menu drink,** with the unready ones marked "Coming once X arrives". This replaced an earlier plan to hide them.
+- **Menus are live while planning and lock on Finalize.** The link expires 7 days after the party date and the data is deleted.
+- **Book recipes are excluded from party menus** because they are private.
+- **The printed menu is A4,** in color and in a simplified black-and-white version.
+- **The party reuses the existing matching logic** with the host's chosen ingredients plus guest claims. There are no new matching rules.
+- **The unlock count-and-burst plays once per open,** and again after adding a bottle that opens new recipes.

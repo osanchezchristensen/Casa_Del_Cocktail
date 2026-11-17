@@ -128,9 +128,12 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 10. Accounts and sync
 11. ~~Age gate (required before any public launch)~~ → done November 1, 2026: an age question after the welcome screen (section 13)
 12. **"I made this"** button on the recipe page: logs that you made the drink, without changing bottle levels (the app can't know how much was poured). Plays the Fill rise animation ([[motion|Motion guide]]). Planned for v1.4, roadmap step M.4. **Needs a small data change:** a new saved list of made drinks, so the store version and the backup version go up, with a migration for old saves and old backup files.
+13. **Party Mode:** plan a drinks party, share a link so guests say what they'll bring, and print the menu. The first feature that needs a server. Planned, not scheduled (section 15, [[party-mode|Party Mode]]).
 
 ### Maybe (ideas to weigh, not planned)
 - ~~Smarter Unlock counting~~ → Later list, next after v1.2 (November 16, 2026)
+- **Save this menu as a list:** a button on the Party ended screen that keeps a party's menu as a recipe list (needs Recipe lists and Party Mode).
+- **Recipe lists:** your own named lists of recipes, like playlists; a list could become a party menu in one tap (see [[ideas|Ideas]], "Drink playlists").
 
 ## 6. Key screens
 
@@ -382,3 +385,24 @@ Two small additions built on data the app already keeps: the "past bottles" list
 - **Mocktails:** about 10 starter recipes, written in our own words, with `source: { type: "starter" }` and the `non-alcoholic` tag, using existing ingredient ids where possible. Any new ingredient gets a sensible `category` and `parentId` and is listed in the step summary.
 - Mocktails show everywhere recipes do (Make Now, Unlock, Favorites, Home); only the filter treats them specially.
 - The filter button has a word label, never color alone. The responsible-drinking note is unchanged.
+
+## 15. Party Mode (planned)
+
+**Planned, not scheduled.** A host plans a drinks party: they pick a menu, the app works out what that menu still needs, and friends open a browser link to say what they'll bring. Everyone sees which drinks will be possible, and the host can print the menu on A4. It's the first feature that needs a server; the rest of the app stays offline-first. Guests join with a name and a 21+ checkbox, no account, and never see the host's cart, levels or bottle names. Matching is unchanged: the party runs the existing logic on the host's chosen ingredients plus guest claims. Book recipes are left out of party menus.
+
+Full design, screens, rules, data model and roadmap steps: [[party-mode|Party Mode]].
+
+### User stories
+| # | Story | Priority |
+|---|---|---|
+| P1 | As a host, I want to create a party with a name and date and get a link to share. | Must |
+| P2 | As a host, I want to pick drinks from templates or the full catalog for my menu. | Must |
+| P3 | As a host, I want to see which menu drinks I can already make, and what the rest still need. | Must |
+| P4 | As a host, I want to ask guests for the missing items, or mark the ones I'll get myself. | Must |
+| P5 | As a guest, I want to open a link, enter my name and see what the host needs. | Must |
+| P6 | As a guest, I want to say "I'll bring this", or add something else I'm bringing. | Must |
+| P7 | As a host, I want to see who is bringing what, and remove a claim if needed. | Must |
+| P8 | As a host, I want to finalize the menu and print it on A4 in color or black and white. | Should |
+| P9 | As a guest, I want to see the menu and which drinks are ready or "coming once X arrives". | Should |
+| P10 | As a host, I want a copyable shopping list for what I'm getting. | Should |
+| P11 | As a user, I want clear messages when I'm offline, a link is wrong, or the party has ended. | Must |
