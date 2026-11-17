@@ -11,6 +11,7 @@ The start page for the project's planning notes. This `docs` folder is an Obsidi
 - [[prd|PRD]]: user stories, screens, matching rules, data shapes, the Later and Maybe lists
 - [[roadmap|Roadmap]]: the step-by-step build plan
 - [[brand-kit|Brand Kit]]: colors, fonts, tone of voice and sample copy ([brand-preview.html](brand-preview.html) shows them)
+- [[motion|Motion]]: how the app moves: animation timing, the five picks, reduce motion (planned for v1.4)
 - [[screens/README|Screens]]: mockups of every v1 screen
 
 ## Working notes

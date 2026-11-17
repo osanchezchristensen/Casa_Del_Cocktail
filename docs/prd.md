@@ -127,6 +127,7 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 9. Recipe import from a public API
 10. Accounts and sync
 11. ~~Age gate (required before any public launch)~~ → done November 1, 2026: an age question after the welcome screen (section 13)
+12. **"I made this"** button on the recipe page: logs that you made the drink, without changing bottle levels (the app can't know how much was poured). Plays the Fill rise animation ([[motion|Motion guide]]). Planned for v1.4, roadmap step M.4. **Needs a small data change:** a new saved list of made drinks, so the store version and the backup version go up, with a migration for old saves and old backup files.
 
 ### Maybe (ideas to weigh, not planned)
 - ~~Smarter Unlock counting~~ → Later list, next after v1.2 (November 16, 2026)

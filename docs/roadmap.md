@@ -355,9 +355,80 @@ The rule is in PRD section 7, "Unlock calculation." No screen changes and no moc
 
 ---
 
+## Phase 11: v1.4 Motion (6 sessions)
+
+The rules are in [[motion|Motion guide]]. No new libraries: plain CSS transitions and the browser's built-in animation tools. Every animation follows the device's reduce-motion setting (the table in the motion guide says what to show instead).
+
+### M.1 Motion tokens and the reduce-motion helper
+**Prompt:**
+> Read `docs/motion.md`. Add the timing tokens (`--motion-press`, `--motion-release`, `--motion-move`, `--ease-out`, `--ease-spring`) in one shared place, and a tiny "is reduce motion on?" helper. Don't animate anything yet.
+
+**Done when:**
+- [ ] The five tokens exist in one place and match the motion guide
+- [ ] The helper reports the device's reduce-motion setting, with a test
+- [ ] No visible change in the app
+- [ ] `npm test`, `npm run build` and `npm run lint` pass
+
+### M.2 Squish on buttons
+**Prompt:**
+> Add the Squish press from `docs/motion.md` to every pill button (primary and secondary) and the round Home button, using the M.1 tokens. Leave tab bar items, filter chips, text links and list rows alone. With reduce motion on, the button only darkens while pressed.
+
+**Done when:**
+- [ ] Pill buttons and the Home button shrink to 94% on press and spring back on release
+- [ ] Tabs, filter chips, links and rows don't squish
+- [ ] With reduce motion on, buttons only darken
+- [ ] `npm test`, `npm run build` and `npm run lint` pass
+
+### M.3 Bottle drawing with Settle
+**Prompt:**
+> Build a bottle drawing component with four levels (Full, Half, Low, Empty) and put it on each Bar Cart row next to the level control. When the level changes, the liquid slides to the new level with Settle from `docs/motion.md`. The level word stays visible. Not on Past bottles.
+
+**Done when:**
+- [ ] Each Bar Cart row shows the drawing with the level word next to it
+- [ ] Changing a level slides the liquid over 450 ms, with no overshoot
+- [ ] With reduce motion on, the liquid jumps straight to the new level
+- [ ] Past bottles has no drawing
+- [ ] `npm test`, `npm run build` and `npm run lint` pass
+
+### M.4 I made this and Fill rise
+**Prompt:**
+> Read the "I made this" entry in the PRD Later list and the Pour section of `docs/motion.md`. Plan the small data change first (what gets saved, the new store version and migration, the backup version) and wait for my OK. Then add the **I made this** button to the recipe page; tapping it logs the drink and plays Fill rise. It never changes bottle levels.
+
+**Done when:**
+- [ ] The data change is written in the PRD (section 8) and `decisions.md`
+- [ ] Store and backup versions go up; old saves and old backup files still load, with tests
+- [ ] Tapping **I made this** logs the drink, plays Fill rise, and the glass stays full with the check until you leave the page
+- [ ] Bottle levels don't change
+- [ ] With reduce motion on, the glass is simply full with the check showing
+- [ ] `npm test`, `npm run build` and `npm run lint` pass
+
+### M.5 Count and burst on Unlock
+**Prompt:**
+> Add Count and burst from `docs/motion.md` to the top suggestion's starburst badge on the Unlock screen, once each time the screen opens, and after adding a bottle makes new recipes possible. Other badges stay still. Confirm with me where it plays before building (the guide marks this as needing my OK).
+
+**Done when:**
+- [ ] Where it plays is agreed and written in `decisions.md`
+- [ ] The top badge pops in, counts up from +0 and bursts 10 shapes in Atomic Garden colors, once per visit
+- [ ] It also plays after adding a bottle that unlocks new recipes
+- [ ] With reduce motion on, the badge fades in with the final number and no shapes
+- [ ] `npm test`, `npm run build` and `npm run lint` pass
+
+### M.6 Check and release v1.4
+**Prompt:**
+> Check every animation with reduce motion on and off, in the browser and on a real phone. List anything janky or too much before fixing it. Then update the README, set the version to 1.4.0 and tag `v1.4`.
+
+**Done when:**
+- [ ] Every motion in the guide's "Where it goes" table works, and nothing else animates
+- [ ] Reduce motion on shows the calm version everywhere
+- [ ] Smooth on a real phone, or the difference is written in `decisions.md`
+- [ ] README mentions motion and **I made this**
+- [ ] Version 1.4.0, tagged `v1.4`
+
+---
+
 ## What's next
 
-After v1.3, pick from the PRD's "Later" list (section 5).
+After v1.4, pick from the PRD's "Later" list (section 5).
 
 ## Progress tracker
 
@@ -375,3 +446,4 @@ After v1.3, pick from the PRD's "Later" list (section 5).
 | 8.4 Age gate | 8.4 | ☑ |
 | 9 Past bottles & mocktails (v1.2) | 9.1-9.3 | ☑ |
 | 10 Smarter Unlock (v1.3) | 10.1-10.2 | ☑ |
+| 11 Motion (v1.4) | M.1-M.6 | ☐ |

@@ -105,3 +105,9 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 
 ## November 16, 2026: v1.3 release check (step 10.2)
 - **Checked on the sample cart only.** The before-and-after comparison on my own cart was skipped by choice; the sample cart, with swaps off and on, already showed the tie-rule problems that step 10.1 fixed.
+
+## November 17, 2026: motion planned (v1.4)
+- **Motion is warm and a little bouncy, never flashy** ([[motion|Motion guide]]). It's for moments of doing or reward only, so the app feels alive without slowing anyone down.
+- **Only rewards and button releases get a springy overshoot.** Everything else eases calmly, so the bounce stays special.
+- **We follow the device's reduce-motion setting, with no switch in Settings.** The device setting already says what the person wants; a second switch would be one more thing to explain.
+- **Sound is left out for now.** If it comes back, it's off by default with its own Settings switch, separate from reduce motion.
