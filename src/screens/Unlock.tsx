@@ -10,9 +10,17 @@ import { summarizeNames } from '../logic/recipeDisplay.ts'
 import { useStore } from '../store/useStore.ts'
 import styles from './Unlock.module.css'
 
-type CardProps = { suggestion: UnlockSuggestion; best: boolean; open: boolean; onToggle: () => void; onBought: () => void }
+type CardProps = {
+  suggestion: UnlockSuggestion
+  best: boolean
+  open: boolean
+  /** Count and burst on this card's badge when above 0; a new number plays it again. */
+  celebrate: number
+  onToggle: () => void
+  onBought: () => void
+}
 
-function UnlockCard({ suggestion, best, open, onToggle, onBought }: CardProps) {
+function UnlockCard({ suggestion, best, open, celebrate, onToggle, onBought }: CardProps) {
   const [showAll, setShowAll] = useState(false)
   const recipes = [...suggestion.recipes].sort((a, b) => a.name.localeCompare(b.name))
   const count = recipes.length
@@ -23,11 +31,11 @@ function UnlockCard({ suggestion, best, open, onToggle, onBought }: CardProps) {
     <li className={open ? styles.open : styles.card}>
       {open && (
         <div className={styles.corner}>
-          <Starburst count={count} size={76} />
+          <Starburst key={celebrate} count={count} size={76} celebrate={celebrate > 0} />
         </div>
       )}
       <button type="button" className={styles.head} aria-expanded={open} onClick={onToggle}>
-        {!open && <Starburst count={count} size={52} />}
+        {!open && <Starburst key={celebrate} count={count} size={52} celebrate={celebrate > 0} />}
         <span className={styles.headText}>
           {best && open && <span className={styles.label}>BEST NEXT BOTTLE</span>}
           <span className={open ? styles.titleBig : styles.title}>Add {name}</span>
@@ -73,6 +81,8 @@ function Unlock() {
   const addBottles = useStore((s) => s.addBottles)
   const [openId, setOpenId] = useState<string>()
   const [added, setAdded] = useState<{ name: string; count: number }>()
+  // Count and burst on the top badge: once per visit and after I bought it, not when a card opens or closes.
+  const [burst, setBurst] = useState(1)
 
   const list = useMemo(
     () => unlockSuggestions(ownedIngredientIds(bottles), ALL_RECIPES, allowSwaps),
@@ -107,11 +117,16 @@ function Unlock() {
               suggestion={s}
               best={i === 0}
               open={open === s.ingredientId}
-              onToggle={() => setOpenId(open === s.ingredientId ? '' : s.ingredientId)}
+              celebrate={i === 0 ? burst : 0}
+              onToggle={() => {
+                setOpenId(open === s.ingredientId ? '' : s.ingredientId)
+                setBurst(0)
+              }}
               onBought={() => {
                 addBottles([{ ingredientId: s.ingredientId }])
                 setAdded({ name: ingredientName(s.ingredientId), count: s.recipes.length })
                 setOpenId(undefined)
+                setBurst((n) => Math.abs(n) + 1)
               }}
             />
           ))}

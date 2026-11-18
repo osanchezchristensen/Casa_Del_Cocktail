@@ -407,11 +407,11 @@ The rules are in [[motion|Motion guide]]. No new libraries: plain CSS transition
 > Add Count and burst from `docs/motion.md` to the top suggestion's starburst badge on the Unlock screen, once each time the screen opens, and after adding a bottle makes new recipes possible. Other badges stay still. Confirm with me where it plays before building (the guide marks this as needing my OK).
 
 **Done when:**
-- [ ] Where it plays is agreed and written in `decisions.md`
-- [ ] The top badge pops in, counts up from +0 and bursts 10 shapes in Atomic Garden colors, once per visit
-- [ ] It also plays after adding a bottle that unlocks new recipes
-- [ ] With reduce motion on, the badge fades in with the final number and no shapes
-- [ ] `npm test`, `npm run build` and `npm run lint` pass
+- [x] Where it plays is agreed and written in `decisions.md`
+- [x] The top badge pops in, counts up from +0 and bursts 10 shapes in Atomic Garden colors, once per visit
+- [x] It also plays after adding a bottle that unlocks new recipes
+- [x] With reduce motion on, the badge fades in with the final number and no shapes
+- [x] `npm test`, `npm run build` and `npm run lint` pass
 
 ### M.6 Check and release v1.4
 **Prompt:**

@@ -51,7 +51,7 @@ About 1.3 s. Uses the starburst badge, which stays reserved for Unlock.
 - The starburst pops in with a small twist (550 ms, spring).
 - The number counts up from +0 to the real count over 700 ms.
 - 10 small shapes (dots, diamonds, four-point stars) burst out and fade, in Atomic Garden colors: Amber, Mustard, Teal, Rust, Avocado.
-- **Where it plays (needs your OK):** the top suggestion's badge on the Unlock screen, once each time the screen opens, and when adding a bottle makes new recipes possible. Other badges on the screen stay still.
+- **Where it plays (agreed Nov 18):** the top suggestion's badge on the Unlock screen, once each time the screen opens, and again after **I bought it**. Opening or closing a card does not replay it. Other badges on the screen stay still.
 
 ### 4. Bottle fill: Settle
 - A bottle drawing whose liquid slides to the new level over 450 ms with a gentle ease and no overshoot.
@@ -83,7 +83,7 @@ When it is on:
 | Bar Cart | Bottle drawing with Settle on each bottle row |
 | Recipe detail | **I made this** button, then Fill rise |
 | Unlock | Count and burst on the top suggestion |
-| Add items (after adding) | Count and burst if new recipes become possible |
+| Add items (after adding) | ~~Count and burst if new recipes become possible~~ Dropped Nov 18: the starburst stays on Unlock suggestions only (brand kit) |
 | Make Now, Recipes, Past bottles, Settings | No new motion |
 
 ## New things this needs

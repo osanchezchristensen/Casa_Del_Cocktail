@@ -18,3 +18,69 @@
   color: var(--walnut);
   font-family: var(--font-heading);
 }
+
+/* Count and burst (docs/motion.md): pop with a twist 550 ms, then 10 shapes fly out and fade. */
+.celebrate > .shape,
+.celebrate > .number {
+  animation: pop 550ms var(--ease-spring) both;
+}
+
+.bit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px;
+  pointer-events: none;
+  animation: fly 900ms var(--ease-out) 300ms both;
+}
+
+.dot {
+  border-radius: 50%;
+}
+
+.diamond {
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+}
+
+.star {
+  width: 12px;
+  height: 12px;
+  margin: -6px;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0) rotate(-25deg);
+  }
+}
+
+@keyframes fly {
+  from {
+    transform: rotate(var(--angle)) translateY(0) scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: rotate(var(--angle)) translateY(calc(-1 * var(--reach))) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .celebrate > .shape,
+  .celebrate > .number {
+    animation: fade 200ms ease-out both;
+  }
+
+  .bit {
+    display: none;
+  }
+}

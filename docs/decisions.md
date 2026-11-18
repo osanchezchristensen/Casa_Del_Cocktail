@@ -144,3 +144,8 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **After a tap, the glass stays full until you leave the page;** coming back shows the button again, so a second round can be logged.
 - **The recipe page mockup has no I made this button;** the PRD (Later #12) and the motion guide ask for one, so it sits at the bottom, under the steps.
 - **No screen shows the log yet.** Suggested for the PRD Later list: "Drinks I've made".
+
+## November 18, 2026: where Count and burst plays (step M.5)
+- **Only on the Unlock screen, on the top suggestion's badge:** once each time the screen opens, and again after **I bought it** (for the new top suggestion). Opening or closing a card does not replay it.
+- **Not after Add items on the Bar Cart,** although the motion guide listed it: the brand kit keeps the starburst on Unlock suggestions only. The motion guide row is marked as dropped.
+- **Reduce motion uses the `prefersReducedMotion` helper** to skip the count-up; CSS turns off the pop and the shapes and fades the badge in over 200 ms.
