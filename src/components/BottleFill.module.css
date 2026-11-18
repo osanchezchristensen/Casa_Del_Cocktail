@@ -1,0 +1,40 @@
+/* Bottle drawing with Settle (docs/motion.md): the liquid slides to the new level. */
+.bottle {
+  flex-shrink: 0;
+}
+
+.outline {
+  fill: none;
+  stroke: var(--walnut);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+}
+
+.liquid {
+  fill: var(--amber);
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transition: transform var(--motion-move);
+}
+
+.full {
+  transform: scaleY(1);
+}
+
+.half {
+  transform: scaleY(0.5);
+}
+
+.low {
+  transform: scaleY(0.18);
+}
+
+.empty {
+  transform: scaleY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid {
+    transition: none;
+  }
+}

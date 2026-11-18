@@ -384,11 +384,11 @@ The rules are in [[motion|Motion guide]]. No new libraries: plain CSS transition
 > Build a bottle drawing component with four levels (Full, Half, Low, Empty) and put it on each Bar Cart row next to the level control. When the level changes, the liquid slides to the new level with Settle from `docs/motion.md`. The level word stays visible. Not on Past bottles.
 
 **Done when:**
-- [ ] Each Bar Cart row shows the drawing with the level word next to it
-- [ ] Changing a level slides the liquid over 450 ms, with no overshoot
-- [ ] With reduce motion on, the liquid jumps straight to the new level
-- [ ] Past bottles has no drawing
-- [ ] `npm test`, `npm run build` and `npm run lint` pass
+- [x] Each Bar Cart row shows the drawing with the level word next to it
+- [x] Changing a level slides the liquid over 450 ms, with no overshoot
+- [x] With reduce motion on, the liquid jumps straight to the new level
+- [x] Past bottles has no drawing
+- [x] `npm test`, `npm run build` and `npm run lint` pass
 
 ### M.4 I made this and Fill rise
 **Prompt:**

@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 import AddItemsSheet from '../components/AddItemsSheet.tsx'
 import BottleSheet from '../components/BottleSheet.tsx'
 import HeaderBlob from '../components/HeaderBlob.tsx'
+import BottleFill from '../components/BottleFill.tsx'
 import LevelChip from '../components/LevelChip.tsx'
 import {
   CART_FILTERS,
@@ -39,7 +40,10 @@ function BottleList({ bottles, onEdit }: { bottles: Bottle[]; onEdit: (id: strin
               <span className={styles.addName}>Add a bottle name</span>
             )}
           </button>
-          <LevelChip level={b.level} onClick={() => updateBottle(b.id, { level: NEXT_LEVEL[b.level] })} />
+          <span className={styles.level}>
+            <BottleFill level={b.level} />
+            <LevelChip level={b.level} onClick={() => updateBottle(b.id, { level: NEXT_LEVEL[b.level] })} />
+          </span>
         </li>
       ))}
     </ul>

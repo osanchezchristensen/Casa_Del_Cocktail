@@ -342,3 +342,11 @@ details:not([open]) > summary .chevron {
 .undo {
   composes: squish from global;
 }
+
+/* Bottle drawing next to the level chip */
+.level {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 8px;
+}

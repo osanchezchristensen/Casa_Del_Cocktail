@@ -131,3 +131,8 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **The Search / Browse switch and the onboarding pick pills stay still.** They look like pills but work like chips you turn on and off.
 - **With reduce motion, a pressed button gets a light walnut tint** laid over its own color instead of a darken filter, so outline buttons with no fill still show the press.
 - **Buttons opt in with `composes: squish from global;`** in their own CSS Module, so the rule lives once in `src/styles/global.css` and no `.tsx` files changed.
+
+## November 18, 2026: bottle drawing (step M.3)
+- **Bar Cart rows show a bottle drawing left of the level chip,** although `docs/screens/bar-cart.html` has none: the motion guide and roadmap are newer and ask for it. The rest of the row matches the mockup.
+- **The liquid is always Amber** and the drawing is hidden from screen readers; the level word on the chip carries the status.
+- **Levels fill to Full 100%, Half 50%, Low 18%, Empty 0% of the body,** stretched from the bottom with `scaleY` so the change is smooth.
