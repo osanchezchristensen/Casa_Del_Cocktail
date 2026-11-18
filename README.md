@@ -18,6 +18,8 @@ It runs entirely in your browser. There is no server and no account.
 - **Unlock:** the top 10 bottles to buy next, ranked by how many new cocktails each one opens up. It tries every bottle you don't have, so one bottle of London dry gin counts for recipes that just say "gin" too, and near-identical bottles don't crowd the list.
 - **Favorites:** save recipes with the heart, split into "Ready to make" and "Missing something."
 - **Settings:** switch on Allow swaps, and export or import a backup of your cart, or replay the tour.
+- **I made this:** tap it on a recipe to log the drink. The glass fills up and a check pops in. It never changes your bottle levels, because the app can't know how much you poured.
+- **Motion:** buttons squish when you press them, each bottle on the cart shows its level and the liquid slides when it changes, and the top Unlock pick pops in with a little burst. It all follows your device's reduce-motion setting.
 
 It comes with 60 classic cocktails and 10 mocktails, written in our own words.
 
@@ -45,7 +47,7 @@ The full rules are in [`docs/prd.md`](docs/prd.md), section 7. The logic lives i
 
 ## Your data
 
-Your cart, favorites and settings are saved in this browser (localStorage) and are never sent anywhere. Clearing the browser's site data clears your cart, so use **Settings → Export my cart** now and then to save a backup file.
+Your cart, favorites, the drinks you've made and your settings are saved in this browser (localStorage) and are never sent anywhere. Clearing the browser's site data clears your cart, so use **Settings → Export my cart** now and then to save a backup file.
 
 ## Adding recipes from your own books
 
@@ -63,8 +65,8 @@ I planned it before writing code: a project brief, a PRD with user stories and e
 
 Things I'm happy with:
 
-- **The matching logic is plain TypeScript with no React in it**, so it's easy to test. Every matching rule has a test (123 tests in all), including data checks that every recipe uses real ingredient ids.
-- **Saved data is versioned.** When v1.1 added the tour, a migration marked it as done for anyone who already had a cart, so existing users never saw it. When the age check followed, everyone was asked once. Older backup files still import.
+- **The matching logic is plain TypeScript with no React in it**, so it's easy to test. Every matching rule has a test (135 tests in all), including data checks that every recipe uses real ingredient ids.
+- **Saved data is versioned.** When v1.1 added the tour, a migration marked it as done for anyone who already had a cart, so existing users never saw it. When the age check followed, everyone was asked once. When v1.4 added the made-drinks log, older saves started with an empty one. Older backup files still import.
 - **Ingredients form a family tree** (rum → white rum, aged rum, ...), which makes "general recipe ingredient matches a specific bottle" and "swaps stay inside a family" simple tree lookups.
 - **Search is accent-insensitive**: "cachaca" finds Cachaça and "anejo" finds Añejo tequila.
 - **Copyrighted recipes never touch git.** Book recipes load from a git-ignored folder at build time, and the app works the same without them.

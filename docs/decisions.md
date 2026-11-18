@@ -149,3 +149,8 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **Only on the Unlock screen, on the top suggestion's badge:** once each time the screen opens, and again after **I bought it** (for the new top suggestion). Opening or closing a card does not replay it.
 - **Not after Add items on the Bar Cart,** although the motion guide listed it: the brand kit keeps the starburst on Unlock suggestions only. The motion guide row is marked as dropped.
 - **Reduce motion uses the `prefersReducedMotion` helper** to skip the count-up; CSS turns off the pop and the shapes and fades the badge in over 200 ms.
+
+## November 18, 2026: v1.4 check (step M.6)
+- **The tab highlight fade (150 ms, from before v1.4) is kept,** although the motion guide says tabs do not animate: it is barely noticeable and helps show which tab you tapped. It is off with reduce motion.
+- **Reduce motion now switches off every transition** with one rule in `src/styles/global.css`, including the older switch knob, chevrons and tab fade.
+- **The page never scrolls sideways** (`overflow-x: clip` on `body`), so the Unlock burst can fly past the screen edge without moving the page.

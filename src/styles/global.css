@@ -48,6 +48,7 @@ body {
   color: var(--walnut);
   font: 400 16px/1.5 var(--font-body);
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip; /* the Unlock burst flies past the edge; never scroll sideways */
 }
 
 h1,
@@ -110,5 +111,15 @@ main {
   .squish:active:not(:disabled) {
     transform: none;
     background-image: linear-gradient(rgba(59, 42, 30, 0.14), rgba(59, 42, 30, 0.14));
+  }
+}
+
+/* Reduce motion: switch off every transition (switch knob, chevrons, tab fade, Squish, Settle).
+   Keyframe animations handle reduce motion in their own files. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
   }
 }

@@ -418,11 +418,11 @@ The rules are in [[motion|Motion guide]]. No new libraries: plain CSS transition
 > Check every animation with reduce motion on and off, in the browser and on a real phone. List anything janky or too much before fixing it. Then update the README, set the version to 1.4.0 and tag `v1.4`.
 
 **Done when:**
-- [ ] Every motion in the guide's "Where it goes" table works, and nothing else animates
-- [ ] Reduce motion on shows the calm version everywhere
-- [ ] Smooth on a real phone, or the difference is written in `decisions.md`
-- [ ] README mentions motion and **I made this**
-- [ ] Version 1.4.0, tagged `v1.4`
+- [x] Every motion in the guide's "Where it goes" table works, and nothing else animates
+- [x] Reduce motion on shows the calm version everywhere
+- [x] Smooth on a real phone, or the difference is written in `decisions.md`
+- [x] README mentions motion and **I made this**
+- [x] Version 1.4.0, tagged `v1.4`
 
 ---
 
@@ -544,5 +544,5 @@ After v1.4, pick from the PRD's "Later" list (section 5).
 | 8.4 Age gate | 8.4 | ☑ |
 | 9 Past bottles & mocktails (v1.2) | 9.1-9.3 | ☑ |
 | 10 Smarter Unlock (v1.3) | 10.1-10.2 | ☑ |
-| 11 Motion (v1.4) | M.1-M.6 | ☐ |
+| 11 Motion (v1.4) | M.1-M.6 | ☑ |
 | 12 Party Mode | P.0-P.9 | ☐ |
