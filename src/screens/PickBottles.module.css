@@ -162,3 +162,8 @@
   color: var(--cork);
   cursor: default;
 }
+
+/* Squish on press (docs/motion.md) */
+.start {
+  composes: squish from global;
+}

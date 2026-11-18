@@ -126,3 +126,8 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 ## November 18, 2026: motion tokens (step M.1)
 - **Each `--motion-*` token holds a time and a curve together** (for example `90ms var(--ease-out)`), so a screen can write `transition: transform var(--motion-press)`. If a property ever needs only the time, split the token then.
 - **The tokens live in `src/styles/global.css`** next to the brand tokens; the reduce-motion helper is `prefersReducedMotion` in `src/logic/motion.ts`, for animations driven by code. CSS animations use `@media (prefers-reduced-motion: reduce)` instead.
+
+## November 18, 2026: Squish on buttons (step M.2)
+- **The Search / Browse switch and the onboarding pick pills stay still.** They look like pills but work like chips you turn on and off.
+- **With reduce motion, a pressed button gets a light walnut tint** laid over its own color instead of a darken filter, so outline buttons with no fill still show the press.
+- **Buttons opt in with `composes: squish from global;`** in their own CSS Module, so the rule lives once in `src/styles/global.css` and no `.tsx` files changed.

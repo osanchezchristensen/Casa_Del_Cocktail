@@ -94,3 +94,21 @@ main {
   /* room for the fixed bottom nav and its raised Home button */
   padding: 24px 16px calc(var(--nav-height) + 40px);
 }
+
+/* Squish (docs/motion.md): pill buttons and the Home button opt in with `composes: squish from global;` */
+.squish {
+  transition: transform var(--motion-release);
+}
+
+.squish:active:not(:disabled) {
+  transform: scale(0.94);
+  transition: transform var(--motion-press);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* no shrinking: a walnut tint over the button's own color, so outline buttons darken too */
+  .squish:active:not(:disabled) {
+    transform: none;
+    background-image: linear-gradient(rgba(59, 42, 30, 0.14), rgba(59, 42, 30, 0.14));
+  }
+}

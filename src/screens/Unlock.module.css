@@ -169,3 +169,8 @@
   font: 500 15px var(--font-body);
   cursor: pointer;
 }
+
+/* Squish on press (docs/motion.md) */
+.bought {
+  composes: squish from global;
+}

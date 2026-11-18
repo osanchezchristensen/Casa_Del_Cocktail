@@ -331,3 +331,14 @@ details:not([open]) > summary .chevron {
   outline: 3px solid var(--teal);
   outline-offset: 2px;
 }
+
+/* Squish on press (docs/motion.md) */
+.button {
+  composes: squish from global;
+}
+.secondary {
+  composes: squish from global;
+}
+.undo {
+  composes: squish from global;
+}

@@ -105,3 +105,11 @@
   font-size: 13px;
   text-align: center;
 }
+
+/* Squish on press (docs/motion.md) */
+.primary {
+  composes: squish from global;
+}
+.secondary {
+  composes: squish from global;
+}

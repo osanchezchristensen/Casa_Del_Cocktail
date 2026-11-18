@@ -294,3 +294,11 @@
   outline: 3px solid var(--teal);
   outline-offset: 2px;
 }
+
+/* Squish on press (docs/motion.md) */
+.primary {
+  composes: squish from global;
+}
+.secondary {
+  composes: squish from global;
+}

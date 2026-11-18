@@ -374,10 +374,10 @@ The rules are in [[motion|Motion guide]]. No new libraries: plain CSS transition
 > Add the Squish press from `docs/motion.md` to every pill button (primary and secondary) and the round Home button, using the M.1 tokens. Leave tab bar items, filter chips, text links and list rows alone. With reduce motion on, the button only darkens while pressed.
 
 **Done when:**
-- [ ] Pill buttons and the Home button shrink to 94% on press and spring back on release
-- [ ] Tabs, filter chips, links and rows don't squish
-- [ ] With reduce motion on, buttons only darken
-- [ ] `npm test`, `npm run build` and `npm run lint` pass
+- [x] Pill buttons and the Home button shrink to 94% on press and spring back on release
+- [x] Tabs, filter chips, links and rows don't squish
+- [x] With reduce motion on, buttons only darken
+- [x] `npm test`, `npm run build` and `npm run lint` pass
 
 ### M.3 Bottle drawing with Settle
 **Prompt:**

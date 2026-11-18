@@ -49,3 +49,8 @@
 .plain {
   text-decoration: none;
 }
+
+/* Squish on press (docs/motion.md) */
+.again {
+  composes: squish from global;
+}
