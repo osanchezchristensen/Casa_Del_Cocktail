@@ -127,7 +127,7 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 9. Recipe import from a public API
 10. Accounts and sync
 11. ~~Age gate (required before any public launch)~~ → done November 1, 2026: an age question after the welcome screen (section 13)
-12. **"I made this"** button on the recipe page: logs that you made the drink, without changing bottle levels (the app can't know how much was poured). Plays the Fill rise animation ([[motion|Motion guide]]). Planned for v1.4, roadmap step M.4. **Needs a small data change:** a new saved list of made drinks, so the store version and the backup version go up, with a migration for old saves and old backup files.
+12. ~~**"I made this"** button on the recipe page: logs that you made the drink, without changing bottle levels (the app can't know how much was poured). Plays the Fill rise animation ([[motion|Motion guide]]). Planned for v1.4, roadmap step M.4. **Needs a small data change:** a new saved list of made drinks, so the store version and the backup version go up, with a migration for old saves and old backup files.~~ → done November 18, 2026 (step M.4): saved as made drinks (section 8)
 13. **Party Mode:** plan a drinks party, share a link so guests say what they'll bring, and print the menu. The first feature that needs a server. Planned, not scheduled (section 15, [[party-mode|Party Mode]]).
 
 ### Maybe (ideas to weigh, not planned)
@@ -254,12 +254,13 @@ Each **recipe ingredient**:
 | Bottle (the cart is a list of these) | id (unique), ingredientId, name (optional bottle name or brand, e.g. "Jose Cuervo Especial Silver"), level (full/half/low/empty), addedAt |
 | Past bottle | everything a bottle has, plus finishedAt. A bottle moves here when removed, instead of being deleted |
 | Favorite | recipeId, savedAt |
+| Made drink | recipeId, madeAt. One entry per **I made this** tap (v1.4); never changes bottle levels. Saves before v1.4 start with an empty list |
 | Settings | allowSwaps (on/off), onboardingDone (true/false, default false; v1.1, see section 13), ageConfirmed (true/false, default false; age gate, see section 13) |
 
 Several bottles can share one ingredientId. Matching never looks at bottles directly: the app first works out the **set of owned ingredient ids** (every ingredient with at least one bottle that isn't Empty) and passes that to the matching logic.
 
 ### Export file
-One JSON file containing a version number, export date, bottles, past bottles, favorites and settings. Import replaces current data after a confirmation ("This will replace your current cart. Continue?").
+One JSON file containing a version number, export date, bottles, past bottles, favorites, made drinks and settings. Files from before v1.4 (version 3 and older) import with an empty made-drinks list. Import replaces current data after a confirmation ("This will replace your current cart. Continue?").
 
 ### Recipe files
 | File | Contents | In git? |

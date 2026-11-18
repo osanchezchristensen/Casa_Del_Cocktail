@@ -50,11 +50,13 @@ test('restoring a backup replaces bottles, past bottles, favorites and settings'
     bottles: [bottle],
     pastBottles: [],
     favorites: [{ recipeId: 'negroni', savedAt: '2026-10-02T00:00:00.000Z' }],
+    madeDrinks: [{ recipeId: 'daiquiri', madeAt: '2026-10-03T00:00:00.000Z' }],
     settings: { allowSwaps: true, onboardingDone: true, ageConfirmed: true },
   })
   expect(store().bottles).toEqual([bottle])
   expect(store().pastBottles).toEqual([])
   expect(store().favorites.map((f) => f.recipeId)).toEqual(['negroni'])
+  expect(store().madeDrinks.map((m) => m.recipeId)).toEqual(['daiquiri'])
   expect(store().settings.allowSwaps).toBe(true)
 })
 
@@ -63,15 +65,16 @@ test('export, wipe, import: everything comes back (PRD v1 check)', () => {
   store().toggleFavorite('negroni')
   store().setAllowSwaps(true)
   store().confirmAge()
-  const { bottles, pastBottles, favorites, settings } = store()
-  const before = { bottles, pastBottles, favorites, settings }
+  store().logMade('negroni')
+  const { bottles, pastBottles, favorites, madeDrinks, settings } = store()
+  const before = { bottles, pastBottles, favorites, madeDrinks, settings }
   const file = JSON.stringify(buildBackup(before))
 
-  useStore.setState({ bottles: [], pastBottles: [], favorites: [], settings: { allowSwaps: false, onboardingDone: false, ageConfirmed: false } })
+  useStore.setState({ bottles: [], pastBottles: [], favorites: [], madeDrinks: [], settings: { allowSwaps: false, onboardingDone: false, ageConfirmed: false } })
   store().restoreBackup(parseBackup(file)!)
 
-  const { bottles: b, pastBottles: p, favorites: f, settings: s } = store()
-  expect({ bottles: b, pastBottles: p, favorites: f, settings: s }).toEqual(before)
+  const { bottles: b, pastBottles: p, favorites: f, madeDrinks: m, settings: s } = store()
+  expect({ bottles: b, pastBottles: p, favorites: f, madeDrinks: m, settings: s }).toEqual(before)
 })
 
 test('the sample cart replaces the bottles, uses known ingredients and shows every level', () => {
@@ -157,5 +160,22 @@ describe('the age gate (PRD section 13)', () => {
     useStore.setState({ settings: { allowSwaps: false, onboardingDone: true, ageConfirmed: false } })
     store().confirmAge()
     expect(store().settings.ageConfirmed).toBe(true)
+  })
+})
+
+describe('I made this (PRD section 8)', () => {
+  test('logMade adds an entry each time and leaves bottles alone', () => {
+    useStore.setState({ madeDrinks: [] })
+    const bottlesBefore = store().bottles
+    store().logMade('daiquiri')
+    store().logMade('daiquiri')
+    expect(store().madeDrinks.map((m) => m.recipeId)).toEqual(['daiquiri', 'daiquiri'])
+    expect(store().madeDrinks[0].madeAt).toBeTruthy()
+    expect(store().bottles).toBe(bottlesBefore)
+  })
+
+  test('a v3 save starts with an empty made-drinks log', () => {
+    const v3Save = { bottles: [], pastBottles: [], favorites: [], settings: { allowSwaps: false, onboardingDone: true, ageConfirmed: true } }
+    expect(migrateSaved(v3Save, 3).madeDrinks).toEqual([])
   })
 })

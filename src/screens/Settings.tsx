@@ -48,8 +48,8 @@ function Settings() {
   const [message, setMessage] = useState<{ ok: boolean; text: string }>()
 
   const exportCart = () => {
-    const { bottles, pastBottles, favorites, settings } = useStore.getState()
-    const backup = buildBackup({ bottles, pastBottles, favorites, settings })
+    const { bottles, pastBottles, favorites, madeDrinks, settings } = useStore.getState()
+    const backup = buildBackup({ bottles, pastBottles, favorites, madeDrinks, settings })
     const url = URL.createObjectURL(new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' }))
     const link = document.createElement('a')
     link.href = url

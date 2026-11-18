@@ -136,3 +136,11 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **Bar Cart rows show a bottle drawing left of the level chip,** although `docs/screens/bar-cart.html` has none: the motion guide and roadmap are newer and ask for it. The rest of the row matches the mockup.
 - **The liquid is always Amber** and the drawing is hidden from screen readers; the level word on the chip carries the status.
 - **Levels fill to Full 100%, Half 50%, Low 18%, Empty 0% of the body,** stretched from the bottom with `scaleY` so the change is smooth.
+
+## November 18, 2026: I made this (step M.4)
+- **Each tap saves one made drink: `{ recipeId, madeAt }`,** in a new `madeDrinks` list. Making a drink twice logs it twice. Bottle levels never change, because the app cannot know how much was poured.
+- **Store version 3 to 4 and backup version 3 to 4.** Old saves and old backup files start with an empty list. A version 4 file with a broken entry is refused, like bottles and favorites.
+- **The button shows on every recipe page,** even when something is missing: you may have made it your own way.
+- **After a tap, the glass stays full until you leave the page;** coming back shows the button again, so a second round can be logged.
+- **The recipe page mockup has no I made this button;** the PRD (Later #12) and the motion guide ask for one, so it sits at the bottom, under the steps.
+- **No screen shows the log yet.** Suggested for the PRD Later list: "Drinks I've made".

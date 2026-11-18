@@ -16,6 +16,7 @@ const data: BackupData = {
     },
   ],
   favorites: [{ recipeId: 'negroni', savedAt: '2026-10-22T00:00:00.000Z' }],
+  madeDrinks: [{ recipeId: 'daiquiri', madeAt: '2026-10-23T00:00:00.000Z' }],
   settings: { allowSwaps: true, onboardingDone: true, ageConfirmed: true },
 }
 
@@ -28,7 +29,7 @@ test('export then import gives back exactly what went in', () => {
 
 test('the export has the app name, version and date', () => {
   const backup = buildBackup(data, new Date('2026-10-25T12:00:00Z'))
-  expect(backup).toMatchObject({ app: 'casa-del-cocktail', version: 3, exportedAt: '2026-10-25T12:00:00.000Z' })
+  expect(backup).toMatchObject({ app: 'casa-del-cocktail', version: 4, exportedAt: '2026-10-25T12:00:00.000Z' })
 })
 
 test('extra fields in the file are dropped', () => {
@@ -40,13 +41,15 @@ describe('invalid files are rejected', () => {
   test.each([
     ['broken JSON', '{ not json'],
     ['another app', fileFor({ app: 'other-app' })],
-    ['a newer version', fileFor({ version: 4 })],
+    ['a newer version', fileFor({ version: 5 })],
     ['no version', fileFor({ version: undefined })],
     ['bottles missing', fileFor({ bottles: undefined })],
     ['a bad level', fileFor({ bottles: [{ ...data.bottles[0], level: 'half-ish' }] })],
     ['a bottle without an id', fileFor({ bottles: [{ ...data.bottles[0], id: undefined }] })],
     ['a past bottle without finishedAt', fileFor({ pastBottles: [data.bottles[0]] })],
     ['a bad favorite', fileFor({ favorites: [{ recipeId: 3 }] })],
+    ['made drinks missing', fileFor({ madeDrinks: undefined })],
+    ['a made drink without madeAt', fileFor({ madeDrinks: [{ recipeId: 'daiquiri' }] })],
     ['settings missing', fileFor({ settings: undefined })],
     ['a plain list', '[]'],
   ])('%s', (_, text) => {
@@ -69,4 +72,16 @@ describe('onboardingDone (PRD section 13)', () => {
 test('an imported backup counts as age confirmed (Import sits behind the age gate)', () => {
   const text = fileFor({ version: 2, settings: { allowSwaps: false, onboardingDone: true } })
   expect(parseBackup(text)?.settings.ageConfirmed).toBe(true)
+})
+
+describe('madeDrinks (I made this)', () => {
+  test('a version 3 backup has no made drinks and imports with an empty log', () => {
+    const text = fileFor({ version: 3, madeDrinks: undefined })
+    expect(parseBackup(text)?.madeDrinks).toEqual([])
+  })
+
+  test('extra fields on a made drink are dropped', () => {
+    const madeDrinks = [{ ...data.madeDrinks[0], sneaky: 'x' }]
+    expect(parseBackup(fileFor({ madeDrinks }))?.madeDrinks[0]).not.toHaveProperty('sneaky')
+  })
 })

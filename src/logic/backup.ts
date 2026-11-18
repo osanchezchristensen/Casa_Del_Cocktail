@@ -1,10 +1,16 @@
 // Export and import of the saved data (PRD section 8, "Export file"). No React here.
-import type { Bottle, Favorite, PastBottle, Settings } from '../types.ts'
+import type { Bottle, Favorite, MadeDrink, PastBottle, Settings } from '../types.ts'
 
 /** Keep in step with the store's persist version in src/store/useStore.ts. */
-export const BACKUP_VERSION = 3
+export const BACKUP_VERSION = 4
 
-export type BackupData = { bottles: Bottle[]; pastBottles: PastBottle[]; favorites: Favorite[]; settings: Settings }
+export type BackupData = {
+  bottles: Bottle[]
+  pastBottles: PastBottle[]
+  favorites: Favorite[]
+  madeDrinks: MadeDrink[]
+  settings: Settings
+}
 export type Backup = BackupData & { app: 'casa-del-cocktail'; version: number; exportedAt: string }
 
 export function buildBackup(data: BackupData, now = new Date()): Backup {
@@ -15,6 +21,7 @@ export function buildBackup(data: BackupData, now = new Date()): Backup {
     bottles: data.bottles,
     pastBottles: data.pastBottles,
     favorites: data.favorites,
+    madeDrinks: data.madeDrinks,
     settings: data.settings,
   }
 }
@@ -33,6 +40,7 @@ const isBottle = (v: unknown): v is Obj =>
   isStr(v.addedAt)
 const isPastBottle = (v: unknown): v is Obj => isBottle(v) && isStr(v.finishedAt)
 const isFavorite = (v: unknown): v is Obj => isObj(v) && isStr(v.recipeId) && isStr(v.savedAt)
+const isMadeDrink = (v: unknown): v is Obj => isObj(v) && isStr(v.recipeId) && isStr(v.madeAt)
 
 // Only known fields are copied, so anything extra in the file never reaches the store.
 const toBottle = (b: Obj) =>
@@ -50,15 +58,19 @@ export function parseBackup(text: string): BackupData | null {
   if (typeof raw.version !== 'number' || raw.version < 1 || raw.version > BACKUP_VERSION) return null
 
   const { bottles, pastBottles, favorites, settings } = raw
+  // Files before version 4 have no made-drinks log.
+  const madeDrinks = raw.version < 4 ? [] : raw.madeDrinks
   if (!Array.isArray(bottles) || !bottles.every(isBottle)) return null
   if (!Array.isArray(pastBottles) || !pastBottles.every(isPastBottle)) return null
   if (!Array.isArray(favorites) || !favorites.every(isFavorite)) return null
+  if (!Array.isArray(madeDrinks) || !madeDrinks.every(isMadeDrink)) return null
   if (!isObj(settings) || typeof settings.allowSwaps !== 'boolean') return null
 
   return {
     bottles: bottles.map(toBottle),
     pastBottles: pastBottles.map((b) => ({ ...toBottle(b), finishedAt: b.finishedAt as string })),
     favorites: favorites.map((f) => ({ recipeId: f.recipeId as string, savedAt: f.savedAt as string })),
+    madeDrinks: madeDrinks.map((m) => ({ recipeId: m.recipeId as string, madeAt: m.madeAt as string })),
     // Version 1 files have no onboardingDone; someone restoring a backup isn't new, so it counts as done.
     // Import lives in Settings, behind the age gate, so whoever imports has already said yes.
     settings: { allowSwaps: settings.allowSwaps, onboardingDone: settings.onboardingDone !== false, ageConfirmed: true },

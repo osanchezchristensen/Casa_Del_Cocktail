@@ -395,12 +395,12 @@ The rules are in [[motion|Motion guide]]. No new libraries: plain CSS transition
 > Read the "I made this" entry in the PRD Later list and the Pour section of `docs/motion.md`. Plan the small data change first (what gets saved, the new store version and migration, the backup version) and wait for my OK. Then add the **I made this** button to the recipe page; tapping it logs the drink and plays Fill rise. It never changes bottle levels.
 
 **Done when:**
-- [ ] The data change is written in the PRD (section 8) and `decisions.md`
-- [ ] Store and backup versions go up; old saves and old backup files still load, with tests
-- [ ] Tapping **I made this** logs the drink, plays Fill rise, and the glass stays full with the check until you leave the page
-- [ ] Bottle levels don't change
-- [ ] With reduce motion on, the glass is simply full with the check showing
-- [ ] `npm test`, `npm run build` and `npm run lint` pass
+- [x] The data change is written in the PRD (section 8) and `decisions.md`
+- [x] Store and backup versions go up; old saves and old backup files still load, with tests
+- [x] Tapping **I made this** logs the drink, plays Fill rise, and the glass stays full with the check until you leave the page
+- [x] Bottle levels don't change
+- [x] With reduce motion on, the glass is simply full with the check showing
+- [x] `npm test`, `npm run build` and `npm run lint` pass
 
 ### M.5 Count and burst on Unlock
 **Prompt:**

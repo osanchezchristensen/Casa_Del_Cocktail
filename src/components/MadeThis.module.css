@@ -1,0 +1,108 @@
+/* "I made this" and Fill rise (docs/motion.md, Pour): rise 700 ms, wobble 350 ms, check pops 350 ms. */
+.button {
+  composes: squish from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 52px;
+  margin-top: 28px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--deep-amber);
+  color: var(--paper);
+  font: 700 16px var(--font-body);
+  cursor: pointer;
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--teal);
+  outline-offset: 2px;
+}
+
+.done {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 52px;
+  margin-top: 28px;
+}
+
+.text {
+  font-weight: 700;
+  color: var(--walnut);
+}
+
+.glass {
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.outline {
+  fill: none;
+  stroke: var(--walnut);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+
+/* Each part's normal style is its end state, so with reduce motion the glass is simply full with the check. */
+.liquid {
+  fill: var(--amber);
+  transform-box: fill-box;
+  transform-origin: bottom;
+  animation: rise 700ms var(--ease-out) both;
+}
+
+.wobble {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: wobble 350ms ease-in-out 700ms;
+}
+
+.check {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pop 350ms var(--ease-spring) 1050ms both;
+}
+
+.check circle {
+  fill: var(--avocado);
+}
+
+.check path {
+  fill: none;
+  stroke: var(--paper);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes rise {
+  from {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes wobble {
+  30% {
+    transform: rotate(-6deg);
+  }
+  65% {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid,
+  .wobble,
+  .check {
+    animation: none;
+  }
+}

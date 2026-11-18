@@ -3,12 +3,13 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { SAMPLE_CART } from '../data/sampleCart.ts'
 import type { BackupData } from '../logic/backup.ts'
-import type { Bottle, Favorite, Level, PastBottle, Settings } from '../types.ts'
+import type { Bottle, Favorite, Level, MadeDrink, PastBottle, Settings } from '../types.ts'
 
 type State = {
   bottles: Bottle[]
   pastBottles: PastBottle[]
   favorites: Favorite[]
+  madeDrinks: MadeDrink[]
   settings: Settings
   /** Each pick becomes a new bottle at Full. A blank name is left off. */
   addBottles: (picks: { ingredientId: string; name?: string }[]) => void
@@ -25,6 +26,8 @@ type State = {
   confirmAge: () => void
   /** Saves the recipe as a favorite, or removes it if it already is one. */
   toggleFavorite: (recipeId: string) => void
+  /** Logs one "I made this" tap. Bottle levels stay as they are. */
+  logMade: (recipeId: string) => void
   /** Replaces everything with a checked backup (see src/logic/backup.ts). */
   restoreBackup: (data: BackupData) => void
   /** Fills the cart with the demo bottles in src/data/sampleCart.ts. */
@@ -43,14 +46,18 @@ const newBottle = (ingredientId: string, level: Level, name?: string): Bottle =>
  * Upgrades data saved by an older version.
  * v1 had no onboardingDone: anyone with bottles or favorites skips the tour.
  * v2 had no ageConfirmed: everyone is asked once.
+ * v3 had no madeDrinks: the log starts empty.
  */
 export function migrateSaved(saved: unknown, version: number) {
-  const s = saved as Pick<State, 'bottles' | 'favorites' | 'settings'>
+  const s = saved as Pick<State, 'bottles' | 'favorites' | 'madeDrinks' | 'settings'>
   if (version < 2) {
     s.settings = { ...s.settings, onboardingDone: (s.bottles?.length ?? 0) > 0 || (s.favorites?.length ?? 0) > 0 }
   }
   if (version < 3) {
     s.settings = { ...s.settings, ageConfirmed: false }
+  }
+  if (version < 4) {
+    s.madeDrinks = []
   }
   return s as State
 }
@@ -61,9 +68,10 @@ export const useStore = create<State>()(
       bottles: [],
       pastBottles: [],
       favorites: [],
+      madeDrinks: [],
       settings: { allowSwaps: false, onboardingDone: false, ageConfirmed: false },
-      restoreBackup: ({ bottles, pastBottles, favorites, settings }) =>
-        set({ bottles, pastBottles, favorites, settings }),
+      restoreBackup: ({ bottles, pastBottles, favorites, madeDrinks, settings }) =>
+        set({ bottles, pastBottles, favorites, madeDrinks, settings }),
       loadSampleCart: () => set({ bottles: SAMPLE_CART.map((b) => newBottle(b.ingredientId, b.level, b.name)) }),
       toggleFavorite: (recipeId) =>
         set((s) => ({
@@ -71,6 +79,8 @@ export const useStore = create<State>()(
             ? s.favorites.filter((f) => f.recipeId !== recipeId)
             : [...s.favorites, { recipeId, savedAt: new Date().toISOString() }],
         })),
+      logMade: (recipeId) =>
+        set((s) => ({ madeDrinks: [...s.madeDrinks, { recipeId, madeAt: new Date().toISOString() }] })),
       setAllowSwaps: (on) => set((s) => ({ settings: { ...s.settings, allowSwaps: on } })),
       finishOnboarding: () => set((s) => ({ settings: { ...s.settings, onboardingDone: true } })),
       confirmAge: () => set((s) => ({ settings: { ...s.settings, ageConfirmed: true } })),
@@ -111,6 +121,6 @@ export const useStore = create<State>()(
         }),
     }),
     // Bump version (and add a migrate function) whenever the saved shape changes.
-    { name: 'casa-del-cocktail', version: 3, migrate: migrateSaved },
+    { name: 'casa-del-cocktail', version: 4, migrate: migrateSaved },
   ),
 )

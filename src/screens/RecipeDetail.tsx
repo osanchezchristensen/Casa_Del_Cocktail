@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import { Link, useParams } from 'react-router'
 import FavoriteButton from '../components/FavoriteButton.tsx'
 import GlassIcon from '../components/GlassIcon.tsx'
+import MadeThis from '../components/MadeThis.tsx'
 import { ALL_RECIPES } from '../data/recipes.ts'
 import { ingredientName } from '../logic/cart.ts'
 import { ingredientStatuses, matchRecipe, ownedIngredientIds, type RowStatus } from '../logic/matching.ts'
@@ -114,6 +115,8 @@ function RecipeDetail() {
           <li key={i}>{step}</li>
         ))}
       </ol>
+
+      <MadeThis key={recipe.id} recipeId={recipe.id} />
     </>
   )
 }

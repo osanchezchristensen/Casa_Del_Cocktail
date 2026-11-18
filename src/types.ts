@@ -95,6 +95,13 @@ export type Favorite = {
   savedAt: string
 }
 
+/** One "I made this" tap on a recipe page (PRD section 8). Never changes bottle levels. */
+export type MadeDrink = {
+  recipeId: string
+  /** ISO date string. */
+  madeAt: string
+}
+
 export type Settings = {
   allowSwaps: boolean
   /** True once the first-run tour is finished or skipped (PRD section 13). */
