@@ -364,10 +364,10 @@ The rules are in [[motion|Motion guide]]. No new libraries: plain CSS transition
 > Read `docs/motion.md`. Add the timing tokens (`--motion-press`, `--motion-release`, `--motion-move`, `--ease-out`, `--ease-spring`) in one shared place, and a tiny "is reduce motion on?" helper. Don't animate anything yet.
 
 **Done when:**
-- [ ] The five tokens exist in one place and match the motion guide
-- [ ] The helper reports the device's reduce-motion setting, with a test
-- [ ] No visible change in the app
-- [ ] `npm test`, `npm run build` and `npm run lint` pass
+- [x] The five tokens exist in one place and match the motion guide
+- [x] The helper reports the device's reduce-motion setting, with a test
+- [x] No visible change in the app
+- [x] `npm test`, `npm run build` and `npm run lint` pass
 
 ### M.2 Squish on buttons
 **Prompt:**

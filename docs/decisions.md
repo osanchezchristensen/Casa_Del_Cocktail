@@ -122,3 +122,7 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **The printed menu is A4,** in color and in a simplified black-and-white version.
 - **The party reuses the existing matching logic** with the host's chosen ingredients plus guest claims. There are no new matching rules.
 - **The unlock count-and-burst plays once per open,** and again after adding a bottle that opens new recipes.
+
+## November 18, 2026: motion tokens (step M.1)
+- **Each `--motion-*` token holds a time and a curve together** (for example `90ms var(--ease-out)`), so a screen can write `transition: transform var(--motion-press)`. If a property ever needs only the time, split the token then.
+- **The tokens live in `src/styles/global.css`** next to the brand tokens; the reduce-motion helper is `prefersReducedMotion` in `src/logic/motion.ts`, for animations driven by code. CSS animations use `@media (prefers-reduced-motion: reduce)` instead.
