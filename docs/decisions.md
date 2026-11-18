@@ -154,3 +154,4 @@ Key product and technical decisions, newest at the bottom. Each one says what wa
 - **The tab highlight fade (150 ms, from before v1.4) is kept,** although the motion guide says tabs do not animate: it is barely noticeable and helps show which tab you tapped. It is off with reduce motion.
 - **Reduce motion now switches off every transition** with one rule in `src/styles/global.css`, including the older switch knob, chevrons and tab fade.
 - **The page never scrolls sideways** (`overflow-x: clip` on `body`), so the Unlock burst can fly past the screen edge without moving the page.
+- **Two follow-ups from v1.4 go on the PRD Later list:** a Drinks I've made screen for the log, and Fill rise in the recipe's own glass.

@@ -129,6 +129,8 @@ Format: *As a [user], I want [action] so that [benefit].* **Must** = needed for 
 11. ~~Age gate (required before any public launch)~~ → done November 1, 2026: an age question after the welcome screen (section 13)
 12. ~~**"I made this"** button on the recipe page: logs that you made the drink, without changing bottle levels (the app can't know how much was poured). Plays the Fill rise animation ([[motion|Motion guide]]). Planned for v1.4, roadmap step M.4. **Needs a small data change:** a new saved list of made drinks, so the store version and the backup version go up, with a migration for old saves and old backup files.~~ → done November 18, 2026 (step M.4): saved as made drinks (section 8)
 13. **Party Mode:** plan a drinks party, share a link so guests say what they'll bring, and print the menu. The first feature that needs a server. Planned, not scheduled (section 15, [[party-mode|Party Mode]]).
+14. **Drinks I've made:** a screen that shows the made-drinks log from **I made this** (v1.4), newest first. The data is already saved (section 8); only the screen is missing.
+15. **Fill rise in the recipe's own glass:** after **I made this**, the glass that fills matches the recipe (coupe, highball, rocks, ...) instead of always a simple tumbler.
 
 ### Maybe (ideas to weigh, not planned)
 - ~~Smarter Unlock counting~~ → Later list, next after v1.2 (November 16, 2026)
